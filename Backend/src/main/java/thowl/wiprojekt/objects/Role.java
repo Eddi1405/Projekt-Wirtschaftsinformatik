@@ -32,12 +32,7 @@ public enum Role {
 	/**
 	 * Role for admins.
 	 */
-	ADMIN ("admin"),
-
-	/**
-	 * Signals an error.
-	 */
-	INCONSISTENT ("inconsistent");
+	ADMIN ("admin");
 
 	// The name of the role as a String
 	private String name;
