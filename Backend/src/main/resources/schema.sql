@@ -4,6 +4,6 @@ CREATE TABLE IF NOT EXISTS users
     username varchar(50)  NOT NULL,
     password varchar(100) NOT NULL,
     email    varchar(50)  NOT NULL,
-    roles    varchar(50)  NOT NULL,
+    role     varchar(50)  NOT NULL,
     PRIMARY KEY (id)
 );

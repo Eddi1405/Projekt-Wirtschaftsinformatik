@@ -6,15 +6,15 @@ import jakarta.persistence.*;
  * Diese Klasse gibt die Informationen eines Bildes vor.
  * Die Annotation @Entity gibt an, dass es sich um eine JPA-Entity-Klasse handelt.
  * Die Annotation @Table gibt den Tabellennamen in der Datenbank an, auf die sich diese Entity bezieht.
- * Die Annotation @Id gibt an, dass das Feld id der Primärschlüssel der Tabelle ist.
  * Die Annotation @GeneratedValue gibt an, dass der Primärschlüssel automatisch generiert wird.
+ * Die Annotation @Id gibt an, dass das Feld id der Primärschlüssel der Tabelle ist.
  */
 @Entity
 @Table(name = "users")
-public class userData {
-    @Id
+public class UserData {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
+    @Id
     private int id;
     @Column(name = "username")
     private String username;
@@ -22,8 +22,8 @@ public class userData {
     private String password;
     @Column(name = "email")
     private String email;
-    @Column(name = "roles")
-    private String roles;
+    @Column(name = "role")
+    private String role;
 
 
     public int getId() {
@@ -58,11 +58,9 @@ public class userData {
         this.email = email;
     }
 
-    public String getRoles() {
-        return roles;
-    }
+    public String getRole() {return role;}
 
-    public void setRoles(String roles) {
-        this.roles = roles;
+    public void setRole(String role) {
+        this.role = role;
     }
 }
