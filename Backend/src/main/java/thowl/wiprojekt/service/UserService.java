@@ -15,12 +15,13 @@ public class UserService {
         this.UJR = UJR;
     }
 
-    public void saveRegisterData(String username, String password, String email, String role) {
+    public void saveRegisterData(String username, String password, String email, String role, String learningtype) {
         UserData uData = new UserData();
         uData.setUsername(username);
         uData.setPassword(password);
         uData.setEmail(email);
         uData.setRole(role);
+        uData.setLearningtype(learningtype);
         UJR.save(uData);
     }
 }

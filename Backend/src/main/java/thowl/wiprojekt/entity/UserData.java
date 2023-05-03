@@ -24,6 +24,8 @@ public class UserData {
     private String email;
     @Column(name = "role")
     private String role;
+    @Column(name = "learningtype")
+    private String learningtype;
 
 
     public int getId() {
@@ -58,9 +60,19 @@ public class UserData {
         this.email = email;
     }
 
-    public String getRole() {return role;}
+    public String getRole() {
+        return role;
+    }
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getLearningtype() {
+        return learningtype;
+    }
+
+    public void setLearningtype(String learningtype) {
+        this.learningtype = learningtype;
     }
 }
