@@ -14,10 +14,10 @@ import java.util.List;
 @Repository
 public interface UserJpaRepository extends JpaRepository<UserData, Long> {
     @Query(value = "SELECT password FROM users WHERE username = ?1", nativeQuery = true)
-    List<UserData> findByUsername(String param1);
+    String findByUsername(String param1);
 
     @Query(value = "SELECT password FROM users WHERE email = ?1", nativeQuery = true)
-    List<UserData> findByEmail(String param1);
+    String findByEmail(String param1);
 
     @Query(value = "UPDATE users SET email='?1' WHERE username = ?2", nativeQuery = true)
     List<UserData> changeEmail(String param1, String param2);
