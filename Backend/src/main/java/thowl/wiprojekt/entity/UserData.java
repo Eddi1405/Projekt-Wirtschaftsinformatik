@@ -1,6 +1,8 @@
 package thowl.wiprojekt.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Diese Klasse gibt die Informationen eines Bildes vor.
@@ -8,9 +10,12 @@ import jakarta.persistence.*;
  * Die Annotation @Table gibt den Tabellennamen in der Datenbank an, auf die sich diese Entity bezieht.
  * Die Annotation @GeneratedValue gibt an, dass der Primärschlüssel automatisch generiert wird.
  * Die Annotation @Id gibt an, dass das Feld id der Primärschlüssel der Tabelle ist.
+ * Die Annotationen @Getter und @Setter generieren die getter und setter Methoden.
  */
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
 public class UserData {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
@@ -26,53 +31,4 @@ public class UserData {
     private String role;
     @Column(name = "learningtype")
     private String learningtype;
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getLearningtype() {
-        return learningtype;
-    }
-
-    public void setLearningtype(String learningtype) {
-        this.learningtype = learningtype;
-    }
 }

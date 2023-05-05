@@ -1,4 +1,4 @@
-package thowl.wiprojekt.Config;
+package thowl.wiprojekt.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
