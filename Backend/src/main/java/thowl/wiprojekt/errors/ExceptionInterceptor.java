@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * {@link HttpStatus} error codes instead.
  *
  * @author Michael Hartmann
- * @version 30.04.2023
+ * @version 06.05.2023
  */
 @ControllerAdvice
 public class ExceptionInterceptor {
@@ -44,4 +44,33 @@ public class ExceptionInterceptor {
 		return e.getMessage();
 	}
 
+
+	/**
+	 * Intercepts {@link InsufficientRightsException}s to return a code
+	 * <em>403 (forbidden)</em>.
+	 *
+	 * @param e The intercepted {@link Exception}.
+	 * @return The {@link Exception}'s error message.
+	 */
+	@ResponseBody
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+	@ExceptionHandler(InsufficientRightsException.class)
+	public String interceptRights(InsufficientRightsException e) {
+//		var p = new IllegalEntityException(new UserData());
+		return e.getMessage();
+	}
+
+	/**
+	 * Intercepts {@link IllegalEntityException}s to return a code
+	 * <em>422 (unprocessable content)</em>.
+	 *
+	 * @param e The intercepted {@link Exception}.
+	 * @return The {@link Exception}'s error message.
+	 */
+	@ResponseBody
+	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+	@ExceptionHandler(IllegalEntityException.class)
+	public String interceptRights(IllegalEntityException e) {
+		return e.getMessage();
+	}
 }
