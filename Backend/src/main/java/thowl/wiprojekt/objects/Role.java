@@ -1,5 +1,7 @@
 package thowl.wiprojekt.objects;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 /**
  * Roles a user might have when using the service. It is advised that only
  * one type of role should be used by a user.
@@ -51,6 +53,7 @@ public enum Role {
 	 *
 	 * @return The name of the Role.
 	 */
+	@JsonValue
 	public String getName() {
 		return new String(name);
 	}

@@ -70,7 +70,35 @@ public class ExceptionInterceptor {
 	@ResponseBody
 	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
 	@ExceptionHandler(IllegalEntityException.class)
-	public String interceptRights(IllegalEntityException e) {
+	public String interceptIllegalEntity(IllegalEntityException e) {
+		return e.getMessage();
+	}
+
+	/**
+	 * Intercepts {@link InternalException}s to return a code
+	 * <em>500 (internal server error)</em>.
+	 *
+	 * @param e The intercepted {@link Exception}.
+	 * @return The {@link Exception}'s error message.
+	 */
+	@ResponseBody
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(InternalException.class)
+	public String interceptInternal(InternalException e) {
+		return e.getMessage();
+	}
+
+	/**
+	 * Intercepts {@link MalformedRequestException}s to return a code
+	 * <em>400 (bad request)</em>.
+	 *
+	 * @param e The intercepted {@link Exception}.
+	 * @return The {@link Exception}'s error message.
+	 */
+	@ResponseBody
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MalformedRequestException.class)
+	public String interceptMalformedRequest(MalformedRequestException e) {
 		return e.getMessage();
 	}
 }

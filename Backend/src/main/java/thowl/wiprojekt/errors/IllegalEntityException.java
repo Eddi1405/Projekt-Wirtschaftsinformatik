@@ -14,7 +14,8 @@ import lombok.Getter;
  *
  * @version 06.05.2023
  */
-public class IllegalEntityException extends IllegalArgumentException {
+public class IllegalEntityException extends IllegalArgumentException
+		implements ProjectException {
 
 	// The entity that caused the Exception
 	@Getter

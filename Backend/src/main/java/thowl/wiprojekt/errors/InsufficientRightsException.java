@@ -10,7 +10,8 @@ package thowl.wiprojekt.errors;
  *
  * @see thowl.wiprojekt.entity.UserData
  */
-public class InsufficientRightsException extends RuntimeException {
+public class InsufficientRightsException extends RuntimeException implements
+		ProjectException{
 
 	/**
 	 * Constructor of the class. The {@link Exception} will be instantiated
