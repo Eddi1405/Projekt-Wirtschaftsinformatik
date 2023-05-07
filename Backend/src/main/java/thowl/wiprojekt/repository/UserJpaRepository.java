@@ -1,9 +1,9 @@
 package thowl.wiprojekt.repository;
 
-import thowl.wiprojekt.entity.UserData;
-
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import thowl.wiprojekt.entity.UserData;
 
 import java.util.List;
 
