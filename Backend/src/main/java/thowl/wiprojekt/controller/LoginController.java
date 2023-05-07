@@ -14,11 +14,11 @@ public class LoginController {
 
     private final UserJpaRepository UJR;
 
-    private final UserService userService;
+    private final UserService US;
 
-    public LoginController(UserJpaRepository ujr, UserService userService) {
-        this.UJR = ujr;
-        this.userService = userService;
+    public LoginController(UserJpaRepository UJR, UserService US) {
+        this.UJR = UJR;
+        this.US = US;
     }
 
     @GetMapping("/login")
@@ -29,10 +29,10 @@ public class LoginController {
     @PostMapping("/login")
     public String Login(@RequestParam("email/name") String email_name,@RequestParam("password") String password){
     log.info(UJR.findByUsername(email_name));
-    log.info(String.valueOf(userService.passwordCheck(password,UJR.findByUsername(email_name))));
-        if(userService.passwordCheck(password,UJR.findByUsername(email_name))){
+    log.info(String.valueOf(US.passwordCheck(password,UJR.findByUsername(email_name))));
+        if(US.passwordCheck(password,UJR.findByUsername(email_name))){
             return "redirect:/h2";
-        } else if (userService.passwordCheck(password,UJR.findByEmail(email_name))) {
+        } else if (US.passwordCheck(password,UJR.findByEmail(email_name))) {
             return "redirect:/h2";
         }else {
             return "login";
@@ -45,7 +45,7 @@ public class LoginController {
     }
     @PostMapping("/register")
     public String Register(@RequestParam("name") String name,@RequestParam("email") String email,@RequestParam("password") String password){
-        userService.saveRegisterData(name,password,email,"test","test");
+        US.saveRegisterData(name,password,email,"test","test");
         return "redirect:/login";
     }
 }
