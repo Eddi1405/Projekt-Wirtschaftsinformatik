@@ -9,10 +9,10 @@ import java.util.List;
 
 
 /**
- * Dies ist eine Schnittstelle, die das JpaRepository-Interface erweitert und spezifische Methoden für die Entität UserDaten bereitstellt.
+ * This is an interface that extends the JpaRepository interface and provides specific methods for the entity.
  */
 @Repository
-public interface UserJpaRepository extends JpaRepository<UserData, Long> {
+public interface UserRepository extends JpaRepository<UserData, Long> {
     @Query(value = "SELECT password FROM users WHERE username = ?1", nativeQuery = true)
     String findByUsername(String param1);
 

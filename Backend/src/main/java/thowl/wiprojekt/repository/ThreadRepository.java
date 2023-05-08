@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Dies ist eine Schnittstelle, die das JpaRepository-Interface erweitert und spezifische Methoden für die Entität UserDaten bereitstellt.
+ * This is an interface that extends the JpaRepository interface and provides specific methods for the entity.
  */
 @Repository
-public interface ThreadJpaRepository extends JpaRepository<ThreadData, Long> {
+public interface ThreadRepository extends JpaRepository<ThreadData, Long> {
 
     Optional<ThreadData> findByauthorID(int authorID);
 

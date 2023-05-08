@@ -5,15 +5,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
- * Diese Klasse gibt die Informationen eines Bildes vor.
- * Die Annotation @Entity gibt an, dass es sich um eine JPA-Entity-Klasse handelt.
- * Die Annotation @Table gibt den Tabellennamen in der Datenbank an, auf die sich diese Entity bezieht.
- * Die Annotation @GeneratedValue gibt an, dass der Primärschlüssel automatisch generiert wird.
- * Die Annotation @Id gibt an, dass das Feld id der Primärschlüssel der Tabelle ist.
- * Die Annotationen @Getter und @Setter generieren die getter und setter Methoden.
- * Die Annotation @ManyToOne gibt an, dass das Feld authorID der Fremdschlüssel der Tabelle ist.
+ * This class specifies the information of an image.
+ * The annotation @Entity indicates that this is a JPA entity class.
+ * The annotation @Table specifies the table name in the database to which this entity refers.
+ * The annotation @GeneratedValue indicates that the primary key is generated automatically.
+ * The annotation @Id indicates that the id field is the primary key of the table.
+ * The annotations @Getter and @Setter generate the getter and setter methods.
+ * The annotation @ManyToMany specifies that field is the foreign key of the table.
  */
 @Entity
 @Table(name = "thread")
@@ -24,9 +25,8 @@ public class ThreadData {
 
     @Id
     private int id;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "authorID", nullable = false)
-    private UserData authorID;
+    @ManyToMany
+    Set<UserData> authorID;
     @Column(name = "header")
     private String header;
     @Column(name = "content")
