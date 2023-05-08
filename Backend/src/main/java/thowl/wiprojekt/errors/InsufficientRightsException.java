@@ -1,5 +1,7 @@
 package thowl.wiprojekt.errors;
 
+import thowl.wiprojekt.entity.User;
+
 /**
  * To be thrown when the client tries to access a resource that the client is
  * not allowed to under the circumstances. This would for example include a
@@ -8,7 +10,7 @@ package thowl.wiprojekt.errors;
  *
  * @version 06.05.2023
  *
- * @see thowl.wiprojekt.entity.UserData
+ * @see User
  */
 public class InsufficientRightsException extends RuntimeException implements
 		ProjectException{

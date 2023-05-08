@@ -1,7 +1,7 @@
 package thowl.wiprojekt.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import thowl.wiprojekt.entity.UserData;
+import thowl.wiprojekt.entity.User;
 import thowl.wiprojekt.repository.UserRepository;
 
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class UserService {
     }
 
     public void saveRegisterData(String username, String password, String email, String role, String learningtype) {
-        UserData uData = new UserData();
+        User uData = new User();
         uData.setUsername(username);
         uData.setPassword(passwordEncoder(password));
         uData.setEmail(email);

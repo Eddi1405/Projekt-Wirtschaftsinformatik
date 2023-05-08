@@ -19,7 +19,7 @@ import java.util.Set;
 @Table(name = "tag")
 @Getter
 @Setter
-public class TagData {
+public class Tag {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     @Id
@@ -27,6 +27,6 @@ public class TagData {
     @Column(name = "description")
     private String description;
     @ManyToMany
-    Set<TagData> threadID;
+    Set<Thread> thread;
 
 }

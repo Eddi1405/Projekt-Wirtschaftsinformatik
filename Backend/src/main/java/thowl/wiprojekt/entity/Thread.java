@@ -20,16 +20,16 @@ import java.util.Set;
 @Table(name = "thread")
 @Getter
 @Setter
-public class ThreadData {
+public class Thread {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     @Id
     private int id;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "authorID", nullable = false)
-    private UserData authorID;
+    @JoinColumn(name = "author_ID", nullable = false)
+    private User authorID;
     @ManyToMany
-    Set<TagData> tagID;
+    Set<Tag> tag;
     @Column(name = "header")
     private String header;
     @Column(name = "content")
