@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 /**
  * This class specifies the information of an image.
  * The annotation @Entity indicates that this is a JPA entity class.
@@ -24,5 +26,7 @@ public class TagData {
     private int id;
     @Column(name = "description")
     private String description;
+    @ManyToMany
+    Set<TagData> threadID;
 
 }

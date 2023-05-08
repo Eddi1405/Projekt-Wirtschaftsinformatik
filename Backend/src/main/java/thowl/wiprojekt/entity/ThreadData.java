@@ -25,8 +25,11 @@ public class ThreadData {
 
     @Id
     private int id;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "authorID", nullable = false)
+    private UserData authorID;
     @ManyToMany
-    Set<UserData> authorID;
+    Set<TagData> tagID;
     @Column(name = "header")
     private String header;
     @Column(name = "content")
