@@ -21,7 +21,7 @@ import java.util.Set;
 @Getter
 @Setter
 public class Thread {
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Id
     private int id;
