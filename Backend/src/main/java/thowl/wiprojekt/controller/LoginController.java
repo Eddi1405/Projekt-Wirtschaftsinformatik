@@ -1,13 +1,12 @@
 package thowl.wiprojekt.controller;
 
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import thowl.wiprojekt.entity.User;
 import thowl.wiprojekt.repository.UserRepository;
 import thowl.wiprojekt.service.UserService;
-
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -22,20 +21,24 @@ public class LoginController {
         this.US = US;
     }
 
-    @PostMapping("/login")
+    @PutMapping("/login")
     public boolean Login(@RequestBody User user) {
-        log.info(UR.findByUsernameOrEmail(user.getUsername(),user.getEmail()));
-        log.info(String.valueOf(US.passwordCheck(user.getPassword(), UR.findByUsernameOrEmail(user.getUsername(),user.getEmail()))));
-        if (US.passwordCheck(user.getPassword(), UR.findByUsernameOrEmail(user.getUsername(),user.getEmail()))) {
+        log.info(String.valueOf(US.passwordCheck(user.getPassword(), UR.findByUsernameOrEmail(user.getUsername(), user.getEmail()))));
+        if(US.passwordCheck(user.getPassword(),UR.findByUsernameOrEmail(user.getUsername(), user.getEmail()))) {
             return true;
         } else {
             return false;
         }
+
     }
 
-    @PostMapping("/register")
+    @PutMapping("/register")
     public boolean Register(@RequestBody User user) {
-        US.saveRegisterData(user.getUsername(), user.getPassword(), user.getEmail(), "test", "test");
-        return true;
+        if (UR.findByUsernameOrEmail(user.getUsername(), user.getEmail()) == null) {
+            US.saveRegisterData(user.getUsername(), user.getPassword(), user.getEmail(), "test", "test");
+            return true;
+        } else {
+            return false;
+        }
     }
 }
