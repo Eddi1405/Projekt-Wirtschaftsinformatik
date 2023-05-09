@@ -1,6 +1,7 @@
 package thowl.wiprojekt.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +22,7 @@ public class LoginController {
         this.US = US;
     }
 
-    @PutMapping("/login")
+    @PostMapping("/login")
     public boolean Login(@RequestBody User user) {
         log.info(String.valueOf(US.passwordCheck(user.getPassword(), UR.findByUsernameOrEmail(user.getUsername(), user.getEmail()))));
         if(US.passwordCheck(user.getPassword(),UR.findByUsernameOrEmail(user.getUsername(), user.getEmail()))) {
@@ -32,10 +33,10 @@ public class LoginController {
 
     }
 
-    @PutMapping("/register")
+    @PostMapping("/register")
     public boolean Register(@RequestBody User user) {
         if (UR.findByUsernameOrEmail(user.getUsername(), user.getEmail()) == null) {
-            US.saveRegisterData(user.getUsername(), user.getPassword(), user.getEmail(), "test", "test");
+            US.saveRegisterData(user.getUsername(), user.getPassword(), user.getEmail(), user.getRole(), "test");
             return true;
         } else {
             return false;

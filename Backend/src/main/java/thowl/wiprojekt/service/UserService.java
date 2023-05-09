@@ -27,7 +27,7 @@ public class UserService {
         return bCryptPasswordEncoder.encode(password);
     }
 
-    public void saveRegisterData(String username, String password, String email, String role, String learningtype) {
+    public void saveRegisterData(String username, String password, String email, User.Role role, String learningtype) {
         User uData = new User();
         uData.setUsername(username);
         uData.setPassword(passwordEncoder(password));

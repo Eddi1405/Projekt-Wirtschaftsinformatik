@@ -32,6 +32,7 @@ public class Thread {
     Set<Tag> tag;
     @Column(name = "header")
     private String header;
+    @Lob
     @Column(name = "content")
     private String content;
     @Column(name = "date")
