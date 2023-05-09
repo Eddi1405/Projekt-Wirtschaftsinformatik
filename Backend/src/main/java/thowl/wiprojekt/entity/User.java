@@ -28,8 +28,12 @@ public class User {
     private String password;
     @Column(name = "email")
     private String email;
-    @Column(name = "role")
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
     @Column(name = "learningtype")
     private String learningtype;
+
+    public enum Role {
+        USER, ADMIN, STUDENT, TEACHER;
+    }
 }
