@@ -23,7 +23,7 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Id
-    private int id;
+    private long id;
     @Column(name = "description")
     private String description;
     @ManyToMany

@@ -24,7 +24,7 @@ public class Thread {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Id
-    private int id;
+    private long id;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "author_ID", nullable = false)
     private User authorID;
@@ -37,5 +37,7 @@ public class Thread {
     private String content;
     @Column(name = "date")
     private Date date;
+    @Column(name = "picture_path")
+    private String picturePath;
 
 }
