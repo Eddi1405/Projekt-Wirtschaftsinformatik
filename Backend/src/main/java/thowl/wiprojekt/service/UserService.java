@@ -2,6 +2,7 @@ package thowl.wiprojekt.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import thowl.wiprojekt.entity.User;
+import thowl.wiprojekt.objects.Role;
 import thowl.wiprojekt.repository.UserRepository;
 
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class UserService {
         return bCryptPasswordEncoder.encode(password);
     }
 
-    public void saveRegisterData(String username, String password, String email, User.Role role, String learningtype) {
+    public void saveRegisterData(String username, String password, String email, Role role, String learningtype) {
         User uData = new User();
         uData.setUsername(username);
         uData.setPassword(passwordEncoder(password));

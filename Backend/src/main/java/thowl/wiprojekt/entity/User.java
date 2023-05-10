@@ -3,6 +3,7 @@ package thowl.wiprojekt.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import thowl.wiprojekt.objects.Role;
 
 /**
  * This class specifies the information of an image.
@@ -32,8 +33,4 @@ public class User {
     private Role role;
     @Column(name = "learningtype")
     private String learningtype;
-
-    public enum Role {
-        USER, ADMIN, STUDENT, TEACHER;
-    }
 }
