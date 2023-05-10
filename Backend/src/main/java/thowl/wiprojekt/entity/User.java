@@ -22,12 +22,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Id
-    private int id;
-    @Column(name = "username")
+    private long id;
+    @Column(name = "username", unique = true)
     private String username;
     @Column(name = "password")
     private String password;
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
     @Enumerated(EnumType.STRING)
     private Role role;
