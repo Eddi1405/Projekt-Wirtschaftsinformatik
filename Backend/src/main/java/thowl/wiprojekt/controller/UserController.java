@@ -39,11 +39,6 @@ public class UserController {
         User user = UR.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        // Create HATEOAS links for the user
-        //Link selfLink = linkTo(methodOn(UserController.class).getUser(id)).withSelfRel();
-
-        // Add links to the user response
-        //user.add(selfLink);
         return ResponseEntity.ok(user);
     }
 
@@ -63,6 +58,12 @@ public class UserController {
                 })
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
     }
+
+
+    //Update Userinfos updaten auf einen bereits bestehenden //PutMapping
+
+
+
 
 
 
