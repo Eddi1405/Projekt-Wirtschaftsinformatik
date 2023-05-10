@@ -60,10 +60,6 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
     }
 
-
-    //Update Userinfos updaten auf einen bereits bestehenden //PutMapping
-
-
     /**
      * Updates the user with the given ID.
      *
