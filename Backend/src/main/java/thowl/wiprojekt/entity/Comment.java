@@ -1,6 +1,7 @@
 package thowl.wiprojekt.entity;
 
 import java.util.Date;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -37,9 +39,8 @@ public class Comment {
     @Column(name="content")
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "thread_id")
-    private Thread thread;
+    @ManyToMany
+    Set<Thread> thread;
 
     // @Column(name = "picture_path")
     // private String picturePath;

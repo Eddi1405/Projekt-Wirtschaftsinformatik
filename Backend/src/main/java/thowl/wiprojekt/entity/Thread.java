@@ -46,7 +46,9 @@ public class Thread {
     @Column(name = "picture_path")
     private String picturePath;
 
-    @OneToMany
+    @ManyToMany
     Set<Comment> comments;
+
+
 
 }
