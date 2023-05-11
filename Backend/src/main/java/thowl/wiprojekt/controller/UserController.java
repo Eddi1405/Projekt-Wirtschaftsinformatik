@@ -82,7 +82,6 @@ public class UserController {
                 })
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
     }
-
 //    @PatchMapping("/patchUpdate/{id}")
 //    public ResponseEntity<User> patchUpdateUser(@PathVariable Long id, @RequestBody User updateUser) {
 //        User user = UR.findById(id)
