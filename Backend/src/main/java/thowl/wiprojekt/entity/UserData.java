@@ -20,7 +20,7 @@ public class UserData {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     @Id
-    private int id;
+    private long id;
     @Column(name = "username")
     private String username;
     @Column(name = "password")
