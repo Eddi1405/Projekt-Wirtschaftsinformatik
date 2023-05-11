@@ -8,12 +8,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Entity class to describe a comment.
  */
 @Entity
 @Table(name="comments")
+@Getter
+@Setter
 public class Comment {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
