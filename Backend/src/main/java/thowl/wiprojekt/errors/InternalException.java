@@ -1,20 +1,21 @@
 package thowl.wiprojekt.errors;
 
 /**
- * To be thrown when a requested resource is not found.
+ * A general Exception akin to the {@link Exception} class. To be used
+ * instead of this class when communicating with a client to make sure
+ * possible behaviour is clearly defined.
  *
- * @author Michael Hartmann
- * @version 30.04.2023
+ * @version 07.05.2023
  */
-public class ResourceNotFoundException extends RuntimeException implements
+public class InternalException extends RuntimeException implements
 		ProjectException{
 
 	/**
 	 * Constructor of the class. The {@link Exception} will be instantiated
 	 * with a generic error message.
 	 */
-	public ResourceNotFoundException() {
-		super("The provided resource could not be found.");
+	public InternalException() {
+		super("An internal error occurred.");
 	}
 
 	/**
@@ -22,7 +23,7 @@ public class ResourceNotFoundException extends RuntimeException implements
 	 *
 	 * @param msg The message this {@link Exception} should have.
 	 */
-	public ResourceNotFoundException(String msg) {
+	public InternalException(String msg) {
 		super(msg);
 	}
 
@@ -33,6 +34,7 @@ public class ResourceNotFoundException extends RuntimeException implements
 	 */
 	@Override
 	public String toString() {
-		return "ResourceNotFoundException: " + this.getMessage();
+		return "InternalException: " + this.getMessage();
 	}
+
 }

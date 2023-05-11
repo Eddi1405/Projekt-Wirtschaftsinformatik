@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * {@link HttpStatus} error codes instead.
  *
  * @author Michael Hartmann
- * @version 30.04.2023
+ * @version 06.05.2023
  */
 @ControllerAdvice
 public class ExceptionInterceptor {
@@ -44,4 +44,61 @@ public class ExceptionInterceptor {
 		return e.getMessage();
 	}
 
+
+	/**
+	 * Intercepts {@link InsufficientRightsException}s to return a code
+	 * <em>403 (forbidden)</em>.
+	 *
+	 * @param e The intercepted {@link Exception}.
+	 * @return The {@link Exception}'s error message.
+	 */
+	@ResponseBody
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+	@ExceptionHandler(InsufficientRightsException.class)
+	public String interceptRights(InsufficientRightsException e) {
+//		var p = new IllegalEntityException(new UserData());
+		return e.getMessage();
+	}
+
+	/**
+	 * Intercepts {@link IllegalEntityException}s to return a code
+	 * <em>422 (unprocessable content)</em>.
+	 *
+	 * @param e The intercepted {@link Exception}.
+	 * @return The {@link Exception}'s error message.
+	 */
+	@ResponseBody
+	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+	@ExceptionHandler(IllegalEntityException.class)
+	public String interceptIllegalEntity(IllegalEntityException e) {
+		return e.getMessage();
+	}
+
+	/**
+	 * Intercepts {@link InternalException}s to return a code
+	 * <em>500 (internal server error)</em>.
+	 *
+	 * @param e The intercepted {@link Exception}.
+	 * @return The {@link Exception}'s error message.
+	 */
+	@ResponseBody
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(InternalException.class)
+	public String interceptInternal(InternalException e) {
+		return e.getMessage();
+	}
+
+	/**
+	 * Intercepts {@link MalformedRequestException}s to return a code
+	 * <em>400 (bad request)</em>.
+	 *
+	 * @param e The intercepted {@link Exception}.
+	 * @return The {@link Exception}'s error message.
+	 */
+	@ResponseBody
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MalformedRequestException.class)
+	public String interceptMalformedRequest(MalformedRequestException e) {
+		return e.getMessage();
+	}
 }

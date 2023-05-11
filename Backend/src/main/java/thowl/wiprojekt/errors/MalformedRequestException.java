@@ -1,20 +1,19 @@
 package thowl.wiprojekt.errors;
 
 /**
- * To be thrown when a requested resource is not found.
+ * To be thrown when a request does not conform to the expected parameters.
  *
- * @author Michael Hartmann
- * @version 30.04.2023
+ * @version 07.05.2023
  */
-public class ResourceNotFoundException extends RuntimeException implements
-		ProjectException{
+public class MalformedRequestException extends IllegalArgumentException
+		implements ProjectException {
 
 	/**
 	 * Constructor of the class. The {@link Exception} will be instantiated
 	 * with a generic error message.
 	 */
-	public ResourceNotFoundException() {
-		super("The provided resource could not be found.");
+	public MalformedRequestException() {
+		super("The request did not conform to expected parameters.");
 	}
 
 	/**
@@ -22,7 +21,7 @@ public class ResourceNotFoundException extends RuntimeException implements
 	 *
 	 * @param msg The message this {@link Exception} should have.
 	 */
-	public ResourceNotFoundException(String msg) {
+	public MalformedRequestException(String msg) {
 		super(msg);
 	}
 
@@ -33,6 +32,7 @@ public class ResourceNotFoundException extends RuntimeException implements
 	 */
 	@Override
 	public String toString() {
-		return "ResourceNotFoundException: " + this.getMessage();
+		return "MalformedRequestException: " + this.getMessage();
 	}
+
 }

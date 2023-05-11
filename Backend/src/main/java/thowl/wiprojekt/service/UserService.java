@@ -1,8 +1,9 @@
 package thowl.wiprojekt.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import thowl.wiprojekt.entity.UserData;
-import thowl.wiprojekt.repository.UserJpaRepository;
+import thowl.wiprojekt.entity.User;
+import thowl.wiprojekt.objects.Role;
+import thowl.wiprojekt.repository.UserRepository;
 
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,10 @@ import java.security.SecureRandom;
 @Service
 public class UserService {
     int strength = 10; //strength of the encoder
-    private final UserJpaRepository UJR;
+    private final UserRepository UJR;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserJpaRepository UJR) {
+    public UserService(UserRepository UJR) {
         this.UJR = UJR;
         bCryptPasswordEncoder = new BCryptPasswordEncoder(strength, new SecureRandom());
     }
@@ -27,8 +28,8 @@ public class UserService {
         return bCryptPasswordEncoder.encode(password);
     }
 
-    public void saveRegisterData(String username, String password, String email, String role, String learningtype) {
-        UserData uData = new UserData();
+    public void saveRegisterData(String username, String password, String email, Role role, String learningtype) {
+        User uData = new User();
         uData.setUsername(username);
         uData.setPassword(passwordEncoder(password));
         uData.setEmail(email);
