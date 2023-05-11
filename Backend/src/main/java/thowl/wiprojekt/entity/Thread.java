@@ -24,20 +24,29 @@ public class Thread {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Id
+
     private long id;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "author_ID", nullable = false)
     private User authorID;
+
     @ManyToMany
     Set<Tag> tag;
+
     @Column(name = "header")
     private String header;
+
     @Lob
     @Column(name = "content")
     private String content;
+
     @Column(name = "date")
     private Date date;
+
     @Column(name = "picture_path")
     private String picturePath;
+
+    @OneToMany
+    Set<Comment> comments;
 
 }

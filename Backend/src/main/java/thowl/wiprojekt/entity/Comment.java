@@ -4,9 +4,12 @@ import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,18 +27,19 @@ public class Comment {
     @Id
     private long id;
 
-    // TODO: oder lieber AuthorID wie beim Thread?
-    @Column(name="author")
-    private User author;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "author_ID", nullable = false)
+    private User authorID;
 
     @Column(name="date")
     private Date date;
 
-    @Column(name="contents")
-    private String contents;
+    @Column(name="content")
+    private String content;
 
-    @Column(name="threadID")
-    private long threadID;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "thread_id")
+    private Thread thread;
 
     // @Column(name = "picture_path")
     // private String picturePath;
