@@ -109,7 +109,7 @@ public class LoginController {
                     + "information for register operation.", user);
         }
         if (UR.findByUsernameOrEmail(user.getUsername(), user.getEmail()) == null) {
-            US.saveRegisterData(user.getUsername(), user.getPassword(), user.getEmail(), user.getRole(), "test");
+            US.saveRegisterData(user.getUsername(), user.getPassword(), user.getEmail(), user.getRole(), user.getLearningtype());
             return true;
         }
         else {

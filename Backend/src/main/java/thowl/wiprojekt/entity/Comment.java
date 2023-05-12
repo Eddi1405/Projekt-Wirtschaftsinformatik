@@ -20,7 +20,7 @@ import lombok.Setter;
  * Entity class to describe a comment.
  */
 @Entity
-@Table(name="comments")
+@Table(name="comment")
 @Getter
 @Setter
 public class Comment {
@@ -38,9 +38,6 @@ public class Comment {
 
     @Column(name="content")
     private String content;
-
-    @ManyToMany
-    Set<Thread> thread;
 
     // @Column(name = "picture_path")
     // private String picturePath;

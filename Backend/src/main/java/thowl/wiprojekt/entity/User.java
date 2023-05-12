@@ -3,6 +3,7 @@ package thowl.wiprojekt.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import thowl.wiprojekt.objects.LearningType;
 import thowl.wiprojekt.objects.Role;
 
 /**
