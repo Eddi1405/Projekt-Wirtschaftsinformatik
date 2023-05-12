@@ -47,7 +47,7 @@ public class Thread {
     private String picturePath;
 
     @ManyToMany
-    Set<Comment> comments;
+    Set<Comment> comment;
 
 
 
