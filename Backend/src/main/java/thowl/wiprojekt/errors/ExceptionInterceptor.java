@@ -44,6 +44,19 @@ public class ExceptionInterceptor {
 		return e.getMessage();
 	}
 
+	/**
+	 * Intercepts {@link RestAuthenticationException}s to return a code
+	 * <em>401 (unauthorized)</em>.
+	 *
+	 * @param e The intercepted {@link Exception}.
+	 * @return The {@link Exception}'s error message.
+	 */
+	@ResponseBody
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	@ExceptionHandler(RestAuthenticationException.class)
+	public String interceptRights(RestAuthenticationException e) {
+		return e.getMessage();
+	}
 
 	/**
 	 * Intercepts {@link InsufficientRightsException}s to return a code
@@ -57,6 +70,20 @@ public class ExceptionInterceptor {
 	@ExceptionHandler(InsufficientRightsException.class)
 	public String interceptRights(InsufficientRightsException e) {
 //		var p = new IllegalEntityException(new UserData());
+		return e.getMessage();
+	}
+
+	/**
+	 * Intercepts {@link MethodNotSupportedException}s to return a code
+	 * <em>405 (method not allowed)</em>.
+	 *
+	 * @param e The intercepted {@link Exception}.
+	 * @return The {@link Exception}'s error message.
+	 */
+	@ResponseBody
+	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+	@ExceptionHandler(MethodNotSupportedException.class)
+	public String interceptRights(MethodNotSupportedException e) {
 		return e.getMessage();
 	}
 
