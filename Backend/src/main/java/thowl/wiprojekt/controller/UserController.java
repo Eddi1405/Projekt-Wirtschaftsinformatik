@@ -82,24 +82,22 @@ public class UserController {
                 })
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
     }
-
-    @PatchMapping("/patchUpdate/{id}")
-    public ResponseEntity<User> patchUpdateUser(@PathVariable Long id, @RequestBody User userUpdates) {
-        User user = UR.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
-
-        if (userUpdates.getUsername() != null) {
-            user.setUsername(userUpdates.getUsername());
-        }
-        if (userUpdates.getEmail() != null) {
-            user.setEmail(userUpdates.getEmail());
-        }
-        if (userUpdates.getPassword() != null) {
-            user.setPassword(userUpdates.getPassword());
-        }
-
-        User updatedUser = UR.save(user);
-        return ResponseEntity.ok(updatedUser);
-    }
+//    @PatchMapping("/patchUpdate/{id}")
+//    public ResponseEntity<User> patchUpdateUser(@PathVariable Long id, @RequestBody User updateUser) {
+//        User user = UR.findById(id)
+//                .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
+//
+//        if (updateUser.getUsername() != null) {
+//            user.setUsername(updateUser.getUsername());
+//        }
+//        if (updateUser.getEmail() != null) {
+//            user.setEmail(updateUser.getEmail());
+//        }
+//        if (updateUser.getPassword() != null) {
+//            user.setPassword(updateUser.getPassword());
+//        }
+//        User updatedUser = UR.save(user);
+//        return ResponseEntity.ok(updatedUser);
+//    }
 }
 

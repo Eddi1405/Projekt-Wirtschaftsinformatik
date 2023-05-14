@@ -24,9 +24,7 @@ public class Tag {
 
     @Id
     private long id;
+
     @Column(name = "description")
     private String description;
-    @ManyToMany
-    Set<Thread> thread;
-
 }

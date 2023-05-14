@@ -3,6 +3,7 @@ package thowl.wiprojekt.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import thowl.wiprojekt.objects.LearningType;
 import thowl.wiprojekt.objects.Role;
 
 /**
@@ -23,14 +24,19 @@ public class User {
 
     @Id
     private long id;
+
     @Column(name = "username", unique = true)
     private String username;
+
     @Column(name = "password")
     private String password;
+
     @Column(name = "email", unique = true)
     private String email;
+
     @Enumerated(EnumType.STRING)
     private Role role;
+    
     @Column(name = "learningtype")
     private String learningtype;
 }
