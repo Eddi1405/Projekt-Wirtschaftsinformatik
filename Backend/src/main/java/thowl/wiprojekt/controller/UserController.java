@@ -3,11 +3,13 @@ package thowl.wiprojekt.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import thowl.wiprojekt.entity.User;
 import thowl.wiprojekt.entity.model.UserModelAssembler;
 import thowl.wiprojekt.errors.ResourceNotFoundException;
+import thowl.wiprojekt.objects.dto.PatchDto;
 import thowl.wiprojekt.repository.UserRepository;
 import thowl.wiprojekt.service.UserService;
 
@@ -34,7 +36,7 @@ public class UserController {
      * @return a ResponseEntity containing the retrieved user if it exists
      * @throws ResourceNotFoundException if the user does not exist
      */
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) {
         // Retrieve user with given id from database
         User user = UR.findById(id)
@@ -82,22 +84,16 @@ public class UserController {
                 })
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
     }
-//    @PatchMapping("/patchUpdate/{id}")
-//    public ResponseEntity<User> patchUpdateUser(@PathVariable Long id, @RequestBody User updateUser) {
-//        User user = UR.findById(id)
-//                .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
-//
-//        if (updateUser.getUsername() != null) {
-//            user.setUsername(updateUser.getUsername());
-//        }
-//        if (updateUser.getEmail() != null) {
-//            user.setEmail(updateUser.getEmail());
-//        }
-//        if (updateUser.getPassword() != null) {
-//            user.setPassword(updateUser.getPassword());
-//        }
-//        User updatedUser = UR.save(user);
-//        return ResponseEntity.ok(updatedUser);
-//    }
+    @PatchMapping("/patch/{id}")
+    public ResponseEntity<Boolean> updatePartially(@PathVariable(name = "id") int id,
+                                                   @RequestBody PatchDto dto) throws ResourceNotFoundException {
+        // skipping validations for brevity
+        if (dto.getOp().equalsIgnoreCase("update")) {
+            boolean result = US.partialUpdate(id, dto.getKey(), dto.getValue());
+            return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
+        } else {
+            throw new ResourceNotFoundException("Resource does not exist");
+        }
+    }
 }
 
