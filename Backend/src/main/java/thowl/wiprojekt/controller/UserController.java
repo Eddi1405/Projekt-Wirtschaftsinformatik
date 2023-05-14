@@ -15,6 +15,7 @@ import thowl.wiprojekt.service.UserService;
 
 @Slf4j
 @RestController
+@RequestMapping(value = "/users")
 public class UserController {
 
     @Autowired
@@ -36,7 +37,7 @@ public class UserController {
      * @return a ResponseEntity containing the retrieved user if it exists
      * @throws ResourceNotFoundException if the user does not exist
      */
-    @GetMapping("/users/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) {
         // Retrieve user with given id from database
         User user = UR.findById(id)
