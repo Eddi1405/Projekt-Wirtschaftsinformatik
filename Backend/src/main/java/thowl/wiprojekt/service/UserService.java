@@ -50,7 +50,7 @@ public class UserService {
                 case "username":
                     user.setUsername(value);
                     break;
-                case "lastName":
+                case "password":
                     user.setPassword(value);
                     break;
                 case "email":
