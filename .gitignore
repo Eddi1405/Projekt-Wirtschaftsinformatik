@@ -44,3 +44,4 @@ build/
 
 ### Log Files ###
 *.log
+*.log*.gz

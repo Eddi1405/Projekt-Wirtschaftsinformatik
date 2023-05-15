@@ -98,30 +98,30 @@ public class LoginController {
 
     }
 
-    /**
-     * Bundles all illegal {@link HttpMethod}s for the mapping
-     * <quote>/login</quote> and returns throws a
-     * {@link MethodNotSupportedException}.
-     *
-     * @param request The request made by a client.
-     */
-    @RequestMapping(value = "/login", method = {RequestMethod.GET,
-            RequestMethod.PUT, RequestMethod.PATCH, RequestMethod.DELETE})
-    public void noLogin(HttpServletRequest request) {
-        throw new MethodNotSupportedException(
-                HttpMethod.valueOf(request.getMethod()));
-    }
+//    /**
+//     * Bundles all illegal {@link HttpMethod}s for the mapping
+//     * <quote>/login</quote> and returns throws a
+//     * {@link MethodNotSupportedException}.
+//     *
+//     * @param request The request made by a client.
+//     */
+//    @RequestMapping(value = "/login", method = {RequestMethod.GET,
+//            RequestMethod.PUT, RequestMethod.PATCH, RequestMethod.DELETE})
+//    public void noLogin(HttpServletRequest request) {
+//        throw new MethodNotSupportedException(
+//                HttpMethod.valueOf(request.getMethod()));
+//    }
 
-    /**
-     * Responds to an OPTIONS request from the client with the corresponding
-     * header for the login operation.
-     *
-     * @param response The response to be given.
-     */
-    @RequestMapping(value = "/login", method = RequestMethod.OPTIONS)
-    public void loginMethod(HttpServletResponse response) {
-        response.setHeader("Allow", "POST, OPTIONS");
-    }
+//    /**
+//     * Responds to an OPTIONS request from the client with the corresponding
+//     * header for the login operation.
+//     *
+//     * @param response The response to be given.
+//     */
+//    @RequestMapping(value = "/login", method = RequestMethod.OPTIONS)
+//    public void loginMethod(HttpServletResponse response) {
+//        response.setHeader("Allow", "POST, OPTIONS");
+//    }
 
     // TODO implement
 
@@ -161,28 +161,28 @@ public class LoginController {
         }
     }
 
-    /**
-     * Bundles all illegal {@link HttpMethod}s for the mapping
-     * <quote>/register</quote> and returns throws a
-     * {@link MethodNotSupportedException}.
-     *
-     * @param request The request made by a client.
-     */
-    @RequestMapping(value = "/register", method = {RequestMethod.GET,
-            RequestMethod.PUT, RequestMethod.PATCH, RequestMethod.DELETE})
-    public void noRegister(HttpServletRequest request) {
-        throw new MethodNotSupportedException(
-                HttpMethod.valueOf(request.getMethod()));
-    }
+//    /**
+//     * Bundles all illegal {@link HttpMethod}s for the mapping
+//     * <quote>/register</quote> and returns throws a
+//     * {@link MethodNotSupportedException}.
+//     *
+//     * @param request The request made by a client.
+//     */
+//    @RequestMapping(value = "/register", method = {RequestMethod.GET,
+//            RequestMethod.PUT, RequestMethod.PATCH, RequestMethod.DELETE})
+//    public void noRegister(HttpServletRequest request) {
+//        throw new MethodNotSupportedException(
+//                HttpMethod.valueOf(request.getMethod()));
+//    }
 
-    /**
-     * Responds to an OPTIONS request from the client with the corresponding
-     * header for the register operation.
-     *
-     * @param response The response to be given.
-     */
-    @RequestMapping(value = "/register", method = RequestMethod.OPTIONS)
-    public void registerMethod(HttpServletResponse response) {
-        response.setHeader("Allow", "POST, OPTIONS");
-    }
+//    /**
+//     * Responds to an OPTIONS request from the client with the corresponding
+//     * header for the register operation.
+//     *
+//     * @param response The response to be given.
+//     */
+//    @RequestMapping(value = "/register", method = RequestMethod.OPTIONS)
+//    public void registerMethod(HttpServletResponse response) {
+//        response.setHeader("Allow", "POST, OPTIONS");
+//    }
 }

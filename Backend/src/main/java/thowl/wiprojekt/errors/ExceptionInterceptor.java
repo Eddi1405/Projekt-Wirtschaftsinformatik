@@ -2,6 +2,7 @@ package thowl.wiprojekt.errors;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -83,7 +84,7 @@ public class ExceptionInterceptor {
 	}
 
 	/**
-	 * Intercepts {@link MethodNotSupportedException}s to return a code
+	 * Intercepts {@link HttpRequestMethodNotSupportedException}s to return a code
 	 * <em>405 (method not allowed)</em>.
 	 *
 	 * @param e The intercepted {@link Exception}.
@@ -91,8 +92,8 @@ public class ExceptionInterceptor {
 	 */
 	@ResponseBody
 	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-	@ExceptionHandler(MethodNotSupportedException.class)
-	public String interceptRights(MethodNotSupportedException e) {
+	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+	public String interceptRights(HttpRequestMethodNotSupportedException e) {
 		this.logException(e, false);
 		return e.getMessage();
 	}
