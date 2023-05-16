@@ -26,16 +26,16 @@ public interface UserRepository extends JpaRepository<User, Long> {
     String findByUsername(String param1);
 
     @Query(value = "UPDATE users SET email='?1' WHERE username = ?2", nativeQuery = true)
-    List<User> changeEmail(String param1, String param2);
+    void changeEmail(String param1, String param2);
 
     @Query(value = "UPDATE users SET password='?1' WHERE username = ?2", nativeQuery = true)
-    List<User> changePassword(String param1, String param2);
+    void changePassword(String param1, String param2);
 
     @Query(value = "UPDATE users SET role='?1' WHERE username = ?2", nativeQuery = true)
-    List<User> changeRole(String param1, String param2);
+    void changeRole(String param1, String param2);
 
     @Query(value = "UPDATE users SET learningtype='?1' WHERE username = ?2", nativeQuery = true)
-    List<User> changeLearningtype(String param1, String param2);
+    void changeLearningtype(String param1, String param2);
 
 
 }

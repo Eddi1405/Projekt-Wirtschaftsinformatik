@@ -28,8 +28,8 @@ public enum LearningType {
     // The name of the learningtype as a String
     private String learningtype;
 
-    private LearningType(String learningtype) { 
-        learningtype = new String(learningtype);
+    private LearningType(String learningtype) {
+        this.learningtype = learningtype;
     }
     @JsonValue
     public String getType() {
