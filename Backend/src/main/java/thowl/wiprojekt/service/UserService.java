@@ -3,6 +3,7 @@ package thowl.wiprojekt.service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import thowl.wiprojekt.entity.User;
 import thowl.wiprojekt.errors.ResourceNotFoundException;
+import thowl.wiprojekt.objects.LearningType;
 import thowl.wiprojekt.objects.Role;
 import thowl.wiprojekt.repository.UserRepository;
 
@@ -30,7 +31,7 @@ public class UserService {
         return bCryptPasswordEncoder.encode(password);
     }
 
-    public void saveRegisterData(String username, String password, String email, Role role, String learningtype) {
+    public void saveRegisterData(String username, String password, String email, Role role, LearningType learningtype) {
         User uData = new User();
         uData.setUsername(username);
         uData.setPassword(passwordEncoder(password));
@@ -56,9 +57,9 @@ public class UserService {
                 case "email":
                     user.setEmail(value);
                     break;
-                case "learningtype":
+                /**case "learningtype":
                     user.setLearningtype(value);
-                    break;
+                    break;**/
                 // Add additional cases for other fields as needed
                 default:
                     throw new IllegalArgumentException("Invalid key: " + key);
