@@ -6,6 +6,7 @@ import org.springframework.http.HttpMethod;
  * To be thrown when a client tries to connect to a URL via an unsupported
  * {@link HttpMethod}.
  */
+@Deprecated
 public class MethodNotSupportedException extends RuntimeException
 		implements ProjectException{
 
