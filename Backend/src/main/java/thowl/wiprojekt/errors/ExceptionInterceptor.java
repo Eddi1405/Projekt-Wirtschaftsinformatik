@@ -2,6 +2,7 @@ package thowl.wiprojekt.errors;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,35 +23,39 @@ import java.io.StringWriter;
 @ControllerAdvice
 public class ExceptionInterceptor {
 
+
 	/**
-	 * Intercepts {@link ResourceAlreadyExistsException}s to return a code
-	 * <em>409 (conflict)</em>.
+	 * Intercepts {@link MalformedRequestException}s to return a code
+	 * <em>400 (bad request)</em>.
 	 *
 	 * @param e The intercepted {@link Exception}.
 	 * @return The {@link Exception}'s error message.
 	 */
 	@ResponseBody
-	@ResponseStatus(HttpStatus.CONFLICT)
-	@ExceptionHandler(ResourceAlreadyExistsException.class)
-	public String interceptExistingResource(ResourceAlreadyExistsException e) {
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MalformedRequestException.class)
+	public String interceptMalformedRequest(MalformedRequestException e) {
 		this.logException(e, false);
 		return e.getMessage();
 	}
 
+	// MalformedRequestException stays for now as it may have different use
+	// cases
 	/**
-	 * Intercepts {@link ResourceNotFoundException}s to return a code
-	 * <em>404 (not found)</em>.
+	 * Intercepts {@link HttpMessageNotReadableException}s to return a code
+	 * <em>400 (bad request)</em>.
 	 *
 	 * @param e The intercepted {@link Exception}.
 	 * @return The {@link Exception}'s error message.
 	 */
 	@ResponseBody
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler(ResourceNotFoundException.class)
-	public String interceptNotFound(ResourceNotFoundException e) {
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	public String interceptMalformedRequest(HttpMessageNotReadableException e) {
 		this.logException(e, false);
 		return e.getMessage();
 	}
+
 
 	/**
 	 * Intercepts {@link RestAuthenticationException}s to return a code
@@ -84,6 +89,21 @@ public class ExceptionInterceptor {
 	}
 
 	/**
+	 * Intercepts {@link ResourceNotFoundException}s to return a code
+	 * <em>404 (not found)</em>.
+	 *
+	 * @param e The intercepted {@link Exception}.
+	 * @return The {@link Exception}'s error message.
+	 */
+	@ResponseBody
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public String interceptNotFound(ResourceNotFoundException e) {
+		this.logException(e, false);
+		return e.getMessage();
+	}
+
+	/**
 	 * Intercepts {@link HttpRequestMethodNotSupportedException}s to return a code
 	 * <em>405 (method not allowed)</em>.
 	 *
@@ -94,6 +114,21 @@ public class ExceptionInterceptor {
 	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
 	public String interceptRights(HttpRequestMethodNotSupportedException e) {
+		this.logException(e, false);
+		return e.getMessage();
+	}
+
+	/**
+	 * Intercepts {@link ResourceAlreadyExistsException}s to return a code
+	 * <em>409 (conflict)</em>.
+	 *
+	 * @param e The intercepted {@link Exception}.
+	 * @return The {@link Exception}'s error message.
+	 */
+	@ResponseBody
+	@ResponseStatus(HttpStatus.CONFLICT)
+	@ExceptionHandler(ResourceAlreadyExistsException.class)
+	public String interceptExistingResource(ResourceAlreadyExistsException e) {
 		this.logException(e, false);
 		return e.getMessage();
 	}
@@ -128,20 +163,6 @@ public class ExceptionInterceptor {
 		return e.getMessage();
 	}
 
-	/**
-	 * Intercepts {@link MalformedRequestException}s to return a code
-	 * <em>400 (bad request)</em>.
-	 *
-	 * @param e The intercepted {@link Exception}.
-	 * @return The {@link Exception}'s error message.
-	 */
-	@ResponseBody
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(MalformedRequestException.class)
-	public String interceptMalformedRequest(MalformedRequestException e) {
-		this.logException(e, false);
-		return e.getMessage();
-	}
 
 	/**
 	 * Logs the stacktrace of an {@link Exception}.

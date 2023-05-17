@@ -1,21 +1,17 @@
 package thowl.wiprojekt.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import thowl.wiprojekt.entity.User;
 import thowl.wiprojekt.entity.model.UserModelAssembler;
 import thowl.wiprojekt.errors.*;
 import thowl.wiprojekt.repository.UserRepository;
 import thowl.wiprojekt.service.UserService;
-
-import java.io.IOException;
 
 /**
  * Controller for logging in and registering users.
@@ -23,6 +19,7 @@ import java.io.IOException;
  * @version 13.05.2023
  */
 @Slf4j
+@ThrowsInternal
 @RestController
 public class LoginController {
 
@@ -59,43 +56,24 @@ public class LoginController {
         }
         log.info(String.valueOf(US.passwordCheck(user.getPassword(),
                 UR.findByUsernameOrEmail(user.getUsername(), user.getEmail()))));
-        try {
-            if(US.passwordCheck(user.getPassword(),
-                    UR.findByUsernameOrEmail(user.getUsername(), user.getEmail()))) {
-                /*
-                 * An EntityModel of a User is created. First the user id
-                 * has to be determined to get the User by ID. If the user
-                 * cannot be found it most certainly means that there was an
-                 * internal error.
-                 */
-                return assembler.toModel(UR.findById(UR.findByUsernameID(
-                        user.getUsername())).orElseThrow(InternalException::new));
-            }
-            else {
-                /*
-                 * If the specified password does not correlate to the one in
-                 * the database an error is raised.
-                 */
-                throw new RestAuthenticationException("Authentication failed.");
-            }
-        }
-        catch (Exception e) {
+        if(US.passwordCheck(user.getPassword(),
+                UR.findByUsernameOrEmail(user.getUsername(), user.getEmail()))) {
             /*
-             * If the Exception is an Exception that can be intercepted by an
-             * ExceptionInterceptor it is thrown again.
+             * An EntityModel of a User is created. First the user id
+             * has to be determined to get the User by ID. If the user
+             * cannot be found it most certainly means that there was an
+             * internal error.
              */
-            if (e instanceof ProjectException) {
-                throw e;
-            }
-            /*
-             * Else it is converted to a type that can be intercepted.
-             */
-            else {
-                e.printStackTrace();
-                throw new InternalException(e, e.getMessage());
-            }
+            return assembler.toModel(UR.findById(UR.findByUsernameID(
+                    user.getUsername())).orElseThrow(InternalException::new));
         }
-
+        else {
+            /*
+             * If the specified password does not correlate to the one in
+             * the database an error is raised.
+             */
+            throw new RestAuthenticationException("Authentication failed.");
+        }
     }
 
 //    /**
