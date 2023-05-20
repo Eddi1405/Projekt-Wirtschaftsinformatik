@@ -1,7 +1,5 @@
 package thowl.wiprojekt.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +33,29 @@ public class User {
 
     @Column(name = "email", unique = true)
     private String email;
+
+    @Column(name = "dark_mode")
+    private boolean darmode = false;
+
+    @Column(name = "de_en")
+    private boolean deEn = false;
+
+    @Column(name = "contrast")
+    private boolean contrast = false;
+
+    // TODO: default font size as default value
+    @Column(name = "font_size")
+    private int fontSize;
+
+    @Column(name = "Eye_tracking")
+    private boolean eyeTracking = false;
+
+    // TODO: How many different presets?
+    @Column(name = "color_blindness")
+    private int colorBlindness;
+
+    @Column(name = "sign_language")
+    private boolean signLanguage = false;
 
     @Enumerated(EnumType.STRING)
     private Role role;
