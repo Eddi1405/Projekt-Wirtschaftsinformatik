@@ -159,7 +159,8 @@ public class ExceptionInterceptor {
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(InternalException.class)
 	public String interceptInternal(InternalException e) {
-		this.logException(e, true);
+		log.error("InternalException caused by:");
+		this.logException(e.getExcept(), true);
 		return e.getMessage();
 	}
 
