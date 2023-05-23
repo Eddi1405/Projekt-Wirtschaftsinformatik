@@ -9,8 +9,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum ContentType {
 
+	/**
+	 * Used for messages that transport text.
+	 */
 	TEXT ("text"),
 
+	/**
+	 * Used for messages that transport files like pictures.
+	 */
 	FILE ("file");
 
 
