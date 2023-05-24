@@ -36,7 +36,7 @@ public class Message {
     @Enumerated(EnumType.STRING)
     private ContentType contentType;
 
-    @Column(name = "")
+    @Column(name = "date")
     private Date date;
 
     @ManyToMany
