@@ -20,8 +20,8 @@ import java.util.Set;
 @Getter
 @Setter
 public class Tag {
+    
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Id
     private long id;
 
