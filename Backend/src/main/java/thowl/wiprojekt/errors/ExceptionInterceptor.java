@@ -119,6 +119,21 @@ public class ExceptionInterceptor {
 	}
 
 	/**
+	 * Intercepts {@link UnacceptableRequestException}s to return a code
+	 * <em>406 (not acceptable)</em>.
+	 *
+	 * @param e The intercepted {@link Exception}.
+	 * @return The {@link Exception}'s error message.
+	 */
+	@ResponseBody
+	@ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+	@ExceptionHandler(UnacceptableRequestException.class)
+	public String interceptUnaccepted(UnacceptableRequestException e) {
+		this.logException(e, false);
+		return e.getMessage();
+	}
+
+	/**
 	 * Intercepts {@link ResourceAlreadyExistsException}s to return a code
 	 * <em>409 (conflict)</em>.
 	 *
