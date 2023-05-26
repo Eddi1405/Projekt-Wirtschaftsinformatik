@@ -25,8 +25,11 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "chatname")
-    private String chatname;
+    @Column(name = "chatName")
+    private String chatName;
+
+    @Column(name = "theme")
+    private String theme;
 
     @Enumerated(EnumType.STRING)
     private ChatType chatType;

@@ -1,5 +1,6 @@
 package thowl.wiprojekt.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
@@ -29,6 +30,8 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "author_ID", nullable = false)
     private User authorID;
@@ -36,10 +39,15 @@ public class Message {
     @Enumerated(EnumType.STRING)
     private ContentType contentType;
 
-    @Column(name = "date")
-    private Date date;
+    @Column(name = "time")
+    private Timestamp time;
 
     @ManyToMany
     Set<User> read;
 
+    @Column(name = "content")
+    private String contentPath;
+
+    @Column(name ="parent")
+    private Long parent;
 }
