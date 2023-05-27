@@ -37,4 +37,7 @@ public class Chat {
     @ManyToMany
     Set<Message> message;
 
+    @ManyToMany
+    Set<User> users;
+
 }

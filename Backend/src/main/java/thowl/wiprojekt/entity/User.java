@@ -65,7 +65,4 @@ public class User {
     @Enumerated(EnumType.STRING)
     private LearningType learningtype;
 
-    @ManyToMany
-    Set<Chat> chats;
-
 }
