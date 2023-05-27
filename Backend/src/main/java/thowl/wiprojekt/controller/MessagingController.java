@@ -2,6 +2,8 @@ package thowl.wiprojekt.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +38,8 @@ public class MessagingController {
 	@Autowired
 	private UserRepository userRepo;
 
+	// TODO get messages after the fact
+
 	@SubscribeMapping({"/topic/{chatID}"})
 	public Set<Message> subscribeTo(@PathVariable long chatID,
 			@Header long num, @Header String mTime, @Header Long user) {
@@ -66,6 +70,20 @@ public class MessagingController {
 			messages.addAll(chat.getMessage());
 		}
 		return messages;
+	}
+
+	// TODO clone
+
+	@SendTo("/topic/{chatID}")
+	@MessageMapping("{chatID}")
+	public Message forwardMessage(@PathVariable long chatID, Message msg) {
+		return msg;
+	}
+
+	// TODO
+
+	private boolean checkUserInChat(Long user) {
+		return true;
 	}
 
 }
