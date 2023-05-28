@@ -30,6 +30,7 @@ public class ChatController {
 	@Autowired
 	private ChatRepository chatRepo;
 
+	// Used to retrieve Users
 	@Autowired
 	private UserRepository userRepo;
 
@@ -40,6 +41,9 @@ public class ChatController {
 	 *
 	 * @param chatID The ID of the requested {@link Chat}.
 	 * @return The {@link Chat} corresponding to the ID.
+	 *
+	 * @throws ResourceNotFoundException if the {@link Chat} with the
+	 * specified ID does not exist.
 	 */
 	@GetMapping(value = "/chats/{chatID}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Chat getChat(@PathVariable long chatID) {
@@ -56,9 +60,15 @@ public class ChatController {
 	 *
 	 * @param pChat The new {@link Chat} to be created.
 	 * @return The newly created {@link Chat}.
+	 *
+	 * @throws MalformedRequestException if the given {@link Chat} is null or
+	 * {@link Message}s were specified for the Chat to be created.
 	 */
 	@PostMapping(value = "/chats/create/")
 	public Chat addChat(@RequestBody Chat pChat) {
+		if (pChat == null) {
+			throw new MalformedRequestException("A chat must be specified.");
+		}
 		// A newly created chat should not have any messages
 		if (!pChat.getMessage().isEmpty()) {
 			throw new MalformedRequestException("A newly created chat should "
@@ -74,6 +84,9 @@ public class ChatController {
 	 * Deletes the {@link Chat} with the specified ID.
 	 *
 	 * @param chatID the ID of the {@link Chat} to be deleted.
+	 *
+	 * @throws ResourceNotFoundException if the {@link Chat} does not already
+	 * exist.
 	 */
 	@DeleteMapping("/chats/delete/{chatID}")
 	public void deleteChat(@PathVariable long chatID) {
@@ -81,8 +94,32 @@ public class ChatController {
 		chatRepo.deleteById(chatID);
 	}
 
+	/**
+	 * Updates the given {@link Chat} to the parameters specified within the
+	 * chat object. <strong>This object's messages will be ignored.</strong>
+	 *
+	 * @param pChat The {@link Chat} to be changed.
+	 * @return The newly updated {@link Chat}.
+	 *
+	 * @throws ResourceNotFoundException if the {@link Chat} does not already
+	 * exist.
+	 * @throws MalformedRequestException if the given {@link Chat} is null.
+	 */
 	@PutMapping(value = "/chats/update", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Chat updateChat() {
+	public Chat updateChat(@RequestBody Chat pChat) {
+		if (pChat == null) {
+			throw new MalformedRequestException("A chat must be specified.");
+		}
+		Chat oldChat = this.checkChatExists(pChat.getId());
+		// No messages may be changed by this method
+		pChat.setMessage(oldChat.getMessage());
+		Chat newChat = chatRepo.save(pChat);
+		return newChat;
+	}
+
+	@PatchMapping(value = "/chats/update", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Chat patchChat(@RequestBody Chat pChat) {
+
 		return null;
 	}
 
@@ -91,6 +128,9 @@ public class ChatController {
 	 *
 	 * @param chatID The ID to be checked.
 	 * @return The {@link Chat} if it exists.
+	 *
+	 * @throws ResourceNotFoundException if the {@link Chat} with the
+	 * specified ID does not exist.
 	 */
 	Chat checkChatExists(long chatID) {
 //		if (!chatRepo.existsById(chatID)) {
