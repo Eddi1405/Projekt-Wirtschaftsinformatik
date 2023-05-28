@@ -8,8 +8,8 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
 import thowl.wiprojekt.entity.Chat;
 import thowl.wiprojekt.entity.Message;
 import thowl.wiprojekt.entity.User;
@@ -111,21 +111,11 @@ public class MessagingController {
 		 */
 		Chat chat = chatRepo.findById(chatID).orElseThrow(
 				ResourceNotFoundException::new);
-		// TODO contains user
-		int status = this.checkRequestValidity(user, chat).value();
-		chat.getUsers().add(user);
-		String warn;
 		/*
-		 * Define warning.
+		 * The validity of the request is checked and the server's reaction
+		 * to the request are defined.
 		 */
-		if (status == 202) {
-			warn = "User was not registered with the specified chat so it was"
-					+ " registered by the service:";
-		}
-		else {
-			warn = "None";
-		}
-		response.setHeader("Warning", warn);
+		response = this.handleUser(user, chat, response);
 		// TODO messages
 		if (num == 0) {
 			messages.addAll(chat.getMessage());
@@ -134,12 +124,60 @@ public class MessagingController {
 	}
 
 	// TODO clone
+	// TODO database validation
+	// TODO chat validation
 
 	@SendTo("/topic/{chatID}")
 	@MessageMapping("{chatID}")
-	public Message forwardMessage(@PathVariable long chatID, Message msg) {
-
+	public Message forwardMessage(@PathVariable long chatID, Message msg,
+			HttpServletResponse response) {
+		if (msg == null) {
+			throw new MalformedRequestException("Message must be given.");
+		}
+		else if (msg.getAuthorID() == null) {
+			throw new MalformedRequestException("Author must be specified.");
+		}
+		/*
+		 * An Exception resulting in a 404 will be thrown if the Chat does
+		 * not exist.
+		 */
+		Chat chat = chatRepo.findById(chatID).orElseThrow(() -> {
+			return new ResourceNotFoundException("Chat with the id " + chatID
+					+ "does not exist.");
+		});
+		// TODO long instead of User
+		/*
+		 * If the User does not exist an Exception will be thrown. A 404 is
+		 * not thrown to not give the client the false idea that a Chat could
+		 * not be found.
+		 */
+		User user = userRepo.findById(msg.getAuthorID().getId()).orElseThrow(() -> {
+			return new UnacceptableRequestException("User does not exist.");
+		});
+		/*
+		 * The validity of the action is checked.
+		 */
+		response = this.handleUser(user, chat, response);
+		msg.setAuthorID(user);
+		this.saveMessage(msg, chat);
 		return msg;
+	}
+
+	/**
+	 * Saves a {@link Message} to the database. This method is {@link Transactional}
+	 * and will do a rollback if it fails at any point.
+	 *
+	 * @param msg The {@link Message} to be saved.
+	 * @param chat The {@link Chat} the {@link Message} is a part of.
+	 */
+	@Transactional
+	private void saveMessage(Message msg, Chat chat) {
+		messageRepo.save(msg);
+		// The message is added and the Chat saved too
+		Set<Message> msgs = chat.getMessage();
+		msgs.add(msg);
+		chat.setMessage(msgs);
+		chatRepo.save(chat);
 	}
 
 	// TODO notifications
@@ -248,8 +286,48 @@ public class MessagingController {
 //		throw new InsufficientRightsException();
 	}
 
-	private void handleUser(User user, Chat chat) {
-
+	/**
+	 * Checks whether a request is valid ({@link MessagingController#checkRequestValidity(User, Chat)})
+	 * and acts on a positive outcome by registering the specified
+	 * {@link User} to the specified {@link Chat} and issuing a warning in
+	 * the HTTP response if the User had not been registered with the Chat
+	 * before.
+	 *
+	 * @param user The {@link User} causing the request.
+	 * @param chat The {@link Chat} associated with the request.
+	 * @param response The response given by the server.
+	 * @return The response given by the server.
+	 *
+	 * @throws RestAuthenticationException if an anonymous {@link User} tries
+	 * to access a personal chat they are not registered with..
+	 * @throws InsufficientRightsException if a logged-in {@link User} tries
+	 * to access a personal chat they are not registered with.
+	 */
+	private HttpServletResponse handleUser(User user, Chat chat,
+			HttpServletResponse response) {
+		/*
+		 * The HTTP status is retrieved. Exceptions will be thrown if there
+		 * is a problem.
+		 */
+		int status = this.checkRequestValidity(user, chat).value();
+		/*
+		 * The User is registered.
+		 */
+		chat.getUsers().add(user);
+		chatRepo.save(chat);
+		String warn;
+		/*
+		 * Define warning.
+		 */
+		if (status == 202) {
+			warn = "User was not registered with the specified chat so it was"
+					+ " registered by the service";
+		}
+		else {
+			warn = "None";
+		}
+		response.setHeader("Warning", warn);
+		return response;
 	}
 
 }

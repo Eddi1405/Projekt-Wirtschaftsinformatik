@@ -69,6 +69,12 @@ public class ChatController {
 		if (pChat == null) {
 			throw new MalformedRequestException("A chat must be specified.");
 		}
+		/*
+		 * If no Set has been provided a new one will be created.
+		 */
+		if (pChat.getMessage() == null) {
+			pChat.setMessage(new HashSet<Message>());
+		}
 		// A newly created chat should not have any messages
 		if (!pChat.getMessage().isEmpty()) {
 			throw new MalformedRequestException("A newly created chat should "
@@ -114,6 +120,8 @@ public class ChatController {
 		// No messages may be changed by this method
 		pChat.setMessage(oldChat.getMessage());
 		Chat newChat = chatRepo.save(pChat);
+		// Messages inside of this chat are not returned
+		newChat.setMessage(new HashSet<Message>());
 		return newChat;
 	}
 
