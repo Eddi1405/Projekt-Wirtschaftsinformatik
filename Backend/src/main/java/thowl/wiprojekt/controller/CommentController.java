@@ -1,27 +1,46 @@
 package thowl.wiprojekt.controller;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import thowl.wiprojekt.entity.Comment;
 
+import thowl.wiprojekt.entity.User;
+import thowl.wiprojekt.repository.UserRepository;
 import thowl.wiprojekt.service.CommentService;
 
 import java.util.List;
-
+@Slf4j
 @RestController
 @RequestMapping("/comments")
 public class CommentController {
 
+
+     @Autowired
+     UserRepository UR;
+
      @Autowired
      private CommentService commentService;
 
+     @Autowired
+     UserController UC;
+
+     @Autowired
+     public CommentController(CommentService commentService) {
+          this.commentService = commentService;
+     }
+
      @PostMapping("/create")
      public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
-          Comment createdComment = commentService.createComment(comment);
-          return new ResponseEntity<>(createdComment, HttpStatus.CREATED);
+          try {
+               Comment createdComment = commentService.createComment(comment);
+               return new ResponseEntity<>(createdComment, HttpStatus.CREATED);
+          } catch (IllegalArgumentException e) {
+               return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+          }
      }
 
      @GetMapping("/{id}")
