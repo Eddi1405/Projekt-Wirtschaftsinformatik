@@ -5,8 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import thowl.wiprojekt.entity.User;
 
-import java.util.List;
-
 
 /**
  * This is an interface that extends the JpaRepository interface and provides specific methods for the entity.

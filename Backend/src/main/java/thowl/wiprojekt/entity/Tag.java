@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
-
 /**
  * This class specifies the information of an image.
  * The annotation @Entity indicates that this is a JPA entity class.
@@ -20,8 +18,8 @@ import java.util.Set;
 @Getter
 @Setter
 public class Tag {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long id;
 

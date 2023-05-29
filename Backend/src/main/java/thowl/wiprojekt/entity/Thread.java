@@ -21,11 +21,11 @@ import java.util.Set;
 @Getter
 @Setter
 public class Thread {
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Id
-
     private long id;
+    
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "author_ID", nullable = false)
     private User authorID;

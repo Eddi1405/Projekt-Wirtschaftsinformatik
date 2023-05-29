@@ -60,6 +60,20 @@ public class MediaNDcoder {
 	}
 
 	/**
+	 * Converts a {@link File} object to a byte array.
+	 *
+	 * @param file The {@link File} to be converted.
+	 * @return The given {@link File} as a byte array.
+	 * @throws IOException when a problem occurs while reading the {@link File}.
+	 */
+	public byte[] fileToBytes(File file) throws IOException {
+		if (file == null) {
+			throw new IllegalArgumentException("File is null");
+		}
+		return Files.readAllBytes(file.toPath());
+	}
+
+	/**
 	 * Encodes an array of bytes to a {@link Base64} String.
 	 *
 	 * @param bytes The bytes to be encoded.

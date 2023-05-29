@@ -1,5 +1,7 @@
 package thowl.wiprojekt.entity;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,8 +22,8 @@ import thowl.wiprojekt.objects.Role;
 @Getter
 @Setter
 public class User {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long id;
 
@@ -62,4 +64,5 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private LearningType learningtype;
+
 }

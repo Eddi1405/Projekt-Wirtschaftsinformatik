@@ -58,4 +58,14 @@ public enum Separator {
 		return new String(str);
 	}
 
+	/**
+	 * Returns a String representation of the enum level.
+	 *
+	 * @return A String representation of the enum level.
+	 */
+	@Override
+	public String toString() {
+		return this.str();
+	}
+
 }

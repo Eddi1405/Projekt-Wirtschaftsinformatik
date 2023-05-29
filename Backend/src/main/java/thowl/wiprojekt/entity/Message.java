@@ -1,43 +1,53 @@
 package thowl.wiprojekt.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import thowl.wiprojekt.objects.ContentType;
 
-/**
- * Entity class to describe a comment.
- */
 @Entity
-@Table(name="comment")
 @Getter
 @Setter
-public class Comment {
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Table(name = "message")
+public class Message {
+    
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "author_ID", nullable = false)
     private User authorID;
 
-    @Column(name="date")
-    private Date date;
+    @Enumerated(EnumType.STRING)
+    private ContentType contentType;
 
-    @Column(name="content")
-    private String content;
+    @Column(name = "time")
+    private Timestamp time;
 
-    // @Column(name = "picture_path")
-    // private String picturePath;
+    @ManyToMany
+    Set<User> read;
 
+    @Column(name = "content")
+    private String contentPath;
+
+    @Column(name ="parent")
+    private Long parent;
 }
