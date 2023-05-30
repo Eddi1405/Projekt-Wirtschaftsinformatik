@@ -1,0 +1,205 @@
+
+html{
+    height: 100%;
+    font-family: 'Segoe UI';
+    font-weight: bolder;
+    
+}
+
+
+body{
+    background-color: #e7fdfe;
+}
+
+.layout {
+    height: 100%;
+    width: 100%;
+
+    display: grid;
+  grid:
+    "header" auto
+    "main" 1fr
+    "footer" auto
+    / 1fr;
+  gap: 8px;
+  }
+  
+  
+.robot{
+    margin-right: 50px;
+    height: 150px;
+    background-color: #181e2f;
+    border-radius: 0px 0px 30px 0px;
+    float:left; display:inline; width: 70%;
+}
+
+.robot img{
+    margin:10px 0px 0px 140px;
+}
+
+
+.desc{
+   font-size: 35px;
+   color:#f6f8fa;
+   float:right;
+   margin:15px 100px 0px 30px;
+}
+
+.logo{
+    float:left; display:inline; width: 20%;
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.sent{
+    font-size: 130px;
+    color:#f6f8fa;
+    float:right;
+}
+
+
+
+.header { 
+    grid-area: header; 
+}
+
+.main {
+grid-area: main;
+height:450px;
+
+}
+
+
+.footer { grid-area: footer; 
+    background-color: #181e2f;
+    height:200px;
+}
+
+.main{
+    display:flex;
+   
+    justify-content: center;
+
+}
+
+.icons{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+
+button{
+    background-color: #e7fdfe;
+    border-radius: 50%;
+    background-size: 60px;
+    background-position: center;
+    background-repeat: no-repeat;
+    width:120px;
+    height: 120px;
+    margin:0 50px 20px 20px;
+}
+
+.hiddDiv{
+    font-size: 30px;
+    word-wrap: break-word;
+    display:none;
+}
+
+.contrastDiv > .hiddDiv{
+    padding-left: 20px;
+}
+
+.colorbDiv > .hiddDiv{
+    padding-left: 10px;
+}
+
+.contrast:hover + .hiddDiv{
+    display: block;
+} 
+.lang:hover + .hiddDiv {
+    display: block;
+}
+.signlang:hover + .hiddDiv{
+    display: block;
+}
+
+.fsize:hover + .hiddDiv{
+    display: block;
+}
+
+.colorb:hover + .hiddDiv{
+    display: block;
+}
+
+.txtspeech:hover + .hiddDiv{
+    display: block;
+}
+
+.eyetrack:hover + .hiddDiv{
+    display: block;
+}
+
+.contrast{
+    background-image: url("Icons/contr.png");
+}
+
+
+.lang{
+    background-image: url("Icons/lang.png");
+    margin-left:40px;
+}
+
+.signlang{
+    background-image: url("Icons/signlang.png");
+    margin-left:40px;
+}
+
+
+.fsize{
+    background-image: url("Icons/fsize.png");
+    
+}
+
+.colorb{
+    background-image: url("Icons/colorb.png");
+    margin-left:40px;
+}
+
+.txtspeech{
+    background-image: url("Icons/txtspeech.png");
+    margin-left:40px;
+}
+
+.eyetrack{
+    background-image: url("Icons/eyetrack.png");
+
+}
+
+.footer{
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 40px;
+}
+
+
+.footerDiv{
+    font-size: 60px;
+    color: #f6f8fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.arrow{
+    background-image: url("Icons/arrow.png");
+    height:70px;
+    width:70px;
+ 
+    border: none;
+    margin:10px 0 0 20px;
+}

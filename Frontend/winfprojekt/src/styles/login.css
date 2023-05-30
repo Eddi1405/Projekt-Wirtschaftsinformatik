@@ -1,0 +1,112 @@
+.dbody {
+    font-family: Segoe UI, bold;
+    margin: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container {
+    width: 700px;
+    margin-top: 100px;
+    text-align: center;
+    position: relative;
+    
+    
+  }
+
+  .bg{
+    background-color:  #191f2f;
+  }
+
+  .split-background {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    z-index: -1;
+  }
+
+  .dlogo {
+    width: 150px;
+    height: 100px;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  h1 {
+    text-align: left;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+    text-align: center;
+    margin-top: 10px;
+    z-index: 1;
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="password"] {
+    max-width: 300px;
+    width: 100%;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 10px;
+    text-align: center;
+    
+  }
+  
+  .dicons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .dicons figure {
+    margin: 10px;
+    text-align: center;
+  }
+  
+  .dicons img {
+    width: 70px;
+    height: 70px;
+    
+  }
+  
+  .dicons figcaption {
+    font-weight: bold;
+    margin-top: 5px;
+    font-size: 12px;
+    color: white;
+  }
+
+  .dicons figure {
+    font-weight: bold;
+    margin-top: -5px;
+    font-size: 12px;
+    color: white;
+  }
+  
+  .darrow {
+    text-align: right;
+    margin-top: -10px;
+    position: absolute;
+    top: 50%;
+    right: 18%;
+    transform: translateY(-50%);
+  }
+  
+  .darrow img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    filter: invert(100%); /* Farbe invertieren */
+  }
