@@ -1,6 +1,7 @@
 package thowl.wiprojekt.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.stereotype.Service;
 import thowl.wiprojekt.entity.Comment;
 import thowl.wiprojekt.entity.User;
@@ -24,18 +25,9 @@ public class CommentService {
         this.userRepository = userRepository;
     }
 
+
     public Comment createComment(Comment comment) {
-        User author = comment.getAuthorID();
-        if (author == null) {
-            // Handle the case where authorID is null
-            throw new IllegalArgumentException("AuthorID cannot be null");
-        }
         // Check if the author exists in the database
-        Optional<User> optionalAuthor = userRepository.findById(author.getId());
-        if (optionalAuthor.isEmpty()) {
-            throw new IllegalArgumentException("Invalid authorID");
-        }
-        comment.setAuthorID(optionalAuthor.get());
         return commentRepository.save(comment);
     }
 

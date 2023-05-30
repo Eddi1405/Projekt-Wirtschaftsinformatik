@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import thowl.wiprojekt.entity.User;
 import thowl.wiprojekt.entity.model.UserModelAssembler;
 import thowl.wiprojekt.errors.ResourceNotFoundException;
+import thowl.wiprojekt.errors.ThrowsInternal;
 import thowl.wiprojekt.objects.dto.PatchDto;
 import thowl.wiprojekt.repository.UserRepository;
 import thowl.wiprojekt.service.UserService;
 
 @Slf4j
+@ThrowsInternal
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {

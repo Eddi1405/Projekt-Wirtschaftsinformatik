@@ -13,6 +13,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 /**
  * Entity class to describe a comment.
@@ -31,6 +33,8 @@ public class Comment {
     @JoinColumn(name = "author_ID", nullable = false)
     private User authorID;
 
+
+    @CreationTimestamp
     @Column(name="date")
     private Date date;
 

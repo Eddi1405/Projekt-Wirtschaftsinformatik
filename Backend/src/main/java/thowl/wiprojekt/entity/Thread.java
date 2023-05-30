@@ -3,6 +3,8 @@ package thowl.wiprojekt.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.util.Date;
 import java.util.Set;
@@ -26,7 +28,7 @@ public class Thread {
     @Id
     private long id;
     
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "author_ID", nullable = false)
     private User authorID;
 
@@ -40,6 +42,7 @@ public class Thread {
     @Column(name = "content")
     private String content;
 
+    @CreationTimestamp
     @Column(name = "date")
     private Date date;
 
