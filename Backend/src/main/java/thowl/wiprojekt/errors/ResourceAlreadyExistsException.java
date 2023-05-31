@@ -6,8 +6,7 @@ package thowl.wiprojekt.errors;
  * @author Michael Hartmann
  * @version 30.04.2023
  */
-public class ResourceAlreadyExistsException extends RuntimeException implements
-		ProjectException{
+public class ResourceAlreadyExistsException extends DatabaseConflictException {
 
 	/**
 	 * Constructor of the class. The {@link Exception} will be instantiated

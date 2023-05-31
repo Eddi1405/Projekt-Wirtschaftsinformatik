@@ -33,6 +33,8 @@ import java.util.TreeSet;
 @ThrowsInternal
 public class MessagingController {
 
+
+
 	@Autowired
 	private ChatRepository chatRepo;
 
@@ -328,6 +330,14 @@ public class MessagingController {
 		}
 		response.setHeader("Warning", warn);
 		return response;
+	}
+
+	private String checkFile(String path) {
+
+		if ( !(path.matches("file:///")) ) {
+
+		}
+		return new String();
 	}
 
 }

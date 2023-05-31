@@ -54,6 +54,7 @@ public class ChatController {
 	}
 
 	// TODO null
+	// TODO check users
 
 	/**
 	 * Creates a new Chat.
@@ -64,7 +65,7 @@ public class ChatController {
 	 * @throws MalformedRequestException if the given {@link Chat} is null or
 	 * {@link Message}s were specified for the Chat to be created.
 	 */
-	@PostMapping(value = "/chats/create/")
+	@PostMapping(value = "/chats/create", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Chat addChat(@RequestBody Chat pChat) {
 		if (pChat == null) {
 			throw new MalformedRequestException("A chat must be specified.");
@@ -79,6 +80,25 @@ public class ChatController {
 		if (!pChat.getMessage().isEmpty()) {
 			throw new MalformedRequestException("A newly created chat should "
 					+ "not contain any messages.");
+		}
+		if (pChat.getUsers() != null) {
+			/*
+			 * The Users are retrieved from the database so that they may not
+			 *  be changed by this method.
+			 */
+			HashSet<User> users = new HashSet<>();
+			for (User iUser : pChat.getUsers()) {
+				/*
+				 * If a User does not exist an Exception is thrown.
+				 */
+				User lUser = userRepo.findById(iUser.getId()).orElseThrow( () -> {
+							return new AttributeDoesNotExistException("The "
+									+ "User with the ID " + iUser.getId() +
+									" does not exist.");
+						});
+				users.add(lUser);
+			}
+			pChat.setUsers(users);
 		}
 		Chat chat = chatRepo.save(pChat);
 		// Messages inside of this chat are not returned

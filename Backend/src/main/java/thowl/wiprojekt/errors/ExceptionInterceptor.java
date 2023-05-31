@@ -134,7 +134,7 @@ public class ExceptionInterceptor {
 	}
 
 	/**
-	 * Intercepts {@link ResourceAlreadyExistsException}s to return a code
+	 * Intercepts {@link DatabaseConflictException}s to return a code
 	 * <em>409 (conflict)</em>.
 	 *
 	 * @param e The intercepted {@link Exception}.
@@ -142,8 +142,8 @@ public class ExceptionInterceptor {
 	 */
 	@ResponseBody
 	@ResponseStatus(HttpStatus.CONFLICT)
-	@ExceptionHandler(ResourceAlreadyExistsException.class)
-	public String interceptExistingResource(ResourceAlreadyExistsException e) {
+	@ExceptionHandler(DatabaseConflictException.class)
+	public String interceptExistingResource(DatabaseConflictException e) {
 		this.logException(e, false);
 		return e.getMessage();
 	}
