@@ -9,12 +9,12 @@ export default function Login() {
 return (
 
 
-<body className="dbody">
+<body className="kgbody">
   <div className="container">
 
     
     <div className="split-background"></div>
-    <img src="images/logo.png" alt="Logo" className="dlogo"/>
+    <img src="images/logo.png" alt="Logo" className="kglogo"/>
     <h1>Die Experimentelle Lernplattform</h1>
     <div className ="bg">
     <div className="form-group">
@@ -23,7 +23,7 @@ return (
     <div className="form-group">
       <input type="password" id="password" name="password" placeholder="Passwort" required/>
     </div>
-    <div className="dicons">
+    <div className="kgicons">
       <figure>
         <img src="Icons/contr.png" alt="Icon 1"/>
         <figcaption>Kontrast</figcaption>
@@ -53,7 +53,7 @@ return (
         <figcaption>Augenverfolgung</figcaption>
       </figure>
     </div>
-    <div className="darrow">
+    <div className="kgarrow">
     <Link to="/setup">  <img src="Icons/arrow.png" alt="Pfeil"/></Link>
     </div>
     </div> 
