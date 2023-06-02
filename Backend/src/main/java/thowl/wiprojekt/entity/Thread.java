@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.util.Date;
 import java.util.Set;
@@ -35,15 +34,15 @@ public class Thread {
     @ManyToMany
     Set<Tag> tag;
 
-    @Column(name = "header")
+    @Column(name = "header", nullable = false)
     private String header;
 
     @Lob
-    @Column(name = "content")
+    @Column(name = "content", nullable = false)
     private String content;
 
     @CreationTimestamp
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
     private Date date;
 
     @Column(name = "picture_path")

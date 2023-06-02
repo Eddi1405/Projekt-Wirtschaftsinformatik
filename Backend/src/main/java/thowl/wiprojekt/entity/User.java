@@ -1,7 +1,5 @@
 package thowl.wiprojekt.entity;
 
-import java.util.Set;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -14,7 +14,6 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
 /**
  * Entity class to describe a comment.
@@ -35,10 +34,10 @@ public class Comment {
 
 
     @CreationTimestamp
-    @Column(name="date")
+    @Column(name="date", nullable = false)
     private Date date;
 
-    @Column(name="content")
+    @Column(name="content", nullable = false)
     private String content;
 
     // @Column(name = "picture_path")

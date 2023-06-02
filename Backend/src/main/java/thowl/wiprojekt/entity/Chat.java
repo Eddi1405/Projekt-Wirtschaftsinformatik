@@ -12,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import thowl.wiprojekt.objects.ChatType;
 
@@ -26,15 +25,14 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "chatName")
-    @NonNull
+    @Column(name = "chatName", nullable = false)
     private String chatName;
 
     @Column(name = "theme")
     private String theme;
 
     @Enumerated(EnumType.STRING)
-    @NonNull
+    @Column(nullable = false)
     private ChatType chatType;
 
     @ManyToMany

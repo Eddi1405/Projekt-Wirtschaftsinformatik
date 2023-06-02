@@ -1,7 +1,6 @@
 package thowl.wiprojekt.entity;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -17,7 +16,6 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import thowl.wiprojekt.objects.ContentType;
 
@@ -37,17 +35,16 @@ public class Message {
     private User authorID;
 
     @Enumerated(EnumType.STRING)
-    @NonNull
+    @Column(nullable = false)
     private ContentType contentType;
 
-    @Column(name = "time")
+    @Column(name = "time", nullable = false)
     private Timestamp time;
 
     @ManyToMany
     Set<User> read;
 
-    @Column(name = "content")
-    @NonNull
+    @Column(name = "content", nullable = false)
     private String contentPath;
 
     @Column(name ="parent")
