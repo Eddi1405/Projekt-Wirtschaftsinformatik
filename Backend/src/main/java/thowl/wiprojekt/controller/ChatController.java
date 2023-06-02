@@ -13,6 +13,7 @@ import thowl.wiprojekt.repository.UserRepository;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * {@link org.springframework.stereotype.Controller} giving access to
@@ -51,6 +52,23 @@ public class ChatController {
 		// Messages inside of this chat are not returned
 		chat.setMessage(new HashSet<Message>());
 		return chat;
+	}
+
+	@GetMapping(value = "/chatsbyuser/{userID}", produces =
+			MediaType.APPLICATION_JSON_VALUE)
+	public Set<Chat> getChatsOfUser(long userID) {
+		// TODO maybe newest messages?
+		TreeSet<Chat> chats = new TreeSet<>((a,b) -> {
+			String aName = a.getChatName();
+			String bName = b.getChatName();
+			int comparison = aName.compareTo(bName);
+			return (comparison > 0) ? 1 : (comparison < 0) ? -1 : 0;
+		});
+		for (Chat iChat : chats) {
+			// Messages inside of this chat are not returned
+			iChat.setMessage(new HashSet<>());
+		}
+		return chats;
 	}
 
 	// TODO null
