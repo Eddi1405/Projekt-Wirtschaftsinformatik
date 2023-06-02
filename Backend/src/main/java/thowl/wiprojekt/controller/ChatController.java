@@ -54,16 +54,23 @@ public class ChatController {
 		return chat;
 	}
 
+	// TODO comments
+
 	@GetMapping(value = "/chatsbyuser/{userID}", produces =
 			MediaType.APPLICATION_JSON_VALUE)
-	public Set<Chat> getChatsOfUser(long userID) {
+	public Set<Chat> getChatsOfUser(@PathVariable long userID) {
+		User user = userRepo.findById(userID).orElseThrow(() -> {
+			return new ResourceNotFoundException("User with the ID " + userID +
+					" does not exist.");
+		});
 		// TODO maybe newest messages?
-		TreeSet<Chat> chats = new TreeSet<>((a,b) -> {
+		TreeSet<Chat> chats = new TreeSet<>( (a,b) -> {
 			String aName = a.getChatName();
 			String bName = b.getChatName();
 			int comparison = aName.compareTo(bName);
 			return (comparison > 0) ? 1 : (comparison < 0) ? -1 : 0;
 		});
+		chats.addAll(chatRepo.findByUsers_id(userID));
 		for (Chat iChat : chats) {
 			// Messages inside of this chat are not returned
 			iChat.setMessage(new HashSet<>());
