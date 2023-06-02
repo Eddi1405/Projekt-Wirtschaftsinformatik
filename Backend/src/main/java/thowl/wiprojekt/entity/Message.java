@@ -17,6 +17,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import thowl.wiprojekt.objects.ContentType;
 
@@ -30,13 +31,13 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "author_ID", nullable = false)
     private User authorID;
 
     @Enumerated(EnumType.STRING)
+    @NonNull
     private ContentType contentType;
 
     @Column(name = "time")
@@ -46,6 +47,7 @@ public class Message {
     Set<User> read;
 
     @Column(name = "content")
+    @NonNull
     private String contentPath;
 
     @Column(name ="parent")
