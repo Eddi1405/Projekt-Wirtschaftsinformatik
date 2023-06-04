@@ -213,7 +213,7 @@ public class MessagingController {
 	 *         </li>
 	 *         <li>
 	 *             If the User is logged in and not registered with the chat
-	 *             403 error will be thrown.
+	 *             a 403 error will be thrown.
 	 *         </li>
 	 *     </ol>
 	 * </ul>

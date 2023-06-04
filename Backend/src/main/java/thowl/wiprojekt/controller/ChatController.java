@@ -56,20 +56,36 @@ public class ChatController {
 
 	// TODO comments
 
+	/**
+	 * Returns the {@link Chat} objects a given {@link User} is registered with.
+	 *
+	 * @param userID The ID of the {@link User} whose {@link Chat}s should be
+	 * retrieved
+	 * @return The {@link Chat}s the {@link User} is registered with.
+	 */
 	@GetMapping(value = "/chatsbyuser/{userID}", produces =
 			MediaType.APPLICATION_JSON_VALUE)
 	public Set<Chat> getChatsOfUser(@PathVariable long userID) {
+		// User is not actually used but may be used later. 404 is given if
+		// the User does not exist
 		User user = userRepo.findById(userID).orElseThrow(() -> {
 			return new ResourceNotFoundException("User with the ID " + userID +
 					" does not exist.");
 		});
 		// TODO maybe newest messages?
+		/*
+		 * The Chats are sorted alphabetically by their name.
+		 */
 		TreeSet<Chat> chats = new TreeSet<>( (a,b) -> {
 			String aName = a.getChatName();
 			String bName = b.getChatName();
 			int comparison = aName.compareTo(bName);
 			return (comparison > 0) ? 1 : (comparison < 0) ? -1 : 0;
 		});
+		/*
+		 * The Chats are added to the sorted Set. Only those the specified
+		 * User is registered with are retrieved.
+		 */
 		chats.addAll(chatRepo.findByUsers_id(userID));
 		for (Chat iChat : chats) {
 			// Messages inside of this chat are not returned
@@ -90,6 +106,7 @@ public class ChatController {
 	 * @throws MalformedRequestException if the given {@link Chat} is null or
 	 * {@link Message}s were specified for the Chat to be created.
 	 */
+	@UpholdsIntegrity
 	@PostMapping(value = "/chats/create", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Chat addChat(@RequestBody Chat pChat) {
 		if (pChat == null) {
@@ -126,6 +143,7 @@ public class ChatController {
 			pChat.setUsers(users);
 		}
 		Chat chat = chatRepo.save(pChat);
+		// TODO ??
 		// Messages inside of this chat are not returned
 		chat.setMessage(new HashSet<Message>());
 		return chat;
