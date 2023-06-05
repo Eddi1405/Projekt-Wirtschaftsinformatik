@@ -4,7 +4,7 @@
 
 import React from "react";
 import "./../../styles/setup.css";
-
+import { Link } from "react-router-dom";
 export default function Setup() {
 
   var contValue = 0;
@@ -217,7 +217,7 @@ export default function Setup() {
         <div className="footer"> 
         <div className="footerDiv">Die Experimentelle Plattform
         </div>
-        <button type="button" className="arrow"></button>
+        <Link to="/main"> <button type="button" className="arrow"></button> </Link>
         </div>
       </section>
     </div>

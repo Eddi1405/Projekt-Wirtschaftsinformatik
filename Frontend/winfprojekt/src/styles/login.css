@@ -1,4 +1,4 @@
-.dbody {
+.kgbody {
     font-family: Segoe UI, bold;
     margin: 0;
     height: 100%;
@@ -30,7 +30,7 @@
     z-index: -1;
   }
 
-  .dlogo {
+  .kglogo {
     width: 150px;
     height: 100px;
     margin-right: 10px;
@@ -63,39 +63,39 @@
     
   }
   
-  .dicons {
+  .kgicons {
     display: flex;
     justify-content: center;
     align-items: center;
     
   }
   
-  .dicons figure {
+  .kgicons figure {
     margin: 10px;
     text-align: center;
   }
   
-  .dicons img {
+  .kgicons img {
     width: 70px;
     height: 70px;
     
   }
   
-  .dicons figcaption {
+  .kgicons figcaption {
     font-weight: bold;
     margin-top: 5px;
     font-size: 12px;
     color: white;
   }
 
-  .dicons figure {
+  .kgicons figure {
     font-weight: bold;
     margin-top: -5px;
     font-size: 12px;
     color: white;
   }
   
-  .darrow {
+  .kgarrow {
     text-align: right;
     margin-top: -10px;
     position: absolute;
@@ -104,7 +104,7 @@
     transform: translateY(-50%);
   }
   
-  .darrow img {
+  .kgarrow img {
     width: 50px;
     height: 50px;
     cursor: pointer;

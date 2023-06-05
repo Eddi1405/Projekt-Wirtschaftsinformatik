@@ -25,13 +25,14 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "chatName")
+    @Column(name = "chatName", nullable = false)
     private String chatName;
 
     @Column(name = "theme")
     private String theme;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private ChatType chatType;
 
     @ManyToMany

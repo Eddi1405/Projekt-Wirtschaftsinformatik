@@ -1,7 +1,6 @@
 package thowl.wiprojekt.entity;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -30,22 +29,22 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "author_ID", nullable = false)
     private User authorID;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private ContentType contentType;
 
-    @Column(name = "time")
+    @Column(name = "time", nullable = false)
     private Timestamp time;
 
     @ManyToMany
     Set<User> read;
 
-    @Column(name = "content")
+    @Column(name = "content", nullable = false)
     private String contentPath;
 
     @Column(name ="parent")

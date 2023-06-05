@@ -49,6 +49,16 @@ public class IllegalEntityException extends IllegalArgumentException
 		entity = failedEntity;
 	}
 
+	/**
+	 * Constructor of the class.
+	 *
+	 * @param msg The message this {@link Exception} should have.
+	 * @param cause The cause of this {@link Exception}.
+	 */
+	public IllegalEntityException(String msg, Throwable cause) {
+		super(msg, cause);
+	}
+
 
 	/**
 	 * Returns a {@link String} representation of this {@link Exception}.
