@@ -94,9 +94,6 @@ public class ChatController {
 		return chats;
 	}
 
-	// TODO null
-	// TODO check users
-
 	/**
 	 * Creates a new Chat.
 	 *
