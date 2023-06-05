@@ -173,7 +173,7 @@ public class MessagingController {
 	 * @param chat The {@link Chat} the {@link Message} is a part of.
 	 */
 	@Transactional
-	private void saveMessage(Message msg, Chat chat) {
+	protected void saveMessage(Message msg, Chat chat) {
 		messageRepo.save(msg);
 		// The message is added and the Chat saved too
 		Set<Message> msgs = chat.getMessage();
