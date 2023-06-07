@@ -39,6 +39,7 @@ public class ChatConfig implements WebSocketMessageBrokerConfigurer {
 	 */
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry reg) {
+		reg.addEndpoint("/connection");
 		reg.addEndpoint("/connection").withSockJS();
 	}
 
