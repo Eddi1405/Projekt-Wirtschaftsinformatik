@@ -4,7 +4,7 @@ import { BrowserRouter,
 
 import Setup from './components/setup/setup'
 import Login from './components/login/login'
-import Main from './components/mainpage/main'
+import Main from './components/mainpage/mainpage'
 
 const Index = () => {
   return (
