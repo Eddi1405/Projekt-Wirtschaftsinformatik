@@ -1,7 +1,5 @@
 package thowl.wiprojekt.entity;
 
-import java.util.Set;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,7 +35,7 @@ public class User {
     private String email;
 
     @Column(name = "dark_mode")
-    private boolean darmode = false;
+    private boolean darkmode = false;
 
     @Column(name = "de_en")
     private boolean deEn = false;

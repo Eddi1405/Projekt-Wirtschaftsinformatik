@@ -10,15 +10,18 @@ import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import thowl.wiprojekt.entity.Chat;
 import thowl.wiprojekt.entity.Message;
 import thowl.wiprojekt.entity.User;
 import thowl.wiprojekt.errors.*;
 import thowl.wiprojekt.objects.ChatType;
+import thowl.wiprojekt.objects.ContentType;
 import thowl.wiprojekt.objects.Role;
 import thowl.wiprojekt.repository.ChatRepository;
 import thowl.wiprojekt.repository.MessageRepository;
 import thowl.wiprojekt.repository.UserRepository;
+import thowl.wiprojekt.service.FileValidator;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -43,6 +46,9 @@ public class MessagingController {
 
 	@Autowired
 	private UserRepository userRepo;
+
+	@Autowired
+	private FileValidator validator;
 
 	// TODO get messages after the fact
 	// TODO extensively comment
@@ -131,11 +137,14 @@ public class MessagingController {
 
 	@SendTo("/topic/{chatID}")
 	@MessageMapping("{chatID}")
-	public Message forwardMessage(@PathVariable long chatID, Message msg,
-			HttpServletResponse response) {
+	public Message forwardMessage(@PathVariable long chatID,
+			@RequestBody Message msg, HttpServletResponse response) {
 		if (msg == null) {
 			throw new MalformedRequestException("Message must be given.");
 		}
+		/*
+		 * This needs to be checked because of the next steps. DO NOT DELETE.
+		 */
 		else if (msg.getAuthorID() == null) {
 			throw new MalformedRequestException("Author must be specified.");
 		}
@@ -147,7 +156,6 @@ public class MessagingController {
 			return new ResourceNotFoundException("Chat with the id " + chatID
 					+ "does not exist.");
 		});
-		// TODO long instead of User
 		/*
 		 * If the User does not exist an Exception will be thrown. A 404 is
 		 * not thrown to not give the client the false idea that a Chat could
@@ -160,6 +168,20 @@ public class MessagingController {
 		 * The validity of the action is checked.
 		 */
 		response = this.handleUser(user, chat, response);
+		/*
+		 * Check because next steps. DO NOT DELETE.
+		 */
+		if (msg.getContentType() == null || msg.getContentPath() == null) {
+			throw new IllegalEntityException("Attribute that may not be null "
+					+ "was null.", msg);
+		}
+		/*
+		 * Check validity of file path.
+		 */
+		if (  !(msg.getContentType().equals(ContentType.FILE) &&
+				validator.isValidPath(msg.getContentPath()) )  ) {
+			throw new IllegalEntityException("Invalid file path.", msg);
+		}
 		msg.setAuthorID(user);
 		this.saveMessage(msg, chat);
 		return msg;
@@ -173,7 +195,8 @@ public class MessagingController {
 	 * @param chat The {@link Chat} the {@link Message} is a part of.
 	 */
 	@Transactional
-	private void saveMessage(Message msg, Chat chat) {
+	@UpholdsIntegrity
+	protected void saveMessage(Message msg, Chat chat) {
 		messageRepo.save(msg);
 		// The message is added and the Chat saved too
 		Set<Message> msgs = chat.getMessage();
@@ -213,7 +236,7 @@ public class MessagingController {
 	 *         </li>
 	 *         <li>
 	 *             If the User is logged in and not registered with the chat
-	 *             403 error will be thrown.
+	 *             a 403 error will be thrown.
 	 *         </li>
 	 *     </ol>
 	 * </ul>
