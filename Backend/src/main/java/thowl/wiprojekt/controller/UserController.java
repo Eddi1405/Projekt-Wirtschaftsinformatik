@@ -14,6 +14,8 @@ import thowl.wiprojekt.objects.dto.PatchDto;
 import thowl.wiprojekt.repository.UserRepository;
 import thowl.wiprojekt.service.UserService;
 
+import java.util.List;
+
 @Slf4j
 @ThrowsInternal
 @RestController
@@ -46,6 +48,11 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         return ResponseEntity.ok(user);
+    }
+
+    @GetMapping("/allUsers")
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.ok(UR.findAll());
     }
 
     /**
