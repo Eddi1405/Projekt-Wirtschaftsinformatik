@@ -12,12 +12,6 @@ body.active .page .toolbar{
     margin: 0;
   }
 
-  body{
-    background-color: green;
-  }
-
- 
-  
   .navRobot{
     display: flex;
     justify-content: left;
@@ -82,6 +76,7 @@ body.active .page .toolbar{
     
    /* background: #e7fbfe; */
    background-color:#e7fbfe;
+   
   }
   
   nav ul {
@@ -247,3 +242,90 @@ body.active .page .toolbar{
     padding-right: 5%;
 }
 
+
+/*Büsra Rasgele*/
+#bereiche{
+  background-color: black;
+  padding-top: 30px;
+}
+
+
+#bereich {
+  border: 3px solid rgb(212, 210, 210);
+  background-color: #FFFF;
+  width: 200px;
+  height: 250px;
+  padding: 10px;
+  margin:30px;
+  
+  position: relative;
+  right: -1cm;
+
+}
+h3 {
+  font-size: 17px;
+  bottom: 5px;
+}
+#bereich1 {
+  border: 3px solid rgb(212, 210, 210);
+  background-color: #FFFF;
+  width: 200px;
+  height:50px;
+  padding: 10px;
+  margin:20px;
+ 
+  position: relative;
+  right: -1cm;
+  bottom: 0.2cm;
+}
+
+#bereich2 {
+border: 3px solid rgb(212, 210, 210);
+background-color: #FFFF;
+bottom:400px;
+width: 600px;
+height: 350px;
+padding: 10px;
+margin:90px 0 0 0;
+position: relative;
+right: -10cm;
+
+
+}
+
+
+
+#bereich3 {
+border: 3px solid rgb(212, 210, 210);
+background-color: #FFFF;
+bottom:320px;
+width: 300px;
+height: 20px;
+padding: 10px;
+
+position: relative;
+left:15cm;
+}
+
+ 
+h2 {
+font-size: 17px;
+}
+
+/*Orte********************/
+
+#orte{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+}
+
+
+.ortBereich{
+  border: 3px solid rgb(212, 210, 210);
+  background-color: #FFFF;
+  width: 200px;
+  height: 100px;
+  padding: 10px;
+}

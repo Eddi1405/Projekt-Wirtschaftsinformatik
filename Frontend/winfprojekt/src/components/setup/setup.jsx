@@ -71,14 +71,14 @@ export default function Setup() {
 
     //Blaublindheit(Tritanopie)
     if(colorbValue == 0){
-      body.style.backgroundColor = "#e6e6e6";
-      main.style.backgroundColor= "#e6e6e6";
-      header.style.backgroundColor = "#181e2f";
-      footer.style.backgroundColor= "#181e2f";
+      body.style.backgroundColor = "#ffb7c1";
+      main.style.backgroundColor= "#ffb7c1";
+      header.style.backgroundColor = "#00868f";
+      footer.style.backgroundColor= "#00868f";
 
       for (let i = 0; i < buttons.length; i++) {
         let button = buttons[i];
-        button.style.backgroundColor= "#e6e6e6";
+        button.style.backgroundColor= "#ffb7c1";
     }
 
       var colorbdiv = document.getElementById('colorb');
@@ -88,14 +88,14 @@ export default function Setup() {
 
     //Grünblindheit
     else if(colorbValue == 1){
-      body.style.backgroundColor = "#ff7676";
-      main.style.backgroundColor= "#ff7676";
+      body.style.backgroundColor = "#febe3a";
+      main.style.backgroundColor= "#febe3a";
       header.style.backgroundColor = "#181e2f";
       footer.style.backgroundColor= "#181e2f";
 
       for (let i = 0; i < buttons.length; i++) {
         let button = buttons[i];
-        button.style.backgroundColor= "#ff7676";
+        button.style.backgroundColor= "#febe3a";
     }
 
       var colorbdiv = document.getElementById('colorb');
@@ -105,14 +105,14 @@ export default function Setup() {
 
     //Rotblindheit
     else if(colorbValue == 2){
-      body.style.backgroundColor = "#3399ff";
-      main.style.backgroundColor= "#3399ff";
+      body.style.backgroundColor = "#e6cb14";
+      main.style.backgroundColor= "#e6cb14";
       header.style.backgroundColor = "#181e2f";
       footer.style.backgroundColor= "#181e2f";
 
       for (let i = 0; i < buttons.length; i++) {
         let button = buttons[i];
-        button.style.backgroundColor= "#3399ff";
+        button.style.backgroundColor= "#e6cb14";
     }
 
       var colorbdiv = document.getElementById('colorb');
@@ -167,7 +167,7 @@ export default function Setup() {
           </div>
           
           <div className="logo">
-            <img src="images/logo.png" width="180" height="120" />
+            <img src="images/divlab.png" width="180" height="120" />
           </div>
         </div>
 
