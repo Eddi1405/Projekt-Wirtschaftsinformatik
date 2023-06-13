@@ -7,10 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import thowl.wiprojekt.entity.Comment;
 import thowl.wiprojekt.entity.Thread;
+import thowl.wiprojekt.entity.User;
 import thowl.wiprojekt.errors.ThrowsInternal;
 import thowl.wiprojekt.service.ThreadService;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Slf4j
@@ -56,5 +58,10 @@ public class ThreadController {
     public ResponseEntity<List<Thread>> getAllThreads() {
         List<Thread> threads = TS.getAllThreads();
         return new ResponseEntity<>(threads, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}")
+    public Thread updateThreadFields(@PathVariable long id, @RequestBody Map<String,Object> fields){
+        return TS.updateThreadsByFields(id,fields);
     }
 }

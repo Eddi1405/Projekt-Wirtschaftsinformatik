@@ -4,12 +4,17 @@ package thowl.wiprojekt.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 import thowl.wiprojekt.entity.Comment;
 import thowl.wiprojekt.entity.Thread;
+import thowl.wiprojekt.entity.User;
 import thowl.wiprojekt.repository.TagRepository;
 import thowl.wiprojekt.repository.ThreadRepository;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 
 @Slf4j
@@ -45,6 +50,22 @@ public class ThreadService {
 
     public List<Thread> getAllThreads() {
         return threadRepository.findAll();
+    }
+
+    public Thread updateThreadsByFields(long id, Map<String, Object> fields) {
+        Optional<Thread> existingThread = threadRepository.findById(id);
+
+        if(existingThread.isPresent()){
+            fields.forEach((key,value)->{
+                Field field = ReflectionUtils.findField(User.class,key);
+                assert field != null;
+                field.setAccessible(true);
+
+                ReflectionUtils.setField(field,existingThread.get(),value);
+            });
+            return threadRepository.save(existingThread.get());
+        }
+        return null;
     }
 
 }

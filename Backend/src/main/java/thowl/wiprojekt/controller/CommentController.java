@@ -14,6 +14,8 @@ import thowl.wiprojekt.repository.UserRepository;
 import thowl.wiprojekt.service.CommentService;
 
 import java.util.List;
+import java.util.Map;
+
 @Slf4j
 @RestController
 @ThrowsInternal
@@ -65,5 +67,11 @@ public class CommentController {
           List<Comment> comments = commentService.getAllComments();
           return new ResponseEntity<>(comments, HttpStatus.OK);
      }
+
+     @PatchMapping("/{id}")
+     public Comment updateCommentFields(@PathVariable long id,@RequestBody Map<String,Object> fields){
+          return commentService.updateCommentByFields(id,fields);
+     }
+
 }
 

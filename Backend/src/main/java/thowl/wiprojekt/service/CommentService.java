@@ -3,13 +3,16 @@ package thowl.wiprojekt.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 import thowl.wiprojekt.entity.Comment;
 import thowl.wiprojekt.entity.User;
 import thowl.wiprojekt.errors.ResourceNotFoundException;
 import thowl.wiprojekt.repository.CommentRepository;
 import thowl.wiprojekt.repository.UserRepository;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -61,5 +64,21 @@ public class CommentService {
 
     public List<Comment> getAllComments() {
         return commentRepository.findAll();
+    }
+
+    public Comment updateCommentByFields(long id, Map<String, Object> fields) {
+        Optional<Comment> existingComment = commentRepository.findById(id);
+
+        if(existingComment.isPresent()){
+            fields.forEach((key,value)->{
+                Field field = ReflectionUtils.findField(User.class,key);
+                assert field != null;
+                field.setAccessible(true);
+
+                ReflectionUtils.setField(field,existingComment.get(),value);
+            });
+            return commentRepository.save(existingComment.get());
+        }
+        return null;
     }
 }
