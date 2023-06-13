@@ -11,6 +11,7 @@ import thowl.wiprojekt.entity.model.UserModelAssembler;
 import thowl.wiprojekt.errors.ResourceNotFoundException;
 import thowl.wiprojekt.errors.ThrowsInternal;
 import thowl.wiprojekt.objects.dto.PatchDto;
+import thowl.wiprojekt.objects.dto.UserDTO;
 import thowl.wiprojekt.repository.UserRepository;
 import thowl.wiprojekt.service.UserService;
 
