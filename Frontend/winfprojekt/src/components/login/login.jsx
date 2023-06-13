@@ -2,19 +2,40 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import "./../../styles/login.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
+const server = axios.create({
+  baseURL: "https://jsonplaceholder.typicode.com/users" 
+});
 
 export default function Login() {
 
+
+
+  function createPost() {
+
+
+    
+    axios.get(`https://jsonplaceholder.typicode.com/users`)
+      .then(res => {
+        const persons = res.data;
+        console.log(persons);
+      })
+
+     
+  }
+
+ 
 
 return (
 
 
 <body className="kgbody">
   <div className="container">
-
+  <button onClick={createPost} />
     
     <div className="split-background"></div>
-    <img src="images/logo.png" alt="Logo" className="kglogo"/>
+    <img src="images/divlab.png" alt="Logo" className="kglogo"/>
     <h1>Die Experimentelle Lernplattform</h1>
     <div className ="bg">
     <div className="form-group">
@@ -55,6 +76,7 @@ return (
     </div>
     <div className="kgarrow">
     <Link to="/setup">  <img src="Icons/arrow.png" alt="Pfeil"/></Link>
+
     </div>
     </div> 
   </div>
