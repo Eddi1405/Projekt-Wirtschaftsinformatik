@@ -72,14 +72,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-messaging</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-websocket</artifactId>
-		</dependency>
+			<
 	</dependencies>
-
 
 	<build>
 		<plugins>
@@ -90,4 +84,10 @@
 		</plugins>
 	</build>
 
+	<distributionManagement>
+		<repository>
+			<id>your-repo-id</id>
+			<url>http://your-repo-url</url>
+		</repository>
+	</distributionManagement>
 </project>
