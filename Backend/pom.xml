@@ -92,7 +92,7 @@
 	
 	<distributionManagement>
 		<repository>
-			<id>PWI</id>
+			<id>Projekt-Wirtschaftsinformatik</id>
 			<url>https://github.com/Eddi1405/Projekt-Wirtschaftsinformatik.git</url>
 		</repository>
 	</distributionManagement>
