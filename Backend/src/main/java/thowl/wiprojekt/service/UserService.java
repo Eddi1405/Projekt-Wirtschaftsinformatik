@@ -1,6 +1,7 @@
 package thowl.wiprojekt.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.util.ReflectionUtils;
 import thowl.wiprojekt.entity.User;
 import thowl.wiprojekt.errors.ResourceNotFoundException;
 import thowl.wiprojekt.objects.LearningType;
@@ -9,7 +10,9 @@ import thowl.wiprojekt.repository.UserRepository;
 
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.security.SecureRandom;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -71,4 +74,21 @@ public class UserService {
             throw new ResourceNotFoundException("User not found with id: " + id);
         }
     }
+
+    public User updateUserByFields(long id, Map<String, Object> fields) {
+        Optional<User> existingUser = UJR.findById(id);
+
+        if(existingUser.isPresent()){
+        fields.forEach((key,value)->{
+           Field field = ReflectionUtils.findField(User.class,key);
+            assert field != null;
+            field.setAccessible(true);
+
+           ReflectionUtils.setField(field,existingUser.get(),value);
+        });
+        return UJR.save(existingUser.get());
+    }
+        return null;
+    }
+
 }

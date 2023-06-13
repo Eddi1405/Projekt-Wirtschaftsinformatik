@@ -16,6 +16,7 @@ import thowl.wiprojekt.repository.UserRepository;
 import thowl.wiprojekt.service.UserService;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @ThrowsInternal
@@ -105,6 +106,11 @@ public class UserController {
         } else {
             throw new ResourceNotFoundException("Resource does not exist");
         }
+    }
+
+    @PatchMapping("/{id}")
+    public User updateUserFields(@PathVariable long id,@RequestBody Map<String,Object> fields){
+        return US.updateUserByFields(id,fields);
     }
 }
 
