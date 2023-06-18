@@ -1,11 +1,10 @@
 package thowl.wiprojekt.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.messaging.handler.annotation.Header;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.handler.annotation.*;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,11 +31,13 @@ import java.util.TreeSet;
  *
  * @version 26.05.2023
  */
-@Controller
 @ThrowsInternal
+@Slf4j
+@Controller
 public class MessagingController {
 
 
+	// TODO replace HTTPServletResponse
 
 	@Autowired
 	private ChatRepository chatRepo;
@@ -68,7 +69,6 @@ public class MessagingController {
 	 * parameter 0 will result in all messages being returned.
 	 * @param mTime
 	 * @param userID The ID of the {@link User} the request is made for.
-	 * @param response The response sent by the server.
 	 * @return A collection of messages from this chat.
 	 *
 	 * @throws RestAuthenticationException if an anonymous {@link User} tries
@@ -83,11 +83,11 @@ public class MessagingController {
 	 * specified ID does not exist.
 	 */
 	@SubscribeMapping({"/topic/{chatID}"})
-	public Set<Message> subscribeTo(@PathVariable long chatID,
-			@Header long num, @Header String mTime, @Header Long userID,
-			HttpServletResponse response) {
+	public Set<Message> subscribeTo(@DestinationVariable long chatID,
+			@Header long num, @Header String mTime, @Header Long userID) {
+		log.info("Subscription event is being processed.");
 		if (userID == null) {
-			throw new MalformedRequestException("Field 'user' must be "
+			throw new MalformedRequestException("Field 'userID' must be "
 					+ "specified");
 		}
 		/*
@@ -123,7 +123,7 @@ public class MessagingController {
 		 * The validity of the request is checked and the server's reaction
 		 * to the request are defined.
 		 */
-		response = this.handleUser(user, chat, response);
+//		response = this.handleUser(user, chat, response);
 		// TODO messages
 		if (num == 0) {
 			messages.addAll(chat.getMessage());
@@ -134,11 +134,13 @@ public class MessagingController {
 	// TODO clone
 	// TODO database validation
 	// TODO chat validation
+	// TODO actual error handling
 
 	@SendTo("/topic/{chatID}")
-	@MessageMapping("{chatID}")
-	public Message forwardMessage(@PathVariable long chatID,
-			@RequestBody Message msg, HttpServletResponse response) {
+	@MessageMapping("/{chatID}")
+	public Message forwardMessage(@DestinationVariable long chatID,
+			@Payload Message msg) {
+		log.info("Processing send event");
 		if (msg == null) {
 			throw new MalformedRequestException("Message must be given.");
 		}
@@ -167,7 +169,7 @@ public class MessagingController {
 		/*
 		 * The validity of the action is checked.
 		 */
-		response = this.handleUser(user, chat, response);
+//		response = this.handleUser(user, chat, response);
 		/*
 		 * Check because next steps. DO NOT DELETE.
 		 */
@@ -353,14 +355,6 @@ public class MessagingController {
 		}
 		response.setHeader("Warning", warn);
 		return response;
-	}
-
-	private String checkFile(String path) {
-
-		if ( !(path.matches("file:///")) ) {
-
-		}
-		return new String();
 	}
 
 }

@@ -14,7 +14,6 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
  */
 @Configuration
 @EnableWebSocketMessageBroker
-@Controller
 public class ChatConfig implements WebSocketMessageBrokerConfigurer {
 
 	/*
@@ -39,8 +38,8 @@ public class ChatConfig implements WebSocketMessageBrokerConfigurer {
 	 */
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry reg) {
-		reg.addEndpoint("/connection");
-		reg.addEndpoint("/connection").withSockJS();
+//		reg.addEndpoint("/connection").setAllowedOrigins("*");
+		reg.addEndpoint("/connection").setAllowedOrigins("*").withSockJS();
 	}
 
 	/**
@@ -55,12 +54,13 @@ public class ChatConfig implements WebSocketMessageBrokerConfigurer {
 		 * Trailing slash is used because it would get added automatically / for
 		 * consistency.
 		 */
-		reg.enableSimpleBroker("/topic/");
+		reg.enableSimpleBroker("/topic");
 		/*
 		 * Note that while the broker prefix has to be specified when using
 		 * @SendTo, this is not the case for the following prefix and
 		 * @MessageMapping.
 		 */
-		reg.setApplicationDestinationPrefixes("/chat/");
+		reg.setApplicationDestinationPrefixes("/chat", "/topic");
+//		reg.setApplicationDestinationPrefixes("/chat");
 	}
 }
