@@ -2,6 +2,7 @@ package thowl.wiprojekt;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
+import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
@@ -11,7 +12,10 @@ import org.springframework.web.socket.sockjs.client.SockJsClient;
 import org.springframework.web.socket.sockjs.client.Transport;
 import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 import thowl.wiprojekt.entity.Message;
+import thowl.wiprojekt.entity.User;
+import thowl.wiprojekt.objects.ContentType;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -67,16 +71,34 @@ public class WebSocketTest {
 //				"topic/topic/1",
 //				new DebugSessionHandler());
 //		log.info(subb.getSubscriptionId());
+		StompHeaders headers = new StompHeaders();
+		headers.add("destination", "/topic/1");
+		headers.add("num", "0");
+		headers.add("mTime", "2023-07-01");
+		headers.add("userID", "1");
 		StompSession.Subscription sub =session.subscribe(
-						"/topic/topic/1",
+//						"/topic/1",
+				headers,
 				new DebugSessionHandler());
 		log.info(sub.getSubscriptionId());
 		Message msg = new Message();
+		msg.setContentType(ContentType.TEXT);
 		msg.setContentPath("hello, this is a message");
+		User user = new User();
+		user.setId(1);
+		user.setUsername("Steve");
+		msg.setAuthorID(user);
+		msg.setTime(new Timestamp(System.currentTimeMillis()));
 		session.send("/chat/1",
 				msg);
 		Message msg2 = new Message();
+		msg2.setContentType(ContentType.TEXT);
 		msg2.setContentPath("hello, this is a message");
+		User user2 = new User();
+		user2.setId(1);
+		user2.setUsername("Steve");
+		msg2.setAuthorID(user2);
+		msg2.setTime(new Timestamp(System.currentTimeMillis()));
 //		sub.addReceiptTask(() -> {
 //			log.info("sending");
 //			session.send("/chat/1", msg2);

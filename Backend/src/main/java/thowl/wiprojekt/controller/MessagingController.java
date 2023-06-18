@@ -1,6 +1,7 @@
 package thowl.wiprojekt.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -82,7 +83,7 @@ public class MessagingController {
 	 * @throws ResourceNotFoundException if the {@link Chat} with the
 	 * specified ID does not exist.
 	 */
-	@SubscribeMapping({"/topic/{chatID}"})
+	@SubscribeMapping({"/{chatID}"})
 	public Set<Message> subscribeTo(@DestinationVariable long chatID,
 			@Header long num, @Header String mTime, @Header Long userID) {
 		log.info("Subscription event is being processed.");
@@ -128,6 +129,7 @@ public class MessagingController {
 		if (num == 0) {
 			messages.addAll(chat.getMessage());
 		}
+		log.info("Subscription done");
 		return messages;
 	}
 
@@ -136,7 +138,7 @@ public class MessagingController {
 	// TODO chat validation
 	// TODO actual error handling
 
-	@SendTo("/topic/{chatID}")
+	@SendTo("/{chatID}")
 	@MessageMapping("/{chatID}")
 	public Message forwardMessage(@DestinationVariable long chatID,
 			@Payload Message msg) {
@@ -180,8 +182,8 @@ public class MessagingController {
 		/*
 		 * Check validity of file path.
 		 */
-		if (  !(msg.getContentType().equals(ContentType.FILE) &&
-				validator.isValidPath(msg.getContentPath()) )  ) {
+		if ( msg.getContentType().equals(ContentType.FILE) &&
+				!validator.isValidPath(msg.getContentPath()) ) {
 			throw new IllegalEntityException("Invalid file path.", msg);
 		}
 		msg.setAuthorID(user);
