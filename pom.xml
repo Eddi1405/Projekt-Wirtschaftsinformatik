@@ -87,7 +87,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>    
-            				<mainClass>src.main.java.thowl.wiprojekt.WiProjektApplication</mainClass>
+            				<mainClass>src.main.java.thowl.wiprojekt.WiProjektApplication.java</mainClass>
        				</configuration>
 			</plugin>
 		</plugins>
