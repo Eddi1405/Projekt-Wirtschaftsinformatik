@@ -32,6 +32,7 @@ import java.util.TreeSet;
  *
  * @version 26.05.2023
  */
+@Transactional
 @ThrowsInternal
 @Slf4j
 @Controller
@@ -83,6 +84,7 @@ public class MessagingController {
 	 * @throws ResourceNotFoundException if the {@link Chat} with the
 	 * specified ID does not exist.
 	 */
+//	@Transactional
 	@SubscribeMapping({"/{chatID}"})
 	public Set<Message> subscribeTo(@DestinationVariable long chatID,
 			@Header long num, @Header String mTime, @Header Long userID) {
@@ -140,6 +142,7 @@ public class MessagingController {
 
 	@SendTo("/{chatID}")
 	@MessageMapping("/{chatID}")
+//	@Transactional
 	public Message forwardMessage(@DestinationVariable long chatID,
 			@Payload Message msg) {
 		log.info("Processing send event");
@@ -188,6 +191,7 @@ public class MessagingController {
 		}
 		msg.setAuthorID(user);
 		this.saveMessage(msg, chat);
+		log.info(msg.getContentPath());
 		return msg;
 	}
 
@@ -198,9 +202,9 @@ public class MessagingController {
 	 * @param msg The {@link Message} to be saved.
 	 * @param chat The {@link Chat} the {@link Message} is a part of.
 	 */
-	@Transactional
+//	@Transactional
 	@UpholdsIntegrity
-	protected void saveMessage(Message msg, Chat chat) {
+	public void saveMessage(Message msg, Chat chat) {
 		messageRepo.save(msg);
 		// The message is added and the Chat saved too
 		Set<Message> msgs = chat.getMessage();

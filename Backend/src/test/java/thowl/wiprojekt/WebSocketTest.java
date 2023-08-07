@@ -99,6 +99,8 @@ public class WebSocketTest {
 		user2.setUsername("Steve");
 		msg2.setAuthorID(user2);
 		msg2.setTime(new Timestamp(System.currentTimeMillis()));
+		// TODO add future completion
+//		future.complete();
 //		sub.addReceiptTask(() -> {
 //			log.info("sending");
 //			session.send("/chat/1", msg2);
