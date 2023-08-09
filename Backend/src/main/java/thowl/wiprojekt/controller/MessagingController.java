@@ -85,6 +85,7 @@ public class MessagingController {
 	 * specified ID does not exist.
 	 */
 //	@Transactional
+	@SendsError
 	@SubscribeMapping({"/{chatID}"})
 	public Set<Message> subscribeTo(@DestinationVariable long chatID,
 			@Header long num, @Header String mTime, @Header Long userID) {
@@ -132,6 +133,7 @@ public class MessagingController {
 			messages.addAll(chat.getMessage());
 		}
 		log.info("Subscription done");
+//		throw new RuntimeException("You should see an error.");
 		return messages;
 	}
 
@@ -139,7 +141,7 @@ public class MessagingController {
 	// TODO database validation
 	// TODO chat validation
 	// TODO actual error handling
-
+	@SendsError
 	@SendTo("/{chatID}")
 	@MessageMapping("/{chatID}")
 //	@Transactional
