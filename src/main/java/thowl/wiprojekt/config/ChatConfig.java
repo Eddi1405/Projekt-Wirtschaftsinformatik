@@ -56,9 +56,7 @@ public class ChatConfig implements WebSocketMessageBrokerConfigurer {
 		 */
 		reg.enableSimpleBroker("/topic");
 		/*
-		 * Note that while the broker prefix has to be specified when using
-		 * @SendTo, this is not the case for the following prefix and
-		 * @MessageMapping.
+		 * Prefixes must not be specified for annotations.
 		 */
 		reg.setApplicationDestinationPrefixes("/chat", "/topic");
 //		reg.setApplicationDestinationPrefixes("/chat");

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import thowl.wiprojekt.chat.GeneralCode;
 import thowl.wiprojekt.entity.Chat;
 import thowl.wiprojekt.entity.Message;
 import thowl.wiprojekt.entity.User;
@@ -32,6 +33,7 @@ import java.util.TreeSet;
  *
  * @version 26.05.2023
  */
+@Transactional
 @ThrowsInternal
 @Slf4j
 @Controller
@@ -83,6 +85,8 @@ public class MessagingController {
 	 * @throws ResourceNotFoundException if the {@link Chat} with the
 	 * specified ID does not exist.
 	 */
+//	@Transactional
+	@SendsError
 	@SubscribeMapping({"/{chatID}"})
 	public Set<Message> subscribeTo(@DestinationVariable long chatID,
 			@Header long num, @Header String mTime, @Header Long userID) {
@@ -92,9 +96,7 @@ public class MessagingController {
 					+ "specified");
 		}
 		/*
-		 * If the User does not exist an Exception will be thrown. A 404 is
-		 * not thrown to not give the client the false idea that a Chat could
-		 * not be found.
+		 * If the User does not exist an Exception will be thrown.
 		 */
 		User user = userRepo.findById(userID).orElseThrow(() -> {
 			return new UnacceptableRequestException("User does not exist.");
@@ -115,7 +117,7 @@ public class MessagingController {
 			return (idA > idB) ? -1 : (idA < idB) ? 1 : 0;
 		});
 		/*
-		 * An Exception resulting in a 404 will be thrown if the Chat does
+		 * An Exception will be thrown if the Chat does
 		 * not exist.
 		 */
 		Chat chat = chatRepo.findById(chatID).orElseThrow(
@@ -124,22 +126,25 @@ public class MessagingController {
 		 * The validity of the request is checked and the server's reaction
 		 * to the request are defined.
 		 */
-//		response = this.handleUser(user, chat, response);
+		this.handleUser(user, chat);
 		// TODO messages
 		if (num == 0) {
 			messages.addAll(chat.getMessage());
 		}
 		log.info("Subscription done");
+//		throw new RuntimeException("You should see an error.");
 		return messages;
 	}
 
+	// TODO actual anonymous
 	// TODO clone
 	// TODO database validation
 	// TODO chat validation
 	// TODO actual error handling
-
+	@SendsError
 	@SendTo("/{chatID}")
 	@MessageMapping("/{chatID}")
+//	@Transactional
 	public Message forwardMessage(@DestinationVariable long chatID,
 			@Payload Message msg) {
 		log.info("Processing send event");
@@ -171,7 +176,7 @@ public class MessagingController {
 		/*
 		 * The validity of the action is checked.
 		 */
-//		response = this.handleUser(user, chat, response);
+		this.handleUser(user, chat);
 		/*
 		 * Check because next steps. DO NOT DELETE.
 		 */
@@ -188,8 +193,11 @@ public class MessagingController {
 		}
 		msg.setAuthorID(user);
 		this.saveMessage(msg, chat);
+		log.info(msg.getContentPath());
 		return msg;
 	}
+
+	// TODO get message fom DB
 
 	/**
 	 * Saves a {@link Message} to the database. This method is {@link Transactional}
@@ -198,9 +206,9 @@ public class MessagingController {
 	 * @param msg The {@link Message} to be saved.
 	 * @param chat The {@link Chat} the {@link Message} is a part of.
 	 */
-	@Transactional
+//	@Transactional
 	@UpholdsIntegrity
-	protected void saveMessage(Message msg, Chat chat) {
+	public void saveMessage(Message msg, Chat chat) {
 		messageRepo.save(msg);
 		// The message is added and the Chat saved too
 		Set<Message> msgs = chat.getMessage();
@@ -232,7 +240,7 @@ public class MessagingController {
 	 *     </li>
 	 *     <ol>
 	 *         <li>
-	 *             If the User is anonymous a 401 error code will be thrown.
+	 *             If the User is anonymous a STOMP ERROR will be thrown.
 	 *         </li>
 	 *         <li>
 	 *             If the User is registered with the Chat the request will be
@@ -240,7 +248,7 @@ public class MessagingController {
 	 *         </li>
 	 *         <li>
 	 *             If the User is logged in and not registered with the chat
-	 *             a 403 error will be thrown.
+	 *             a STOMP ERROR will be thrown.
 	 *         </li>
 	 *     </ol>
 	 * </ul>
@@ -252,111 +260,76 @@ public class MessagingController {
 	 *
 	 * @param user The {@link User} making the request.
 	 * @param chat The {@link Chat} the request was made for.
-	 * @return An {@link HttpStatus} used internally. If the status is a 202
-	 * this means a warning should be given to the client because even though
-	 * the request is valid it is unusual and may point towards an error.
+	 * @return A number representing a {@link GeneralCode}.
 	 *
 	 * @throws RestAuthenticationException if an anonymous {@link User} tries
-	 * to access a personal chat they are not registered with..
+	 * to access a personal chat.
 	 * @throws InsufficientRightsException if a logged-in {@link User} tries
 	 * to access a personal chat they are not registered with.
 	 */
-	private HttpStatus checkRequestValidity(User user, Chat chat) {
+	private int checkRequestValidity(User user, Chat chat) {
 		ChatType type = chat.getChatType();
-		Role role = user.getRole();
 		/*
-		 * A 401 will be thrown if a non-logged-in User tries to access a
-		 * personal chat.
+		 * An Exception will be thrown if the User is anonymous and the
+		 * Chat is a personal one.
 		 */
-		if (role.equals(Role.ANONYMOUS)) {
-			if (type.equals(ChatType.PERSONAL)) {
-				throw new RestAuthenticationException("Users have to be logged in"
-						+ " to access personal chats.");
-			}
-		}
+		ChatController.checkRegisterValidity(user, chat);
 		// For Users who are logged in
-		else {
-			long userID = user.getId();
-			/*
-			 * Check whether the User is registered with the Chat.
-			 */
-			for (User iUser : chat.getUsers()) {
-				if (iUser.getId() == userID) {
-					return HttpStatus.OK;
-				}
-			}
-			/*
-			 * A 403 will be thrown if a logged-in User tries to access a
-			 * Chat they are not registered with.
-			 */
-			if (type.equals(ChatType.PERSONAL)) {
-				throw new InsufficientRightsException("The specified user is "
-						+ "not registered with the chat.");
+		long userID = user.getId();
+		/*
+		 * Check whether the User is registered with the Chat.
+		 */
+		for (User iUser : chat.getUsers()) {
+			if (iUser.getId() == userID) {
+				return GeneralCode.OK;
 			}
 		}
 		/*
-		 * If the status is not an error or a 200 a 202 will be returned to
-		 * show that the request is valid but a warning should be returned
-		 * because the request may result from error.
+		 * An Exception will be thrown if a logged-in User tries to access a
+		 * Chat they are not registered with.
 		 */
-		return HttpStatus.ACCEPTED;
-//		if (chat.getChatType().equals(ChatType.PERSONAL) &&
-//				user.getRole().equals(Role.ANONYMOUS)) {
-//			throw new RestAuthenticationException("Users have to be logged in"
-//					+ " to access personal chats.");
-//		}
-//		long userID = user.getId();
-//		for (User iUser : chat.getUsers()) {
-//			if (iUser.getId() == userID) {
-//				return HttpStatus.OK;
-//			}
-//		}
-//
-//		throw new InsufficientRightsException();
+		if (type.equals(ChatType.PERSONAL)) {
+			throw new InsufficientRightsException("The specified user is "
+					+ "not registered with the chat.");
+		}
+		/*
+		 * A status signalling a waring is returned.
+		 */
+		return GeneralCode.WARN;
 	}
 
 	/**
 	 * Checks whether a request is valid ({@link MessagingController#checkRequestValidity(User, Chat)})
 	 * and acts on a positive outcome by registering the specified
-	 * {@link User} to the specified {@link Chat} and issuing a warning in
-	 * the HTTP response if the User had not been registered with the Chat
+	 * {@link User} to the specified {@link Chat} if they were not registered
 	 * before.
 	 *
 	 * @param user The {@link User} causing the request.
 	 * @param chat The {@link Chat} associated with the request.
-	 * @param response The response given by the server.
-	 * @return The response given by the server.
+	 *
+	 * @return An int in the form of {@link GeneralCode} values.
 	 *
 	 * @throws RestAuthenticationException if an anonymous {@link User} tries
-	 * to access a personal chat they are not registered with..
+	 * to access a personal chat.
 	 * @throws InsufficientRightsException if a logged-in {@link User} tries
 	 * to access a personal chat they are not registered with.
 	 */
-	private HttpServletResponse handleUser(User user, Chat chat,
-			HttpServletResponse response) {
+	private int handleUser(User user, Chat chat) {
 		/*
-		 * The HTTP status is retrieved. Exceptions will be thrown if there
+		 * The validity status is retrieved. Exceptions will be thrown if there
 		 * is a problem.
 		 */
-		int status = this.checkRequestValidity(user, chat).value();
+		int status = this.checkRequestValidity(user, chat);
 		/*
-		 * The User is registered.
+		 * The User is registered if they were not registered before.
 		 */
-		chat.getUsers().add(user);
-		chatRepo.save(chat);
-		String warn;
-		/*
-		 * Define warning.
-		 */
-		if (status == 202) {
-			warn = "User was not registered with the specified chat so it was"
-					+ " registered by the service";
+		if (status == GeneralCode.WARN) {
+			chat.getUsers().add(user);
+			chatRepo.save(chat);
+			String warn = "User was not registered with the specified chat so "
+					+ "it was registered by the service";
 		}
-		else {
-			warn = "None";
-		}
-		response.setHeader("Warning", warn);
-		return response;
+		return status;
 	}
 
 }

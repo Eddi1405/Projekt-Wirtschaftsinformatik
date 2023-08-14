@@ -7,6 +7,7 @@ import thowl.wiprojekt.entity.Chat;
 import thowl.wiprojekt.entity.Message;
 import thowl.wiprojekt.entity.User;
 import thowl.wiprojekt.errors.*;
+import thowl.wiprojekt.objects.ChatType;
 import thowl.wiprojekt.objects.Role;
 import thowl.wiprojekt.repository.ChatRepository;
 import thowl.wiprojekt.repository.UserRepository;
@@ -123,7 +124,7 @@ public class ChatController {
 		if (pChat.getUsers() != null) {
 			/*
 			 * The Users are retrieved from the database so that they may not
-			 *  be changed by this method.
+			 * be changed by this method.
 			 */
 			HashSet<User> users = new HashSet<>();
 			for (User iUser : pChat.getUsers()) {
@@ -162,7 +163,7 @@ public class ChatController {
 
 	/**
 	 * Updates the given {@link Chat} to the parameters specified within the
-	 * chat object. <strong>This object's messages will be ignored.</strong>
+	 * chat object. <strong>This object's messages and users will be ignored.</strong>
 	 *
 	 * @param pChat The {@link Chat} to be changed.
 	 * @return The newly updated {@link Chat}.
@@ -179,10 +180,74 @@ public class ChatController {
 		Chat oldChat = this.checkChatExists(pChat.getId());
 		// No messages may be changed by this method
 		pChat.setMessage(oldChat.getMessage());
+		// Users are also not changed
+		pChat.setUsers(oldChat.getUsers());
 		Chat newChat = chatRepo.save(pChat);
 		// Messages inside of this chat are not returned
 		newChat.setMessage(new HashSet<Message>());
 		return newChat;
+	}
+
+	// TODO username or email
+
+	/**
+	 * Registers a {@link User} with the {@link Chat} with the specified ID.
+	 *
+	 * @param chatID The ID of the {@link Chat}.
+	 * @param userID The ID of the {@link User} to be registered.
+	 * @return The {@link Chat} the {@link User} was registered with.
+	 *
+	 * @throws RestAuthenticationException if the {@link User} is of the
+	 * {@link Role} {@link Role#ANONYMOUS} or the Role is null and the
+	 * {@link ChatType} of the specified {@link Chat} is
+	 * {@link ChatType#PERSONAL}.
+	 * @throws ResourceNotFoundException if there is no {@link Chat} with the
+	 * specified ID.
+	 * @throws UnacceptableRequestException if there is no {@link User} with
+	 * the specified ID.
+	 */
+	@PutMapping(value = "chats/register/{chatID}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Chat registerUserWithChat(@PathVariable long chatID,
+			@RequestBody long userID) {
+		// Check if Chat exists
+		this.checkChatExists(chatID);
+		// Was already checked
+		Chat chat = chatRepo.findById(chatID).get();
+		// The User to be registered. Exception is thrown if the User does
+		// not exist
+		User user = userRepo.findById(userID).orElseThrow(() ->
+				{return new UnacceptableRequestException("User with the ID " +
+						userID + " does not exist.");
+				});
+		// Validity of the action is checked.
+		checkRegisterValidity(user, chat);
+		// The User id registered and the Chat returned.
+		chat.getUsers().add(user);
+		chatRepo.save(chat);
+		return chat;
+	}
+
+	/**
+	 * Checks whether it is OK for a {@link User} to be registered with a
+	 * {@link Chat}. This method will have no effect if the action is considered
+	 * valid. Else a {@link RestAuthenticationException} is thrown.
+	 * <p></p>
+	 * Register actions are considered invalid when the given User has a null
+	 * {@link Role} or a Role of the type {@link Role#ANONYMOUS} and the
+	 * {@link ChatType} is of the type {@link ChatType#PERSONAL}.
+	 *
+	 * @param user The {@link User} to be registered.
+	 * @param chat The {@link Chat} the {@link User} should be registered with.
+	 *
+	 * @throws RestAuthenticationException when the action is invalid.
+	 */
+	static void checkRegisterValidity(User user, Chat chat) {
+		if (user.getRole() == null || user.getRole().equals(Role.ANONYMOUS)) {
+			if (chat.getChatType().equals(ChatType.PERSONAL)) {
+				throw new RestAuthenticationException("Users have to be logged in"
+						+ " to access personal chats.");
+			}
+		}
 	}
 
 	@PatchMapping(value = "/chats/update", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -41,7 +41,7 @@ public class Message {
     @Column(name = "time", nullable = false)
     private Timestamp time;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     Set<User> read;
 
     @Column(name = "content", nullable = false)
