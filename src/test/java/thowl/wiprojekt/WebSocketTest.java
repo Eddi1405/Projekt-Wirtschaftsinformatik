@@ -2,6 +2,7 @@ package thowl.wiprojekt;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
+import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
@@ -15,6 +16,7 @@ import thowl.wiprojekt.entity.Message;
 import thowl.wiprojekt.entity.User;
 import thowl.wiprojekt.objects.ContentType;
 
+import java.lang.reflect.Type;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
@@ -79,7 +81,7 @@ public class WebSocketTest {
 		StompSession.Subscription sub =session.subscribe(
 //						"/topic/1",
 				headers,
-				new DebugSessionHandler());
+				new LocalDebugFrameHandler());
 		log.info(sub.getSubscriptionId());
 		Message msg = new Message();
 		msg.setContentType(ContentType.TEXT);
@@ -100,6 +102,7 @@ public class WebSocketTest {
 		msg2.setAuthorID(user2);
 		msg2.setTime(new Timestamp(System.currentTimeMillis()));
 		// TODO add future completion
+
 //		future.complete();
 //		sub.addReceiptTask(() -> {
 //			log.info("sending");
@@ -120,5 +123,20 @@ public class WebSocketTest {
 //			future.complete((HelloMessage) payload);
 //		}
 //	}
+
+
+	private static class LocalDebugFrameHandler implements StompFrameHandler {
+
+		@Override
+		public Type getPayloadType(StompHeaders headers) {
+			return Message.class;
+		}
+
+		@Override
+		public void handleFrame(StompHeaders headers, Object payload) {
+			Message msg = (Message) payload;
+			future.complete(msg);
+		}
+	}
 
 }

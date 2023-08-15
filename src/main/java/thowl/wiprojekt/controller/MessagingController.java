@@ -142,7 +142,7 @@ public class MessagingController {
 	// TODO chat validation
 	// TODO actual error handling
 	@SendsError
-	@SendTo("/{chatID}")
+	@SendTo("/topic/{chatID}")
 	@MessageMapping("/{chatID}")
 //	@Transactional
 	public Message forwardMessage(@DestinationVariable long chatID,
