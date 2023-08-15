@@ -55,7 +55,6 @@ public class MessagingController {
 	private FileValidator validator;
 
 	// TODO get messages after the fact
-	// TODO extensively comment
 
 	/**
 	 * Method to be executed when a Websocket client sends a SUBSCRIBE
@@ -95,9 +94,6 @@ public class MessagingController {
 			throw new MalformedRequestException("Field 'userID' must be "
 					+ "specified");
 		}
-		/*
-		 * If the User does not exist an Exception will be thrown.
-		 */
 		User user = userRepo.findById(userID).orElseThrow(() -> {
 			return new UnacceptableRequestException("User does not exist.");
 		});
@@ -166,9 +162,7 @@ public class MessagingController {
 					+ "does not exist.");
 		});
 		/*
-		 * If the User does not exist an Exception will be thrown. A 404 is
-		 * not thrown to not give the client the false idea that a Chat could
-		 * not be found.
+		 * If the User does not exist an Exception will be thrown.
 		 */
 		User user = userRepo.findById(msg.getAuthorID().getId()).orElseThrow(() -> {
 			return new UnacceptableRequestException("User does not exist.");
@@ -215,6 +209,27 @@ public class MessagingController {
 		msgs.add(msg);
 		chat.setMessage(msgs);
 		chatRepo.save(chat);
+	}
+
+	@Deprecated
+	private User getUserForChat(long id) {
+		User user;
+		/*
+		 * An ID smaller than 1 will be taken to mean an anonymous user.
+		 */
+		if (id < 1) {
+			user = new User();
+			user.setRole(Role.ANONYMOUS);
+		}
+		/*
+		 * If the User does not exist an Exception will be thrown.
+		 */
+		else {
+			user = userRepo.findById(id).orElseThrow(() -> {
+				return new UnacceptableRequestException("User does not exist.");
+			});
+		}
+		return user;
 	}
 
 	// TODO notifications
@@ -293,7 +308,7 @@ public class MessagingController {
 					+ "not registered with the chat.");
 		}
 		/*
-		 * A status signalling a waring is returned.
+		 * A status signalling a warning is returned.
 		 */
 		return GeneralCode.WARN;
 	}
