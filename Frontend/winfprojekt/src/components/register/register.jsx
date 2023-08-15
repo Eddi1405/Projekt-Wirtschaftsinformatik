@@ -46,9 +46,6 @@ export default function Register() {
           <input type="password" id="password-confirm" name="password-confirm" placeholder="Passwort bestätigen" required/>
         </div>
         
-        <div class="kgicons2">
-            
-        </div>
         <div class="reg_arrow">
           <a href="/setup"><img src="Icons/arrow.png" alt="Pfeil"/></a>
         </div>

@@ -45,13 +45,14 @@ body{
    margin:15px 100px 0px 30px;
 }
 
-.logo{
+.setup_logo{
     float:left; 
     display:inline; 
-    width: 30%;
+    width: 20%;
     display: flex;
     justify-content: center;
-    margin-left: 100px;
+    margin-top: 30px;
+    
 }
 
 .sent{

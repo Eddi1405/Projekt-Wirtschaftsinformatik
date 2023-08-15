@@ -200,8 +200,8 @@ export default function Setup() {
          
           </div>
           
-          <div className="logo">
-            <img src="images/divlab.png" width="220" height="150" />
+          <div className="setup_logo">
+            <img src="images/divlab.png" width="250" height="170" />
           </div>
         </div>
 
