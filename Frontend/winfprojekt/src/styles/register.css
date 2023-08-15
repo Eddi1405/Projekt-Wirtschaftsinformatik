@@ -1,0 +1,113 @@
+
+.reg_kgbody2 {
+    font-family: Segoe UI, bold;
+    margin: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .reg_kgcontainer2 {
+    width: 800px;
+    margin-top: 20px;
+    text-align: center;
+    position: relative;
+    background-color:  #191f2f;
+    padding:30px;
+    border-radius: 30px;
+  }
+
+  .reg_ueber{
+    
+    display: flex;
+    align-items: center;
+    padding: 0px 10px 0px 0px;
+ 
+    margin:20px 0px 0px 250px;
+  }
+
+
+  .reg_logo {
+    width: 200px;
+    height: 150px;
+  }
+
+  
+  .reg_h1 {
+    padding-left: 30px;
+  }
+
+  
+  .reg_forms-group {
+    margin-bottom: 15px;
+    text-align: center;
+    margin-top: 25px;
+  }
+  
+  .reg_forms-group input[type="text"],
+  .reg_forms-group input[type="password"],
+  .reg_forms-group input[type="email"] {
+    max-width: 400px;
+    width: 100%;
+    height: 50px;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .icons figure {
+    margin: 10px;
+    text-align: center;
+  }
+  
+  .icons img {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .icons figcaption {
+    font-weight: bold;
+    margin-top: 5px;
+    font-size: 12px;
+    color: white;
+  }
+
+  .icons figure {
+    font-weight: bold;
+    margin-top: -5px;
+    font-size: 12px;
+    color: white;
+  }
+  
+  .reg_arrow {
+    text-align: right;
+    margin-top: 80px;
+    position: absolute;
+    top: 50%;
+    right: 18%;
+    transform: translateY(-50%);
+  }
+  
+  .reg_arrow img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    filter: invert(100%);
+  }
+  p.registration {
+      font-size: 34px; 
+      font-weight: bold;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: white;
+    }

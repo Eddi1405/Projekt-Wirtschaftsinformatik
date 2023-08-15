@@ -39,7 +39,7 @@ return (
 
 <body className="kgbody">
   <div className="container">
-  <button onClick={loginUser} />
+  
     
     <div className="split-background"></div>
     <img src="images/divlab.png" alt="Logo" className="kglogo"/>
@@ -51,6 +51,9 @@ return (
     <div className="form-group">
       <input type="password" id="password" name="password" placeholder="Passwort" required/>
     </div>
+    
+     <p class="registerText"> Noch kein Konto?<a href="/Register"> Hier</a> Regisitrieren! </p>
+      
     <div className="kgicons">
       <figure>
         <img src="Icons/contr.png" alt="Icon 1"/>

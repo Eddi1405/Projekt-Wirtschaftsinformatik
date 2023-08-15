@@ -31,32 +31,36 @@ export default function Setup() {
 
   function changeContrast(){
     
-    var body = document.querySelector("body");
+    var body = document.querySelector(".layout");
     var header = document.querySelector(".robot");
     var main = document.querySelector(".main");
     var footer = document.querySelector(".footer");
+    var buttons = document.getElementsByTagName('button');
 
     if(contValue == 0){
-      body.style.backgroundColor = "#e67e00";
-      header.style.backgroundColor = "#760600";
-      main.style.backgroundColor= "#e67e00";
-      footer.style.backgroundColor= "#760600";
+      body.style.backgroundColor = "#fffe00";
+      header.style.backgroundColor = "#202021";
+      main.style.backgroundColor= "#fffe00";
+      footer.style.backgroundColor= "#202021";
+
+      for (let i = 0; i < buttons.length; i++) {
+        let button = buttons[i];
+        button.style.backgroundColor= "#01c500";
+    }
       contValue = 1;
     }
 
-    else if(contValue == 1){
-      body.style.backgroundColor = "#fff84d";
-      header.style.backgroundColor = "#00c3cc";
-      main.style.backgroundColor= "#fff84d";
-      footer.style.backgroundColor= "#00c3cc";
-      contValue = 2;
-    }
-
-    else if (contValue == 2){
+    
+    else if (contValue == 1){
       body.style.backgroundColor = "#e7fdfe";
       header.style.backgroundColor = "#181e2f";
       main.style.backgroundColor= "#e7fdfe";
       footer.style.backgroundColor= "#181e2f";
+
+      for (let i = 0; i < buttons.length; i++) {
+        let button = buttons[i];
+        button.style.backgroundColor= "#e7fdfe";
+    }
       contValue = 0;
     }
     
@@ -64,7 +68,7 @@ export default function Setup() {
   }
   
   function changeColorb(){
-    var body = document.querySelector("body");
+    var body = document.querySelector(".layout");
     var header = document.querySelector(".robot");
     var main = document.querySelector(".main");
     var footer = document.querySelector(".footer");
@@ -197,7 +201,7 @@ export default function Setup() {
           </div>
           
           <div className="logo">
-            <img src="images/divlab.png" width="180" height="120" />
+            <img src="images/divlab.png" width="220" height="150" />
           </div>
         </div>
 

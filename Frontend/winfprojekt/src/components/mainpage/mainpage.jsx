@@ -44,7 +44,7 @@ export default function Main() {
 
           <li>
             <a href="#">
-              <img src="Icons/person.png" width="30px" height="30px" />
+            <Link to="/profil"> <img src="Icons/person.png" width="30px" height="30px" /> </Link>
               <p>Profil</p>
             </a>
           </li>
@@ -156,7 +156,7 @@ export default function Main() {
       </div>
 
       <div id="bereich2">
-        <p>Trifft dich im RÃ¤umen </p>
+        <p>Trifft dich in Räumen </p>
         <p>Bearbeite deinen Charakter</p>
       </div>
 

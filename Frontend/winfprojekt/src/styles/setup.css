@@ -46,10 +46,12 @@ body{
 }
 
 .logo{
-    float:left; display:inline; width: 20%;
+    float:left; 
+    display:inline; 
+    width: 30%;
     display: flex;
-    margin-top: 10px;
     justify-content: center;
+    margin-left: 100px;
 }
 
 .sent{
@@ -66,14 +68,14 @@ body{
 
 .main {
 grid-area: main;
-height:450px;
+height:400px;
 
 }
 
 
 .footer { grid-area: footer; 
     background-color: #181e2f;
-    height:200px;
+    height:180px;
 }
 
 .main{
