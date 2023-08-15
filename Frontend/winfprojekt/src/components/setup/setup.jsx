@@ -5,6 +5,9 @@
 import React from "react";
 import "./../../styles/setup.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
+
 export default function Setup() {
 
   var contValue = 0;
@@ -149,7 +152,34 @@ export default function Setup() {
     return "#" + componentToHex(+rgb[0]) + componentToHex(+rgb[1]) + componentToHex(+rgb[2]);
   }
 
-  
+
+  //Axios Values for Server
+  function setup() {
+
+    
+   // let bodystyle = this.body.style.backgroundColor;
+   // let mainstyle = this.body.style.backgroundColor;
+  //let headerstyle = this.body.style.backgroundColor;
+   // let footerstyle = this.body.style.backgroundColor;
+    
+
+    axios.post(
+      "http://localhost/",
+      {
+       // bodystyleValue: bodystyle,
+       // mainstyleValue: mainstyle,
+       // headerstyleValue: let headerstyle,
+       // footerstyleValue: let footerstyle
+      },
+      {
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        }
+      }
+    )
+
+     
+  }
 
  
 
@@ -217,7 +247,7 @@ export default function Setup() {
         <div className="footer"> 
         <div className="footerDiv">Die Experimentelle Plattform
         </div>
-        <Link to="/main"> <button type="button" className="arrow"></button> </Link>
+        <Link to="/main"> <button type="button" className="arrow" onClick={setup}></button> </Link>
         </div>
       </section>
     </div>

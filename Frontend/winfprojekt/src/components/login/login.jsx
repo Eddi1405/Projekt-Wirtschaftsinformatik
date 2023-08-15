@@ -4,23 +4,30 @@ import "./../../styles/login.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const server = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com/users" 
-});
 
 export default function Login() {
 
 
 
-  function createPost() {
+  function loginUser() {
+
+    let username = document.getElementById('username').value
+    let password = document.getElementById('password').value
 
 
-    
-    axios.get(`https://jsonplaceholder.typicode.com/users`)
-      .then(res => {
-        const persons = res.data;
-        console.log(persons);
-      })
+
+    axios.post(
+      "http://localhost/",
+      {
+        username: "sda",
+        password: "das",
+      },
+      {
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        }
+      }
+    )
 
      
   }
@@ -32,7 +39,7 @@ return (
 
 <body className="kgbody">
   <div className="container">
-  <button onClick={createPost} />
+  <button onClick={loginUser} />
     
     <div className="split-background"></div>
     <img src="images/divlab.png" alt="Logo" className="kglogo"/>

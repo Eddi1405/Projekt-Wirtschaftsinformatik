@@ -188,8 +188,8 @@ export default function Main() {
       <div className="ortBereich">
         <h2>Blank-Room</h2>
       </div>
-      </div>
-      </div>
+    </div>
+    </div>
 
     </body>
   );

@@ -245,8 +245,9 @@ body.active .page .toolbar{
 
 /*Büsra Rasgele*/
 #bereiche{
-  background-color: black;
+  background-color: #202833;
   padding-top: 30px;
+  max-height: 1000px;
 }
 
 
@@ -258,8 +259,8 @@ body.active .page .toolbar{
   padding: 10px;
   margin:30px;
   
-  position: relative;
-  right: -1cm;
+  
+  
 
 }
 h3 {
@@ -275,21 +276,21 @@ h3 {
   margin:20px;
  
   position: relative;
-  right: -1cm;
-  bottom: 0.2cm;
+  left: 10px;
+
 }
 
 #bereich2 {
 border: 3px solid rgb(212, 210, 210);
 background-color: #FFFF;
-bottom:400px;
+bottom:420px;
 width: 600px;
 height: 350px;
 padding: 10px;
 margin:90px 0 0 0;
 position: relative;
 right: -10cm;
-
+border-radius: 20px;
 
 }
 
@@ -298,15 +299,21 @@ right: -10cm;
 #bereich3 {
 border: 3px solid rgb(212, 210, 210);
 background-color: #FFFF;
-bottom:320px;
-width: 300px;
-height: 20px;
+bottom:360px;
 padding: 10px;
-
 position: relative;
 left:15cm;
 }
 
+label[for=suche]
+{
+  display: inline-block;
+   width:300px;
+   height:50px;
+   text-align: center;
+   border-radius: 25px;
+   font-size: 25px;
+}
  
 h2 {
 font-size: 17px;
@@ -315,17 +322,20 @@ font-size: 17px;
 /*Orte********************/
 
 #orte{
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-
+display: flex;
+justify-content:space-evenly;
+flex-wrap: wrap;
+background-color: #202833;
+margin-bottom: 140px;
 }
 
 
 .ortBereich{
   border: 3px solid rgb(212, 210, 210);
   background-color: #FFFF;
-  width: 200px;
-  height: 100px;
-  padding: 10px;
+  width: 400px;
+  height: 250px;
+  margin:40px;
+  position: relative;
+ bottom: 230px;
 }
