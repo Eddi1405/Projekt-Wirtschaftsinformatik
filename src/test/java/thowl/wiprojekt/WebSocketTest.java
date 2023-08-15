@@ -28,6 +28,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // Idea from https://medium.com/@MelvinBlokhuijzen/spring-websocket-endpoints-integration-testing-180357b4f24c
 
+/**
+ * Used to test some messaging capabilities. Not an actual Unit Test, this is
+ * supposed to be a quick and dirty way of testing.
+ */
 @Slf4j
 //@ExtendWith(SpringExtension.class)
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
@@ -35,16 +39,33 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 //)
 public class WebSocketTest {
 
+	// Base url for messaging
 	private static String url;
+	// URL for testing
 	private static String invalidURL;
+	// Used to get Messages with a possible delay
 	private static CompletableFuture<Message> future;
 
+	/**
+	 * Used to start the test since this is not an actual unit test class.
+	 *
+	 * @param args Possible arguments.
+	 * @throws ExecutionException when there is a problem with the used
+	 * {@link CompletableFuture}.
+	 * @throws InterruptedException when the used {@link CompletableFuture} is
+	 * interrupted.
+	 * @throws TimeoutException when the used {@link CompletableFuture} is
+	 * timed out.
+	 */
 	public static void main(String[] args)
 			throws ExecutionException, InterruptedException, TimeoutException {
 		setup();
 		testSend();
 	}
 
+	/**
+	 * Initializes certain attributes.
+	 */
 //	@BeforeEach
 	public static void setup() {
 		future = new CompletableFuture<>();
@@ -52,19 +73,37 @@ public class WebSocketTest {
 		invalidURL = "ws://localhost:8080";
 	}
 
+	/**
+	 * Execute the actual test. This method creates a messaging client that
+	 * subscribes to a topic and sends a message to that topic.
+	 *
+	 * @throws ExecutionException when there is a problem with the used
+	 * {@link CompletableFuture}.
+	 * @throws InterruptedException when the used {@link CompletableFuture} is
+	 * interrupted.
+	 * @throws TimeoutException when the used {@link CompletableFuture} is
+	 * timed out.
+	 */
 //	@Test
 	public static void testSend()
 			throws ExecutionException, InterruptedException, TimeoutException {
 		ArrayList<Transport> transports = new ArrayList<>();
 		transports.add(new WebSocketTransport(new StandardWebSocketClient()));
+		// Mockup client for the SockJS library
 		SockJsClient client = new SockJsClient(transports);
+		// Actually used client
 		WebSocketStompClient stomp = new WebSocketStompClient(client);
+		// Used for correctly converting messages
 		stomp.setMessageConverter(new MappingJackson2MessageConverter());
+		// Used to schedule tasks
 		ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
 		scheduler.initialize();
 		stomp.setTaskScheduler(scheduler);
 //		stomp.connectAsync(url,
 //				new StompSessionHandlerAdapter() {});
+		/*
+		 * Client connects to the server and creates a session.
+		 */
 		StompSession session = stomp.connectAsync(url,
 				new StompSessionHandlerAdapter() {}).get(30, TimeUnit.SECONDS);
 		log.info(session.getSessionId());
@@ -73,24 +112,34 @@ public class WebSocketTest {
 //				"topic/topic/1",
 //				new DebugSessionHandler());
 //		log.info(subb.getSubscriptionId());
+		// Headers used for sending
 		StompHeaders headers = new StompHeaders();
 		headers.add("destination", "/topic/1");
 		headers.add("num", "0");
 		headers.add("mTime", "2023-07-01");
 		headers.add("userID", "1");
+		/*
+		 * The client subscribes to the topic.
+		 */
 		StompSession.Subscription sub =session.subscribe(
 //						"/topic/1",
 				headers,
 				new LocalDebugFrameHandler());
 		log.info(sub.getSubscriptionId());
+		// Message to be sent
 		Message msg = new Message();
+		/*
+		 * The Message is a text message
+		 */
 		msg.setContentType(ContentType.TEXT);
 		msg.setContentPath("hello, this is a message");
+		// Author of the Message
 		User user = new User();
 		user.setId(1);
 		user.setUsername("Adam");
 		msg.setAuthorID(user);
 		msg.setTime(new Timestamp(System.currentTimeMillis()));
+		// The Message is sent
 		session.send("/chat/1",
 				msg);
 		Message msg2 = new Message();
@@ -101,13 +150,14 @@ public class WebSocketTest {
 		user2.setUsername("Steve");
 		msg2.setAuthorID(user2);
 		msg2.setTime(new Timestamp(System.currentTimeMillis()));
-		// TODO add future completion
-
 //		future.complete();
 //		sub.addReceiptTask(() -> {
 //			log.info("sending");
 //			session.send("/chat/1", msg2);
 //		});
+		/*
+		 * The assertion fails. That way it is possible to see the Message.
+		 */
 		assertEquals("oi", future.get(300, TimeUnit.SECONDS).getContentPath());
 	}
 
@@ -124,14 +174,31 @@ public class WebSocketTest {
 //		}
 //	}
 
-
+	/**
+	 * Used to handle incoming frames ({@link Message}s) so that the
+	 * {@link CompletableFuture} may be completed.
+	 */
 	private static class LocalDebugFrameHandler implements StompFrameHandler {
 
+		/**
+		 * Returns the {@link Type} the message payloads have. This is the
+		 * type {@link Message} respectively.
+		 *
+		 * @param headers The headers of the frame.
+		 * @return The {@link Message} {@link Class}.
+		 */
 		@Override
 		public Type getPayloadType(StompHeaders headers) {
 			return Message.class;
 		}
 
+		/**
+		 * Handles incoming frames and completes the {@link CompletableFuture}
+		 * with the payload {@link Message}.
+		 *
+		 * @param headers The headers of the frame.
+		 * @param payload The payload of the frame.
+		 */
 		@Override
 		public void handleFrame(StompHeaders headers, Object payload) {
 			Message msg = (Message) payload;
