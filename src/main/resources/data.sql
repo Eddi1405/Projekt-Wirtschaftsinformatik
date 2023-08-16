@@ -1,0 +1,7 @@
+MERGE INTO USERS AS target
+    USING (SELECT -1 AS ID) AS source
+    ON target.ID = source.ID
+    WHEN MATCHED THEN
+        UPDATE SET target.ROLE = 'ANONYMOUS'
+    WHEN NOT MATCHED THEN
+        INSERT (ID, ROLE) VALUES (-1, 'ANONYMOUS');

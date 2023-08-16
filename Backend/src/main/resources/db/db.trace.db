@@ -1,0 +1,16 @@
+2023-08-16 19:45:04 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax Fehler in SQL Befehl "[*]USERS"; erwartet "UPDATE, USE"
+Syntax error in SQL statement "[*]USERS"; expected "UPDATE, USE"; SQL statement:
+USERS [42001-214]
+2023-08-16 19:52:18 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax Fehler in SQL Befehl "INSERT INTO USERS (ID, USERNAME, EMAIL, PASSWORD) VALUES ('-1', 'Anon', 'Anon', 'Anon') [*]ON DUPLICATE KEY UPDATE 'ID' = -1"
+Syntax error in SQL statement "INSERT INTO USERS (ID, USERNAME, EMAIL, PASSWORD) VALUES ('-1', 'Anon', 'Anon', 'Anon') [*]ON DUPLICATE KEY UPDATE 'ID' = -1"; SQL statement:
+INSERT INTO USERS (ID, USERNAME, EMAIL, PASSWORD) VALUES ('-1', 'Anon', 'Anon', 'Anon') ON DUPLICATE KEY UPDATE 'ID' = -1 [42000-214]
+2023-08-16 19:52:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax Fehler in SQL Befehl "INSERT INTO USERS (ID, USERNAME, EMAIL, PASSWORD) VALUES ('-1', 'Anon', 'Anon', 'Anon') [*]ON DUPLICATE KEY UPDATE ID = '-1'"
+Syntax error in SQL statement "INSERT INTO USERS (ID, USERNAME, EMAIL, PASSWORD) VALUES ('-1', 'Anon', 'Anon', 'Anon') [*]ON DUPLICATE KEY UPDATE ID = '-1'"; SQL statement:
+INSERT INTO USERS (ID, USERNAME, EMAIL, PASSWORD) VALUES ('-1', 'Anon', 'Anon', 'Anon') ON DUPLICATE KEY UPDATE ID = '-1' [42000-214]
+2023-08-16 19:57:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax Fehler in SQL Befehl "MERGE INTO USERS AS target USING (SELECT -1 AS ID) AS source ON target.ID = source.ID WHEN MATCHED THEN UPDATE SET target.ROLE = 'ANONYMOUS''', [*]WHEN NOT MATCHED THEN INSERT (ID, ROLE) VALUES (-1, 'ANONYMOUS')"; erwartet "identifier"
+Syntax error in SQL statement "MERGE INTO USERS AS target USING (SELECT -1 AS ID) AS source ON target.ID = source.ID WHEN MATCHED THEN UPDATE SET target.ROLE = 'ANONYMOUS''', [*]WHEN NOT MATCHED THEN INSERT (ID, ROLE) VALUES (-1, 'ANONYMOUS')"; expected "identifier"; SQL statement:
+MERGE INTO USERS AS target USING (SELECT -1 AS ID) AS source ON target.ID = source.ID WHEN MATCHED THEN UPDATE SET target.ROLE = 'ANONYMOUS''', WHEN NOT MATCHED THEN INSERT (ID, ROLE) VALUES (-1, 'ANONYMOUS') [42001-214]
