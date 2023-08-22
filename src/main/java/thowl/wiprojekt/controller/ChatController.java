@@ -12,9 +12,7 @@ import thowl.wiprojekt.objects.Role;
 import thowl.wiprojekt.repository.ChatRepository;
 import thowl.wiprojekt.repository.UserRepository;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * {@link org.springframework.stereotype.Controller} giving access to
@@ -207,7 +205,8 @@ public class ChatController {
 	 * @throws UnacceptableRequestException if there is no {@link User} with
 	 * the specified ID.
 	 */
-	@PutMapping(value = "chats/register/{chatID}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PatchMapping(value = "chats/register/{chatID}", produces =
+			MediaType.APPLICATION_JSON_VALUE)
 	public Chat registerUserWithChat(@PathVariable long chatID,
 			@RequestBody long userID) {
 		// Check if Chat exists
@@ -222,8 +221,44 @@ public class ChatController {
 				});
 		// Validity of the action is checked.
 		checkRegisterValidity(user, chat);
-		// The User id registered and the Chat returned.
-		chat.getUsers().add(user);
+		// The User id is registered and the Chat returned.
+		Set<User> users = chat.getUsers();
+		users.add(user);
+		chat.setUsers(users);
+		chatRepo.save(chat);
+		return chat;
+	}
+
+	@PatchMapping(value = "/chats/unregister/{chatID}", produces =
+			MediaType.APPLICATION_JSON_VALUE)
+	public Chat unregisterUserFromChat(@PathVariable long chatID,
+			@RequestBody long userID) {
+		// Check if Chat exists
+		this.checkChatExists(chatID);
+		// Was already checked
+		Chat chat = chatRepo.findById(chatID).get();
+		// The User to be registered. Exception is thrown if the User does
+		// not exist
+		User user = userRepo.findById(userID).orElseThrow(() ->
+		{return new UnacceptableRequestException("User with the ID " +
+				userID + " does not exist.");
+		});
+		HashSet<User> users = new HashSet<>(chat.getUsers());
+//		for (int i = 0; i < users.size(); i++) {
+//			User iUser = users.get(i);
+//			if (iUser.getId() == userID) {
+//				users.remove(i);
+//			}
+//		}
+		users.removeIf( (iUser) -> {return iUser.getId() == userID;} );
+//		Iterator<User> it = users.iterator();
+////		while (it.hasNext()) {
+////			User iUser = it.next();
+////			if (iUser.getId() == userID) {
+////				it.remove();
+////			}
+//		}
+		chat.setUsers(new HashSet<User>(users));
 		chatRepo.save(chat);
 		return chat;
 	}
