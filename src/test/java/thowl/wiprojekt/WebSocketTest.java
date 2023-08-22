@@ -70,6 +70,7 @@ public class WebSocketTest {
 	public static void setup() {
 		future = new CompletableFuture<>();
 		url = "ws://localhost:8080/connection";
+//		url = "ws://193.16.123.46:8081/connection";
 		invalidURL = "ws://localhost:8080";
 	}
 
@@ -131,8 +132,12 @@ public class WebSocketTest {
 		/*
 		 * The Message is a text message
 		 */
-		msg.setContentType(ContentType.TEXT);
-		msg.setContentPath("hello, this is a message");
+//		msg.setContentType(ContentType.TEXT);
+		msg.setContentType(ContentType.FILE);
+//		msg.setContentPath("hello, this is a message");
+//		msg.setContentPath("henlo");
+//		msg.setContentPath("/srv/docs/pics/");
+		msg.setContentPath("/srv/dosc/pics/henlo.jpg");
 		// Author of the Message
 		User user = new User();
 		user.setId(1);

@@ -189,6 +189,7 @@ public class ChatController {
 	}
 
 	// TODO username or email
+	// TODO unregister
 
 	/**
 	 * Registers a {@link User} with the {@link Chat} with the specified ID.

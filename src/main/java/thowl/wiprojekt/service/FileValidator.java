@@ -24,7 +24,8 @@ public class FileValidator {
 	 * otherwise.
 	 */
 	public boolean isValidPath(String filePath) {
-		String regex = "^/??(?<ill>[^<>|\":/\\\\?*]+?)(/\\k<ill>)+?$";
+//		String regex = "^/??(?<ill>[^<>|\":/\\\\?*]+?)(/\\k<ill>)+?$";
+		String regex = "^(/[^<>|/\":\\\\?*]+?){2,}?$";
 		return filePath.matches(regex);
 	}
 
