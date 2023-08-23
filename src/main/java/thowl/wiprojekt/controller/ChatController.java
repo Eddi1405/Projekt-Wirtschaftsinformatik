@@ -138,6 +138,7 @@ public class ChatController {
 			}
 			pChat.setUsers(users);
 		}
+		// TODO what if null ?
 		Chat chat = chatRepo.save(pChat);
 		// TODO ??
 		// Messages inside of this chat are not returned
@@ -205,7 +206,7 @@ public class ChatController {
 	 * @throws UnacceptableRequestException if there is no {@link User} with
 	 * the specified ID.
 	 */
-	@PatchMapping(value = "chats/register/{chatID}", produces =
+	@PatchMapping(value = "/chats/register/{chatID}", produces =
 			MediaType.APPLICATION_JSON_VALUE)
 	public Chat registerUserWithChat(@PathVariable long chatID,
 			@RequestBody long userID) {
@@ -237,7 +238,7 @@ public class ChatController {
 		this.checkChatExists(chatID);
 		// Was already checked
 		Chat chat = chatRepo.findById(chatID).get();
-		// The User to be registered. Exception is thrown if the User does
+		// The User to be unregistered. Exception is thrown if the User does
 		// not exist
 		User user = userRepo.findById(userID).orElseThrow(() ->
 		{return new UnacceptableRequestException("User with the ID " +
