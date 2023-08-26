@@ -2,6 +2,7 @@ package thowl.wiprojekt.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import thowl.wiprojekt.entity.Chat;
 import thowl.wiprojekt.entity.Message;
@@ -20,6 +21,7 @@ import java.util.*;
  *
  * @version 27.05.2023
  */
+@Transactional
 @RestController
 @ThrowsInternal
 public class ChatController {
@@ -50,17 +52,22 @@ public class ChatController {
 		Chat chat = this.checkChatExists(chatID);
 		// Messages inside of this chat are not returned
 		chat.setMessage(new HashSet<Message>());
+//		throw new NullPointerException("This is a test");
 		return chat;
 	}
 
-	// TODO comments
+
+
 
 	/**
 	 * Returns the {@link Chat} objects a given {@link User} is registered with.
 	 *
 	 * @param userID The ID of the {@link User} whose {@link Chat}s should be
 	 * retrieved
+	 *
 	 * @return The {@link Chat}s the {@link User} is registered with.
+	 * @throws ResourceNotFoundException if the {@link User} with the
+	 * specified ID does not exist.
 	 */
 	@GetMapping(value = "/chatsbyuser/{userID}", produces =
 			MediaType.APPLICATION_JSON_VALUE)
@@ -101,6 +108,11 @@ public class ChatController {
 	 *
 	 * @throws MalformedRequestException if the given {@link Chat} is null or
 	 * {@link Message}s were specified for the Chat to be created.
+	 * @throws AttributeDoesNotExistException when a {@link User} that may be
+	 * given with a {@link Chat} does not exist.
+	 * @throws RestAuthenticationException when a {@link User} is specified
+	 * who is {@link Role#ANONYMOUS} and the {@link Chat} is of the type
+	 * {@link ChatType#PERSONAL}.
 	 */
 	@UpholdsIntegrity
 	@PostMapping(value = "/chats/create", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -134,11 +146,17 @@ public class ChatController {
 									+ "User with the ID " + iUser.getId() +
 									" does not exist.");
 						});
+				checkRegisterValidity(lUser, pChat);
 				users.add(lUser);
 			}
 			pChat.setUsers(users);
 		}
-		// TODO what if null ?
+		/*
+		 * If the HashSet is null an empty one is created instead.
+		 */
+		else {
+			pChat.setUsers(new HashSet<User>());
+		}
 		Chat chat = chatRepo.save(pChat);
 		// TODO ??
 		// Messages inside of this chat are not returned
@@ -188,7 +206,6 @@ public class ChatController {
 	}
 
 	// TODO username or email
-	// TODO unregister
 
 	/**
 	 * Registers a {@link User} with the {@link Chat} with the specified ID.
@@ -230,6 +247,23 @@ public class ChatController {
 		return chat;
 	}
 
+	/**
+	 * Unregisters the {@link User} with the specified ID from the
+	 * {@link Chat} with the specified ID.
+	 *
+	 * @param chatID ID of the {@link Chat} the {@link User} should be
+	 * unregistered from.
+	 * @param userID ID of the {@link User} to be registered.
+	 *
+	 * @return The {@link Chat} the {@link User} has just been unregistered
+	 * from.
+	 * @throws ResourceNotFoundException if the {@link Chat} with the
+	 * specified ID does not exist.
+	 * @throws UnacceptableRequestException if the {@link User} with the
+	 * specified ID does not exist.
+	 * @throws AttributeDoesNotExistException if the specified {@link User}
+	 * is not registered with the {@link Chat}.
+	 */
 	@PatchMapping(value = "/chats/unregister/{chatID}", produces =
 			MediaType.APPLICATION_JSON_VALUE)
 	public Chat unregisterUserFromChat(@PathVariable long chatID,
@@ -251,7 +285,15 @@ public class ChatController {
 //				users.remove(i);
 //			}
 //		}
-		users.removeIf( (iUser) -> {return iUser.getId() == userID;} );
+		boolean removed =
+				users.removeIf( (iUser) -> {return iUser.getId() == userID;} );
+		/*
+		 * An Exception will be thrown if the User was not registered.
+		 */
+		if (!removed) {
+			throw new AttributeDoesNotExistException("User with the ID " + userID +
+					" is not registered with the Chat.");
+		}
 //		Iterator<User> it = users.iterator();
 ////		while (it.hasNext()) {
 ////			User iUser = it.next();
@@ -313,9 +355,6 @@ public class ChatController {
 		});
 	}
 
-	// TODO anon
-	// TODO room deletion
-	// TODO admin
 
 	@Deprecated
 	Chat checkRequestValidity(long userID, long chatID) {

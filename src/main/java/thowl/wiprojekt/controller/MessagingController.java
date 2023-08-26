@@ -40,8 +40,6 @@ import java.util.TreeSet;
 public class MessagingController {
 
 
-	// TODO replace HTTPServletResponse
-
 	@Autowired
 	private ChatRepository chatRepo;
 
@@ -190,8 +188,6 @@ public class MessagingController {
 		log.info(msg.getContentPath());
 		return msg;
 	}
-
-	// TODO get message fom DB
 
 	/**
 	 * Saves a {@link Message} to the database. This method is {@link Transactional}

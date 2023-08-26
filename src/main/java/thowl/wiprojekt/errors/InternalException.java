@@ -39,6 +39,7 @@ public class InternalException extends RuntimeException implements
 	public InternalException(Exception wrappedException, String msg) {
 		super(msg);
 		except = wrappedException;
+		this.initCause(except);
 	}
 
 	/**
@@ -66,13 +67,13 @@ public class InternalException extends RuntimeException implements
 	 * Prints the stack trace of this {@link Exception} and the one that may
 	 * be wrapped by it.
 	 */
-	@Override
-	public void printStackTrace() {
-		super.printStackTrace();
-		if (except != null) {
-			System.err.println("InternalException caused by:\n");
-			except.printStackTrace();
-		}
-	}
+//	@Override
+//	public void printStackTrace() {
+//		super.printStackTrace();
+//		if (except != null) {
+//			System.err.println("InternalException caused by:\n");
+//			except.printStackTrace();
+//		}
+//	}
 
 }
