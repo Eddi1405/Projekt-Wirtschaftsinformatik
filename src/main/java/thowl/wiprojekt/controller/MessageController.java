@@ -1,6 +1,8 @@
 package thowl.wiprojekt.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import thowl.wiprojekt.entity.Chat;
 import thowl.wiprojekt.entity.Message;
+import thowl.wiprojekt.entity.model.MessageModelAssembler;
 import thowl.wiprojekt.errors.ResourceNotFoundException;
 import thowl.wiprojekt.errors.ThrowsInternal;
 import thowl.wiprojekt.repository.ChatRepository;
@@ -32,17 +35,21 @@ public class MessageController {
 	@Autowired
 	private ChatRepository chatRepo;
 
+	@Autowired
+	private MessageModelAssembler assembler;
+
 	/**
 	 * Returns <strong>all</strong> {@link Message}s from the specified
 	 * {@link Chat}.
 	 *
 	 * @param chatID The ID of the {@link Chat}.
 	 *
-	 * @return A {@link Set} of {@link Message}s in this {@link Chat}.
+	 * @return A {@link java.util.Collection} of {@link Message}s in this {@link Chat}.
 	 *
 	 */
 	@GetMapping(value = "/chats/{chatID}/messages", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Set<Message> getMessagesOfChat(@PathVariable long chatID) {
+	public CollectionModel<EntityModel<Message>> getMessagesOfChat(
+			@PathVariable long chatID) {
 		Chat chat = chatRepo.findById(chatID).orElseThrow( () ->
 				{return new ResourceNotFoundException("Chat with the ID " +
 						chatID + " does not exist.");
@@ -52,7 +59,7 @@ public class MessageController {
 		 * Init lazily loaded collection.
 		 */
 		messages.size();
-		return messages;
+		return assembler.toCollectionModel(messages);
 	}
 	@GetMapping(value = "/chats/{chatID}/complete", produces =
 			MediaType.APPLICATION_JSON_VALUE)

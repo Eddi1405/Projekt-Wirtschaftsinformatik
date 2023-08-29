@@ -1,12 +1,15 @@
 package thowl.wiprojekt.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import thowl.wiprojekt.entity.Chat;
 import thowl.wiprojekt.entity.Message;
 import thowl.wiprojekt.entity.User;
+import thowl.wiprojekt.entity.model.ChatModelAssembler;
 import thowl.wiprojekt.errors.*;
 import thowl.wiprojekt.objects.ChatType;
 import thowl.wiprojekt.objects.Role;
@@ -36,24 +39,28 @@ public class ChatController {
 	@Autowired
 	private UserRepository userRepo;
 
+	@Autowired
+	private ChatModelAssembler assembler;
+
 	/**
 	 * Returns a {@link Chat} object corresponding to the given ID. <strong>
 	 * Note that this method will not return the messages associated with the
 	 * given chat.</strong>
 	 *
 	 * @param chatID The ID of the requested {@link Chat}.
-	 * @return The {@link Chat} corresponding to the ID.
+	 * @return The {@link Chat} corresponding to the ID wrapped as an
+	 * {@link EntityModel}.
 	 *
 	 * @throws ResourceNotFoundException if the {@link Chat} with the
 	 * specified ID does not exist.
 	 */
 	@GetMapping(value = "/chats/{chatID}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Chat getChat(@PathVariable long chatID) {
+	public EntityModel<Chat> getChat(@PathVariable long chatID) {
 		Chat chat = this.checkChatExists(chatID);
 		// Messages inside of this chat are not returned
 		chat.setMessage(new HashSet<Message>());
 //		throw new NullPointerException("This is a test");
-		return chat;
+		return assembler.toModel(chat);
 	}
 
 
@@ -71,7 +78,7 @@ public class ChatController {
 	 */
 	@GetMapping(value = "/chatsbyuser/{userID}", produces =
 			MediaType.APPLICATION_JSON_VALUE)
-	public Set<Chat> getChatsOfUser(@PathVariable long userID) {
+	public CollectionModel<EntityModel<Chat>> getChatsOfUser(@PathVariable long userID) {
 		// User is not actually used but may be used later. 404 is given if
 		// the User does not exist
 		User user = userRepo.findById(userID).orElseThrow(() -> {
@@ -97,14 +104,14 @@ public class ChatController {
 			// Messages inside of this chat are not returned
 			iChat.setMessage(new HashSet<>());
 		}
-		return chats;
+		return assembler.toCollectionModel(chats);
 	}
 
 	/**
 	 * Creates a new Chat.
 	 *
 	 * @param pChat The new {@link Chat} to be created.
-	 * @return The newly created {@link Chat}.
+	 * @return The newly created {@link Chat} wrapped in an {@link EntityModel}.
 	 *
 	 * @throws MalformedRequestException if the given {@link Chat} is null or
 	 * {@link Message}s were specified for the Chat to be created.
@@ -116,7 +123,7 @@ public class ChatController {
 	 */
 	@UpholdsIntegrity
 	@PostMapping(value = "/chats/create", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Chat addChat(@RequestBody Chat pChat) {
+	public EntityModel<Chat> addChat(@RequestBody Chat pChat) {
 		if (pChat == null) {
 			throw new MalformedRequestException("A chat must be specified.");
 		}
@@ -161,7 +168,7 @@ public class ChatController {
 		// TODO ??
 		// Messages inside of this chat are not returned
 		chat.setMessage(new HashSet<Message>());
-		return chat;
+		return assembler.toModel(chat);
 	}
 
 	/**
@@ -183,14 +190,14 @@ public class ChatController {
 	 * chat object. <strong>This object's messages and users will be ignored.</strong>
 	 *
 	 * @param pChat The {@link Chat} to be changed.
-	 * @return The newly updated {@link Chat}.
+	 * @return The newly updated {@link Chat} wrapped in an {@link EntityModel}.
 	 *
 	 * @throws ResourceNotFoundException if the {@link Chat} does not already
 	 * exist.
 	 * @throws MalformedRequestException if the given {@link Chat} is null.
 	 */
 	@PutMapping(value = "/chats/update", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Chat updateChat(@RequestBody Chat pChat) {
+	public EntityModel<Chat> updateChat(@RequestBody Chat pChat) {
 		if (pChat == null) {
 			throw new MalformedRequestException("A chat must be specified.");
 		}
@@ -202,7 +209,7 @@ public class ChatController {
 		Chat newChat = chatRepo.save(pChat);
 		// Messages inside of this chat are not returned
 		newChat.setMessage(new HashSet<Message>());
-		return newChat;
+		return assembler.toModel(newChat);
 	}
 
 	// TODO username or email
@@ -212,7 +219,8 @@ public class ChatController {
 	 *
 	 * @param chatID The ID of the {@link Chat}.
 	 * @param userID The ID of the {@link User} to be registered.
-	 * @return The {@link Chat} the {@link User} was registered with.
+	 * @return The {@link Chat} the {@link User} was registered with wrapped
+	 * in an {@link EntityModel}.
 	 *
 	 * @throws RestAuthenticationException if the {@link User} is of the
 	 * {@link Role} {@link Role#ANONYMOUS} or the Role is null and the
@@ -225,7 +233,7 @@ public class ChatController {
 	 */
 	@PatchMapping(value = "/chats/register/{chatID}", produces =
 			MediaType.APPLICATION_JSON_VALUE)
-	public Chat registerUserWithChat(@PathVariable long chatID,
+	public EntityModel<Chat> registerUserWithChat(@PathVariable long chatID,
 			@RequestBody long userID) {
 		// Check if Chat exists
 		this.checkChatExists(chatID);
@@ -243,8 +251,8 @@ public class ChatController {
 		Set<User> users = chat.getUsers();
 		users.add(user);
 		chat.setUsers(users);
-		chatRepo.save(chat);
-		return chat;
+		Chat retChat = chatRepo.save(chat);
+		return assembler.toModel(retChat);
 	}
 
 	/**
@@ -256,7 +264,7 @@ public class ChatController {
 	 * @param userID ID of the {@link User} to be registered.
 	 *
 	 * @return The {@link Chat} the {@link User} has just been unregistered
-	 * from.
+	 * from wrapped in an {@link EntityModel}.
 	 * @throws ResourceNotFoundException if the {@link Chat} with the
 	 * specified ID does not exist.
 	 * @throws UnacceptableRequestException if the {@link User} with the
@@ -266,7 +274,7 @@ public class ChatController {
 	 */
 	@PatchMapping(value = "/chats/unregister/{chatID}", produces =
 			MediaType.APPLICATION_JSON_VALUE)
-	public Chat unregisterUserFromChat(@PathVariable long chatID,
+	public EntityModel<Chat> unregisterUserFromChat(@PathVariable long chatID,
 			@RequestBody long userID) {
 		// Check if Chat exists
 		this.checkChatExists(chatID);
@@ -302,8 +310,8 @@ public class ChatController {
 ////			}
 //		}
 		chat.setUsers(new HashSet<User>(users));
-		chatRepo.save(chat);
-		return chat;
+		Chat retChat = chatRepo.save(chat);
+		return assembler.toModel(retChat);
 	}
 
 	/**
@@ -330,7 +338,7 @@ public class ChatController {
 	}
 
 	@PatchMapping(value = "/chats/update", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Chat patchChat(@RequestBody Chat pChat) {
+	public EntityModel<Chat> patchChat(@RequestBody Chat pChat) {
 
 		return null;
 	}

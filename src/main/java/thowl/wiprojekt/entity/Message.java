@@ -30,7 +30,7 @@ public class Message {
     private long id;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "author_ID", nullable = false)
     private User authorID;
 
