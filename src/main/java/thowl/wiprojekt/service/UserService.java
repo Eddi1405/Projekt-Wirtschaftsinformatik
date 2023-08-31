@@ -84,15 +84,21 @@ public class UserService {
         Optional<User> existingUser = UJR.findById(id);
 
         if(existingUser.isPresent()){
-        fields.forEach((key,value)->{
-           Field field = ReflectionUtils.findField(User.class,key);
-            assert field != null;
-            field.setAccessible(true);
+            fields.forEach((key,value)->{
+                Field field = ReflectionUtils.findField(User.class,key);
+                assert field != null;
+                field.setAccessible(true);
 
-           ReflectionUtils.setField(field,existingUser.get(),value);
-        });
-        return UJR.save(existingUser.get());
-    }
+                if(key.equals("password")){
+                    String hashedPassword = bCryptPasswordEncoder.encode(value.toString());
+                    ReflectionUtils.setField(field,existingUser.get(),hashedPassword);
+                }else {
+
+                    ReflectionUtils.setField(field, existingUser.get(), value);
+                }
+            });
+            return UJR.save(existingUser.get());
+        }
         return null;
     }
 
