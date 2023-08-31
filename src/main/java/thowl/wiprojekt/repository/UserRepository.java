@@ -32,8 +32,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "UPDATE users SET role='?1' WHERE username = ?2", nativeQuery = true)
     void changeRole(String param1, String param2);
 
-    @Query(value = "UPDATE users SET learningtype='?1' WHERE username = ?2", nativeQuery = true)
-    void changeLearningtype(String param1, String param2);
+    @Query(value = "UPDATE users SET learningtype_aural = ?1, learningtype_visual = ?2, learningtype_kinesthetic = ?3, learningtype_readwrite = ?4 WHERE username = ?5", nativeQuery = true)
+    void changeLearningTypes(float param1, float param2, float param3, float param4, String param5);
+
 
 
 }

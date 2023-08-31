@@ -60,7 +60,16 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Enumerated(EnumType.STRING)
-    private LearningType learningtype;
+    @Column(name = "learningtypeVisual")
+    private float learningtypeVisual;
+
+    @Column(name = "learningtypeAural")
+    private float learningtypeAural;
+
+    @Column(name = "learningtypeReadwrite")
+    private float learningtypeReadwrite;
+
+    @Column(name = "learningtypeKinesthetic")
+    private float learningtypeKinesthetic;
 
 }

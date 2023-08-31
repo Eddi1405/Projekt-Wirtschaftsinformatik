@@ -34,13 +34,18 @@ public class UserService {
         return bCryptPasswordEncoder.encode(password);
     }
 
-    public void saveRegisterData(String username, String password, String email, Role role, LearningType learningtype) {
+    //TODO: Checken ob es funktioniert
+    //Changes: float leanringtype
+    public void saveRegisterData(String username, String password, String email, Role role, float learningtypeVisual,float learningtypeAural,float learningtypeReadwrite,float learningtypeKinesthetic) {
         User uData = new User();
         uData.setUsername(username);
         uData.setPassword(passwordEncoder(password));
         uData.setEmail(email);
         uData.setRole(role);
-        uData.setLearningtype(learningtype);
+        uData.setLearningtypeVisual(learningtypeVisual);
+        uData.setLearningtypeAural(learningtypeAural);
+        uData.setLearningtypeReadwrite(learningtypeReadwrite);
+        uData.setLearningtypeKinesthetic(learningtypeKinesthetic);
         UJR.save(uData);
     }
     public boolean partialUpdate(long id, String key, String value) throws ResourceNotFoundException {
