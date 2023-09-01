@@ -24,7 +24,7 @@ import java.util.*;
  *
  * @version 27.05.2023
  */
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 @RestController
 @ThrowsInternal
 public class ChatController {

@@ -33,7 +33,7 @@ import java.util.TreeSet;
  *
  * @version 26.05.2023
  */
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 @ThrowsInternal
 @Slf4j
 @Controller

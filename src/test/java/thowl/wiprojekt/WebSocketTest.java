@@ -1,20 +1,25 @@
 package thowl.wiprojekt;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
 import org.springframework.web.socket.sockjs.client.SockJsClient;
 import org.springframework.web.socket.sockjs.client.Transport;
 import org.springframework.web.socket.sockjs.client.WebSocketTransport;
+import thowl.wiprojekt.controller.UserController;
 import thowl.wiprojekt.entity.Message;
 import thowl.wiprojekt.entity.User;
 import thowl.wiprojekt.objects.ContentType;
+import thowl.wiprojekt.objects.Role;
+import thowl.wiprojekt.repository.UserRepository;
 
 import java.lang.reflect.Type;
 import java.sql.Timestamp;
@@ -58,7 +63,8 @@ public class WebSocketTest {
 	 * timed out.
 	 */
 	public static void main(String[] args)
-			throws ExecutionException, InterruptedException, TimeoutException {
+			throws ExecutionException, InterruptedException, TimeoutException,
+			Exception{
 		setup();
 		testSend();
 	}
@@ -86,75 +92,88 @@ public class WebSocketTest {
 	 * timed out.
 	 */
 //	@Test
+	@Transactional(rollbackFor = Exception.class)
 	public static void testSend()
-			throws ExecutionException, InterruptedException, TimeoutException {
-		ArrayList<Transport> transports = new ArrayList<>();
-		transports.add(new WebSocketTransport(new StandardWebSocketClient()));
-		// Mockup client for the SockJS library
-		SockJsClient client = new SockJsClient(transports);
-		// Actually used client
-		WebSocketStompClient stomp = new WebSocketStompClient(client);
-		// Used for correctly converting messages
-		stomp.setMessageConverter(new MappingJackson2MessageConverter());
-		// Used to schedule tasks
-		ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
-		scheduler.initialize();
-		stomp.setTaskScheduler(scheduler);
-//		stomp.connectAsync(url,
-//				new StompSessionHandlerAdapter() {});
-		/*
-		 * Client connects to the server and creates a session.
-		 */
-		StompSession session = stomp.connectAsync(url,
-				new StompSessionHandlerAdapter() {}).get(30, TimeUnit.SECONDS);
-		log.info(session.getSessionId());
-		session.setAutoReceipt(true);
-//		StompSession.Subscription subb =session.subscribe(
-//				"topic/topic/1",
-//				new DebugSessionHandler());
-//		log.info(subb.getSubscriptionId());
-		// Headers used for sending
-		StompHeaders headers = new StompHeaders();
-		headers.add("destination", "/topic/1");
-		headers.add("num", "0");
-		headers.add("mTime", "2023-07-01");
-		headers.add("userID", "1");
-		/*
-		 * The client subscribes to the topic.
-		 */
-		StompSession.Subscription sub =session.subscribe(
-//						"/topic/1",
-				headers,
-				new LocalDebugFrameHandler());
-		log.info(sub.getSubscriptionId());
-		// Message to be sent
-		Message msg = new Message();
-		/*
-		 * The Message is a text message
-		 */
-//		msg.setContentType(ContentType.TEXT);
-		msg.setContentType(ContentType.FILE);
-//		msg.setContentPath("hello, this is a message");
-//		msg.setContentPath("henlo");
-//		msg.setContentPath("/srv/docs/pics/");
-		msg.setContentPath("/srv/dosc/pics/henlo.jpg");
-		// Author of the Message
-		User user = new User();
-		user.setId(1);
-		user.setUsername("Adam");
-		msg.setAuthorID(user);
-		msg.setTime(new Timestamp(System.currentTimeMillis()));
-		// The Message is sent
-		session.send("/chat/1",
-				msg);
-		Message msg2 = new Message();
-		msg2.setContentType(ContentType.TEXT);
-		msg2.setContentPath("hello, this is a message");
-		User user2 = new User();
-		user2.setId(1);
-		user2.setUsername("Steve");
-		msg2.setAuthorID(user2);
-		msg2.setTime(new Timestamp(System.currentTimeMillis()));
+			throws ExecutionException, InterruptedException, TimeoutException,
+			Exception{
+//		User user = new User();
+//		user.setUsername("McUsername");
+//		user.setPassword("McPassword");
+//		user.setRole(Role.STUDENT);
+//		uRepo.save(user);
+		WebSocketTest.testMessaging(1, "Adam", 1, "Hello, this is a message.",
+				ContentType.TEXT);
+//		WebSocketTest.testMessaging(2, -1, "oi, mate", ContentType.TEXT);
+//		WebSocketTest.testMessaging(1, 1, "/srv/doc/henlo.jpg",
+//				ContentType.FILE);
+//		WebSocketTest.testMessaging(1, 1, "oi", ContentType.FILE);
+//		ArrayList<Transport> transports = new ArrayList<>();
+//		transports.add(new WebSocketTransport(new StandardWebSocketClient()));
+//		// Mockup client for the SockJS library
+//		SockJsClient client = new SockJsClient(transports);
+//		// Actually used client
+//		WebSocketStompClient stomp = new WebSocketStompClient(client);
+//		// Used for correctly converting messages
+//		stomp.setMessageConverter(new MappingJackson2MessageConverter());
+//		// Used to schedule tasks
+//		ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+//		scheduler.initialize();
+//		stomp.setTaskScheduler(scheduler);
+////		stomp.connectAsync(url,
+////				new StompSessionHandlerAdapter() {});
+//		/*
+//		 * Client connects to the server and creates a session.
+//		 */
+//		StompSession session = stomp.connectAsync(url,
+//				new StompSessionHandlerAdapter() {}).get(30, TimeUnit.SECONDS);
+//		log.info(session.getSessionId());
+//		session.setAutoReceipt(true);
+////		StompSession.Subscription subb =session.subscribe(
+////				"topic/topic/1",
+////				new DebugSessionHandler());
+////		log.info(subb.getSubscriptionId());
+//		// Headers used for sending
+//		StompHeaders headers = new StompHeaders();
+//		headers.add("destination", "/topic/1");
+//		headers.add("num", "0");
+//		headers.add("mTime", "2023-07-01");
+//		headers.add("userID", "1");
+//		/*
+//		 * The client subscribes to the topic.
+//		 */
+//		StompSession.Subscription sub =session.subscribe(
+////						"/topic/1",
+//				headers,
+//				new LocalDebugFrameHandler());
+//		log.info(sub.getSubscriptionId());
+//		// Message to be sent
+//		Message msg = new Message();
+//		/*
+//		 * The Message is a text message
+//		 */
+////		msg.setContentType(ContentType.TEXT);
+//		msg.setContentType(ContentType.FILE);
+////		msg.setContentPath("hello, this is a message");
+////		msg.setContentPath("henlo");
+////		msg.setContentPath("/srv/docs/pics/");
+//		msg.setContentPath("/srv/dosc/pics/henlo.jpg");
+//		// Author of the Message
+//		User user = new User();
+//		user.setId(1);
+//		user.setUsername("Adam");
+//		msg.setAuthorID(user);
+//		msg.setTime(new Timestamp(System.currentTimeMillis()));
+//		// The Message is sent
+//		session.send("/chat/1",
+//				msg);
+//		Message msg2 = new Message();
+//		msg2.setContentType(ContentType.TEXT);
+//		msg2.setContentPath("hello, this is a message");
+//		User user2 = new User();
+//		user2.setId(1);
+//		user2.setUsername("Steve");
+//		msg2.setAuthorID(user2);
+//		msg2.setTime(new Timestamp(System.currentTimeMillis()));
 //		future.complete();
 //		sub.addReceiptTask(() -> {
 //			log.info("sending");
@@ -164,6 +183,7 @@ public class WebSocketTest {
 		 * The assertion fails. That way it is possible to see the Message.
 		 */
 		assertEquals("oi", future.get(300, TimeUnit.SECONDS).getContentPath());
+		throw new Exception("This is for rollback.");
 	}
 
 //	private class MockSessionHandler implements StompFrameHandler {
@@ -209,6 +229,70 @@ public class WebSocketTest {
 			Message msg = (Message) payload;
 			future.complete(msg);
 		}
+	}
+
+	private static void testMessaging(long userID, String username, long chatID,
+			String content, ContentType type)
+			throws ExecutionException, InterruptedException, TimeoutException {
+		User user = new User();
+		user.setId(userID);
+		user.setUsername(username);
+		ArrayList<Transport> transports = new ArrayList<>();
+		transports.add(new WebSocketTransport(new StandardWebSocketClient()));
+		// Mockup client for the SockJS library
+		SockJsClient client = new SockJsClient(transports);
+		// Actually used client
+		WebSocketStompClient stomp = new WebSocketStompClient(client);
+		// Used for correctly converting messages
+		stomp.setMessageConverter(new MappingJackson2MessageConverter());
+		// Used to schedule tasks
+		ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+		scheduler.initialize();
+		stomp.setTaskScheduler(scheduler);
+//		stomp.connectAsync(url,
+//				new StompSessionHandlerAdapter() {});
+		/*
+		 * Client connects to the server and creates a session.
+		 */
+		StompSession session = stomp.connectAsync(url,
+				new StompSessionHandlerAdapter() {}).get(30, TimeUnit.SECONDS);
+		log.info(session.getSessionId());
+		session.setAutoReceipt(true);
+//		StompSession.Subscription subb =session.subscribe(
+//				"topic/topic/1",
+//				new DebugSessionHandler());
+//		log.info(subb.getSubscriptionId());
+		// Headers used for sending
+		StompHeaders headers = new StompHeaders();
+		headers.add("destination", "/topic/" + chatID);
+		headers.add("num", "0");
+		headers.add("mTime", "2023-07-01");
+		headers.add("userID", String.valueOf(userID));
+		/*
+		 * The client subscribes to the topic.
+		 */
+		StompSession.Subscription sub =session.subscribe(
+//						"/topic/1",
+				headers,
+				new LocalDebugFrameHandler());
+		log.info(sub.getSubscriptionId());
+		// Message to be sent
+		Message msg = new Message();
+		/*
+		 * The Message is a text message
+		 */
+//		msg.setContentType(ContentType.TEXT);
+		msg.setContentType(ContentType.FILE);
+//		msg.setContentPath("hello, this is a message");
+//		msg.setContentPath("henlo");
+//		msg.setContentPath("/srv/docs/pics/");
+		msg.setContentPath("/srv/dosc/pics/henlo.jpg");
+		// Author of the Message
+		msg.setAuthorID(user);
+		msg.setTime(new Timestamp(System.currentTimeMillis()));
+		// The Message is sent
+		session.send("/chat/" + chatID,
+				msg);
 	}
 
 }

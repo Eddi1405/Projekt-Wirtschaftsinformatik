@@ -22,7 +22,7 @@ import java.util.Set;
  * {@link org.springframework.stereotype.Controller} used to retrieve
  * {@link Message}s.
  */
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 @RestController
 @ThrowsInternal
 public class MessageController {
