@@ -38,17 +38,17 @@ public class UserService {
 
     //TODO: Checken ob es funktioniert
     //Changes: float leanringtype
-    public void saveRegisterData(String username, String password, String email, Role role, float learningtypeVisual,float learningtypeAural,float learningtypeReadwrite,float learningtypeKinesthetic) {
-        User uData = new User();
-        uData.setUsername(username);
-        uData.setPassword(passwordEncoder(password));
-        uData.setEmail(email);
-        uData.setRole(role);
-        uData.setLearningtypeVisual(learningtypeVisual);
-        uData.setLearningtypeAural(learningtypeAural);
-        uData.setLearningtypeReadwrite(learningtypeReadwrite);
-        uData.setLearningtypeKinesthetic(learningtypeKinesthetic);
-        UJR.save(uData);
+    public void saveRegisterData(User user) {
+//        User uData = new User();
+//        uData.setUsername(username);
+        user.setPassword(passwordEncoder(user.getPassword()));
+//        uData.setEmail(email);
+//        uData.setRole(role);
+//        uData.setLearningtypeVisual(learningtypeVisual);
+//        uData.setLearningtypeAural(learningtypeAural);
+//        uData.setLearningtypeReadwrite(learningtypeReadwrite);
+//        uData.setLearningtypeKinesthetic(learningtypeKinesthetic);
+        UJR.save(user);
     }
     public boolean partialUpdate(long id, String key, String value) throws ResourceNotFoundException {
         Optional<User> optionalUser = UJR.findById(id);
