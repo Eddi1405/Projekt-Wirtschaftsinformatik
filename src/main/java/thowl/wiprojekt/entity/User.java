@@ -61,15 +61,15 @@ public class User {
     private Role role;
 
     @Column(name = "learningtypeVisual")
-    private float learningtypeVisual;
+    private double learningtypeVisual;
 
     @Column(name = "learningtypeAural")
-    private float learningtypeAural;
+    private double learningtypeAural;
 
     @Column(name = "learningtypeReadwrite")
-    private float learningtypeReadwrite;
+    private double learningtypeReadwrite;
 
     @Column(name = "learningtypeKinesthetic")
-    private float learningtypeKinesthetic;
+    private double learningtypeKinesthetic;
 
 }
