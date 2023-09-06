@@ -124,8 +124,9 @@ public class LoginController {
         }
         if (UR.findByUsernameOrEmail(user.getUsername(), user.getEmail()) == null) {
             // The user is saved in the database
-            US.saveRegisterData(user.getUsername(), user.getPassword(),
-                    user.getEmail(), user.getRole(), user.getLearningtypeAural(), user.getLearningtypeVisual(), user.getLearningtypeReadwrite(), user.getLearningtypeKinesthetic());
+//            US.saveRegisterData(user.getUsername(), user.getPassword(),
+//                    user.getEmail(), user.getRole(), user.getLearningtypeAural(), user.getLearningtypeVisual(), user.getLearningtypeReadwrite(), user.getLearningtypeKinesthetic());
+            UR.save(user);
             /*
              * The EntityModel is created and returned. An error is raised if
              * it is not found after saving.

@@ -231,6 +231,23 @@ public class WebSocketTest {
 		}
 	}
 
+	/**
+	 * Execute the actual test. Should be called by
+	 * {@link WebSocketTest#testSend()}.
+	 *
+	 * @param userID The id of the user the test is done with.
+	 * @param username The name of the user,
+	 * @param chatID The id of the Chat.
+	 * @param content The content of the chat.
+	 * @param type The type of the chat.
+	 *
+	 * @throws ExecutionException when there is a problem with the used
+	 * {@link CompletableFuture}.
+	 * @throws InterruptedException when the used {@link CompletableFuture} is
+	 * interrupted.
+	 * @throws TimeoutException when the used {@link CompletableFuture} is
+	 * timed out.
+	 */
 	private static void testMessaging(long userID, String username, long chatID,
 			String content, ContentType type)
 			throws ExecutionException, InterruptedException, TimeoutException {
