@@ -65,9 +65,18 @@ public class UserService {
                 case "email":
                     user.setEmail(value);
                     break;
-                /**case "learningtype":
-                    user.setLearningtype(value);
-                    break;**/
+                case "learningtypeVisual":
+                    user.setLearningtypeVisual(Float.parseFloat(value));
+                    break;
+                case "learningtypeAural":
+                    user.setLearningtypeAural(Float.parseFloat(value));
+                    break;
+                case "learningtypeKinesthetic":
+                    user.setLearningtypeKinesthetic(Float.parseFloat(value));
+                    break;
+                case "learningtypeReadWrite":
+                    user.setLearningtypeReadwrite(Float.parseFloat(value));
+                    break;
                 // Add additional cases for other fields as needed
                 default:
                     throw new IllegalArgumentException("Invalid key: " + key);
