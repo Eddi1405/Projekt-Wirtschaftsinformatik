@@ -4,12 +4,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.ReflectionUtils;
 import thowl.wiprojekt.entity.User;
 import thowl.wiprojekt.errors.ResourceNotFoundException;
+import thowl.wiprojekt.errors.UnacceptableRequestException;
 import thowl.wiprojekt.objects.LearningType;
 import thowl.wiprojekt.objects.Role;
 import thowl.wiprojekt.repository.UserRepository;
 
 import org.springframework.stereotype.Service;
 
+import javax.management.ReflectionException;
 import java.lang.reflect.Field;
 import java.security.SecureRandom;
 import java.util.Map;
@@ -95,16 +97,20 @@ public class UserService {
         if(existingUser.isPresent()){
             fields.forEach((key,value)->{
                 Field field = ReflectionUtils.findField(User.class,key);
-                assert field != null;
-                field.setAccessible(true);
+                if(field != null){
+                    field.setAccessible(true);
 
-                if(key.equals("password")){
-                    String hashedPassword = bCryptPasswordEncoder.encode(value.toString());
-                    ReflectionUtils.setField(field,existingUser.get(),hashedPassword);
-                }else {
+                    if(key.equals("password")){
+                        String hashedPassword = bCryptPasswordEncoder.encode(value.toString());
+                        ReflectionUtils.setField(field,existingUser.get(),hashedPassword);
+                    }else {
 
-                    ReflectionUtils.setField(field, existingUser.get(), value);
+                        ReflectionUtils.setField(field, existingUser.get(), value);
+                    }
+                }else{
+                    throw new UnacceptableRequestException("");
                 }
+
             });
             return UJR.save(existingUser.get());
         }
