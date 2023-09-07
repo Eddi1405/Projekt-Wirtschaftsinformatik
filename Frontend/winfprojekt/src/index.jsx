@@ -7,6 +7,8 @@ import Login from './components/login/login'
 import Main from './components/mainpage/mainpage'
 import Profil from './components/profil/profil'
 import Register from './components/register/register'
+import Menu from './components/menu/menu'
+import Faq from './components/faq/faq'
 
 
 const Index = () => {
@@ -18,6 +20,8 @@ const Index = () => {
       <Route exact path='/main' element={<Main />}></Route>
       <Route exact path='/profil' element={<Profil />}></Route>
       <Route exact path='/register' element={<Register />}></Route>
+      <Route exact path='/menu' element={<Menu />}></Route>
+      <Route exact path='/faq' element={<Faq />}></Route>
     </Routes>
    
 

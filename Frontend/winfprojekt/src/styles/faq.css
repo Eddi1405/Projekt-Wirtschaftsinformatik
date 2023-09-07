@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+
+
+h1{
+    padding-left: 200px;
+    padding-bottom: 20px;
+}
+
+/* Stil für den FAQ-Bereich */
+#faq {
+   
+    max-width: 800px;
+    margin: auto;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.faq-header {
+    display: flex;
+    justify-content: center;
+   
+    color: #181E2F;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Stil für FAQ-Einträge */
+.faq-item {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.faq-question {
+    font-weight: bolder ;
+    color: #181E2F;
+    font-size: 19px;
+    margin-bottom: 10px;
+    text-decoration: underline;
+}

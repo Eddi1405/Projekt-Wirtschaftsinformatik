@@ -1,0 +1,122 @@
+
+
+  .menu_container {
+    background-color: #202833;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    height: 700px;
+    position: relative;
+  }
+
+  .menu_control-section1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  .control-section2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  
+  }
+
+  .button1 {
+    font-weight: bold;
+    background-color: #66fcf1;
+    color: rgb(0, 0, 0);
+    border: none;
+    font-size: 40px;
+    margin: 90px; /* Größerer Abstand zwischen den Buttons */
+    cursor: pointer;
+    border-radius: 20px;
+    position: relative;
+    z-index: 1;
+    width: 400px;
+    top: -90px;
+  }
+  .button2 {
+    font-weight: bold;
+    padding: 35px 30px;
+    background-color: #66fcf1;
+    color: rgb(0, 0, 0);
+    border: none;
+    font-size: 40px;
+    margin: 90px; /* Größerer Abstand zwischen den Buttons */
+    cursor: pointer;
+    border-radius: 20px;
+    position: relative;
+    z-index: 1;
+    width: 400px;
+    top: -30px;
+  }
+
+  .blue-rectangle {
+    /*oberes Rectangle */
+    width: 400px;
+    height: 150px;
+    background-color: #315c63;
+    position: absolute;
+    
+    top: 27%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    border-radius: 10px;
+  }
+  /* rgb(39, 211, 241); */
+  .blue-rectangle2 {
+    /*unteres Rectangle */
+    width: 400px;
+    height: 150px;
+    background-color: #315c63;
+    position: absolute;
+    top: 85%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    border-radius: 10px;
+  }
+ 
+
+.ka_text{
+  font-size: 22px;
+  color: #fffffc;
+}
+
+
+  .text-overlay {
+    color: white;
+    position: absolute;
+    top: 60%;
+
+    left: 37%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+  }
+  .image-rectangle {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    bottom: -10px;
+    right: -100px;
+  }
+  .arrow-rectangle {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    bottom: 35px;
+    right: 25px;
+  }
+  .button-image {
+    width: 70px; /* Passe die Größe des Bildes an */
+    height: 70px;
+    position: absolute;
+    bottom: 30px;
+    right: 320px;
+    /* margin-right: 10px; Füge einen rechten Abstand zwischen Bild und Text hinzu */
+  }

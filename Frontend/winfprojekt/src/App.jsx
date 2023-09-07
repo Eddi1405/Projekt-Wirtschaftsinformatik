@@ -10,10 +10,13 @@ import './styles/App.css'
 import Index from '.'
 import Login from './components/login/login'
 
+
 function App() {
   return (
     <div>
-      <Index/>
+        <Index/>
+      
+    
     </div>
   )
 }

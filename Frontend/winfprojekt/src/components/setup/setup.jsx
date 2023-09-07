@@ -156,7 +156,7 @@ export default function Setup() {
     return "#" + componentToHex(+rgb[0]) + componentToHex(+rgb[1]) + componentToHex(+rgb[2]);
   }
 
-
+/*
   //Axios Values for Server
   function setup() {
 
@@ -185,7 +185,7 @@ export default function Setup() {
      
   }
 
- 
+ */
 
   return (
     <div>
@@ -251,7 +251,7 @@ export default function Setup() {
         <div className="footer"> 
         <div className="footerDiv">Die Experimentelle Plattform
         </div>
-        <Link to="/main"> <button type="button" className="arrow" onClick={setup}></button> </Link>
+        <Link to="/main"> <button type="button" className="arrow" onClick={Setup}></button> </Link>
         </div>
       </section>
     </div>

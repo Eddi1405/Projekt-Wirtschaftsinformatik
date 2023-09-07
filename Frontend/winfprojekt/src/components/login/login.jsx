@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import "./../../styles/login.css";
 import { Link } from "react-router-dom";
@@ -6,6 +6,10 @@ import axios from "axios";
 
 
 export default function Login() {
+
+  const USER_REGEX = /^\[A-z\][A-z0-9-_]{3,23}$/;
+  const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+ 
 
 
 
@@ -15,20 +19,24 @@ export default function Login() {
     let password = document.getElementById('password').value
 
 
+    window.location.href="/setup";
 
-    axios.post(
-      "http://localhost/",
-      {
-        username: "sda",
-        password: "das",
-      },
-      {
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        }
-      }
-    )
 
+    axios.get('http://193.16.123.46:8081/user?username='+username)
+      .then(function (response) {
+        // handle success
+        console.log(response);
+        window.location.href="/setup";
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
+
+      
      
   }
 
@@ -84,9 +92,9 @@ return (
         <figcaption>Augenverfolgung</figcaption>
       </figure>
     </div>
-    <div className="kgarrow">
-    <Link to="/setup">  <img src="Icons/arrow.png" alt="Pfeil"/></Link>
-
+    <div className="kgarrow"> 
+   <img src="Icons/arrow.png" alt="Pfeil" onClick={loginUser}/>
+  
     </div>
     </div> 
   </div>

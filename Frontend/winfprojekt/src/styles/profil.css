@@ -1,3 +1,69 @@
 
 
 
+
+.profile-container {
+    background-color: #191E2E;
+    display: flex;
+    align-items: center;
+    height: 700px;
+}
+
+.profile-pic {
+    background-color: #999393;
+    flex: none;
+    padding: 20px;
+    text-align: center;
+    height: 230px;
+    width: 250px;
+    border: solid 1px;
+    margin-left: 200px;
+    margin-right: 100px;
+}
+
+.profile-pic img {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+}
+
+.change_img {
+    margin-top: 20px;
+    font-weight: bold;
+    width:120px;
+    border-radius: 10px;
+    height: 40px;
+   
+}
+
+.personal-data {
+    flex: none;
+    padding: 50px;
+    background-color: #E6FCFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    height: 400px;
+    width: 700px;
+    position: relative;
+}
+
+.personaldata{
+    font-weight: bold;
+}
+
+.personal-data img {
+    height: 80px;
+    width: 80px;
+    object-fit: cover;
+}
+
+.personal-data .header {
+    position: absolute; /* Dies ermöglicht es, das Element in Bezug auf das nächstgelegene positionierte Elternelement zu positionieren */
+    top: 0; /* Das positioniert das Element ganz oben im Elternelement */
+    left: 0; 
+    font-weight: bold;
+    background-color: #fff;
+    color: #333;
+    padding: 5px 10px;
+    font-size: 30px;
+}
