@@ -25,4 +25,8 @@ public class Tag {
 
     @Column(name = "description", nullable = false)
     private String description;
+
+    //Von Lukas und Alexej war nen quick fix von Intelij
+    public Tag(long l, String tag1) {
+    }
 }

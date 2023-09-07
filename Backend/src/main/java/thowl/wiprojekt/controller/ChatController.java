@@ -35,6 +35,12 @@ public class ChatController {
 	@Autowired
 	private UserRepository userRepo;
 
+	//Von Lukas und Alexej war nen quick fix von Intelij
+	 public ChatController(ChatRepository chatRepository, UserRepository userRepository) {
+	 }
+
+
+
 	/**
 	 * Returns a {@link Chat} object corresponding to the given ID. <strong>
 	 * Note that this method will not return the messages associated with the
