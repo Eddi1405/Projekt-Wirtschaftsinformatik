@@ -23,6 +23,7 @@ import thowl.wiprojekt.repository.ChatRepository;
 import thowl.wiprojekt.repository.MessageRepository;
 import thowl.wiprojekt.repository.UserRepository;
 import thowl.wiprojekt.service.FileValidator;
+import thowl.wiprojekt.service.MessageComparator;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -105,11 +106,7 @@ public class MessagingController {
 		/*
 		 * The returned messages are ordered so that the highest ID comes first.
 		 */
-		TreeSet<Message> messages = new TreeSet<>((a, b) -> {
-			long idA = a.getId();
-			long idB = b.getId();
-			return (idA > idB) ? -1 : (idA < idB) ? 1 : 0;
-		});
+		TreeSet<Message> messages = new TreeSet<>(new MessageComparator());
 		/*
 		 * An Exception will be thrown if the Chat does
 		 * not exist.

@@ -15,8 +15,10 @@ import thowl.wiprojekt.errors.ResourceNotFoundException;
 import thowl.wiprojekt.errors.ThrowsInternal;
 import thowl.wiprojekt.repository.ChatRepository;
 import thowl.wiprojekt.repository.MessageRepository;
+import thowl.wiprojekt.service.MessageComparator;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * {@link org.springframework.stereotype.Controller} used to retrieve
@@ -54,7 +56,9 @@ public class MessageController {
 				{return new ResourceNotFoundException("Chat with the ID " +
 						chatID + " does not exist.");
 				});
-		Set<Message> messages = chat.getMessage();
+		// Set of Messages ordered by newest Message
+		TreeSet<Message> messages = new TreeSet<>(new MessageComparator());
+		messages.addAll(chat.getMessage());
 		/*
 		 * Init lazily loaded collection.
 		 */
