@@ -9,6 +9,8 @@ import Profil from './components/profil/profil'
 import Register from './components/register/register'
 import Menu from './components/menu/menu'
 import Faq from './components/faq/faq'
+import Thread_list from './components/thread_list/thread_list';
+import Thread from './components/thread/thread';
 
 
 const Index = () => {
@@ -22,6 +24,8 @@ const Index = () => {
       <Route exact path='/register' element={<Register />}></Route>
       <Route exact path='/menu' element={<Menu />}></Route>
       <Route exact path='/faq' element={<Faq />}></Route>
+      <Route exact path='/threadlist' element={<Thread_list />}></Route>
+      <Route exact path='/thread' element={<Thread />}></Route>
     </Routes>
    
 

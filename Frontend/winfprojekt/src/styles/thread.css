@@ -1,0 +1,132 @@
+.navbar{
+    background-color: #E6FCFF;
+    display: flex;
+    height: 20%;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+}
+.threadsite{
+    background-color: #1C1D30;
+    display: flex;
+    top: 20%;
+    position: absolute;
+    height: 80%;
+    width: 100%;
+}
+
+.threadoverviewframe{
+    background-color: #E6FCFF;
+    display: flex;
+    top: 5%;
+    left: 10%;
+    right: 10%;
+    position: absolute;
+    height: 90%;
+    width: 80%;
+}
+
+.threadoverview{
+    background-color: #E6FCFF;
+    border:2px solid black;
+    display: flex;
+    flex-direction: column;
+    top: 10%;
+    left: 5%;
+    right: 5%;
+    position: absolute;
+    height: 80%;
+    width: 90%;
+}
+
+.threadsheadline{
+    border-bottom:2px solid black;
+    display: flex;
+    flex-direction: row;
+    height: 75px;
+}
+.hot_tags{
+    border-right:2px solid black;
+    width: 80%;
+    height: 100%;
+    display: flex;
+    padding: 25px;
+}
+
+.tasks_tag{
+    margin-right: 10px;
+    background-color: #1C1D30;
+    color: #FFFFFF;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+}
+
+.more_tags{
+    margin-right: 10px;
+    background-color: #1C1D30;
+    color: #FFFFFF;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+}
+
+.thread_filter{
+    width: 25%;
+    height: 100%;
+    padding: 25px;
+    text-align: center;
+}
+
+.thread_1{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.thread_1_topic{
+    width: 75%;
+    padding: 25px;
+}
+.thread_1_button{
+    width: 25%;
+    text-align: center;
+    padding: 25px;
+}
+.read_less_thread_1{
+    background-color: #1C1D30;
+    color: #FFFFFF;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
+
+.pdf_download{
+    background-color: #E6FCFF;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
+
+.PDF_icon{
+    height: 75px;
+    width: 75px;
+    top: 100px;
+    text-align: center;
+    padding: 10px;
+
+}
