@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useState } from 'react';
 import { BrowserRouter,
     Routes,Route } from 'react-router-dom';
 
@@ -12,6 +12,8 @@ import Faq from './components/faq/faq'
 
 
 const Index = () => {
+
+
   return (
     
     <Routes> {/* The Switch decides which component to show based on the current URL.*/}

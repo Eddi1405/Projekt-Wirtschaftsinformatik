@@ -3,40 +3,59 @@ import ReactDOM from 'react-dom';
 import "./../../styles/login.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
+import { useRef } from "react";
 
 export default function Login() {
 
   const USER_REGEX = /^\[A-z\][A-z0-9-_]{3,23}$/;
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
- 
+  const loginForm = useRef(null);
 
 
 
   function loginUser() {
 
+    const form = loginForm.current;
+
     let username = document.getElementById('username').value
     let password = document.getElementById('password').value
 
 
-    window.location.href="/setup";
+   // window.location.href="/setup";
+
+   axios.post(
+    "http://localhost:8080/login",
+    {
+      username: form["username"].value, 
+      password: form["password"].value 
+    }).then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 
 
-    axios.get('http://193.16.123.46:8081/user?username='+username)
-      .then(function (response) {
-        // handle success
-        console.log(response);
-        window.location.href="/setup";
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .finally(function () {
-        // always executed
-      });
 
-      
+
+
+
+/*
+  axios.post(
+    "http://localhost:8080/register",
+    {
+      username: "testuser", 
+      email: "testuser@test.com",
+      password: "1234",
+      learningtype: "visual",
+    }).then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+   */   
      
   }
 
@@ -53,14 +72,18 @@ return (
     <img src="images/divlab.png" alt="Logo" className="kglogo"/>
     <h1>Die Experimentelle Lernplattform</h1>
     <div className ="bg">
+    <form ref={loginForm}> 
     <div className="form-group">
+
+    
       <input type="text" id="username" name="username" placeholder="Username" required/>
     </div>
     <div className="form-group">
       <input type="password" id="password" name="password" placeholder="Passwort" required/>
     </div>
-    
-     <p class="registerText"> Noch kein Konto?<a href="/Register"> Hier</a> Regisitrieren! </p>
+   
+    </form>
+     <p className="registerText"> Noch kein Konto?<a href="/Register"> Hier</a> Regisitrieren! </p>
       
     <div className="kgicons">
       <figure>
