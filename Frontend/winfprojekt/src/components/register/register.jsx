@@ -17,8 +17,6 @@ import Stack from "@mui/material/Stack";
 
 export default function Register()  {
 
-
-
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
   }
