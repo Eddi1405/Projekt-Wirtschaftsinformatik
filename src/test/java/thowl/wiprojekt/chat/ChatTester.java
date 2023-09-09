@@ -129,6 +129,7 @@ public class ChatTester {
 		StompSession sess2 = getSession(user2);
 		subscribeUser(user1, 1, sess1, false);
 		subscribeUser(user2, 1, sess2, true);
+		subscribeUser(user2, 2, sess2, true);
 		Message msg1 = new Message();
 		msg1.setContentType(ContentType.FILE);
 		msg1.setContentPath("/srv/dosc/pics/henlo.jpg");
