@@ -68,25 +68,25 @@ public class UserService {
                     user.setEmail(value);
                     break;
 
-                case "dark_mode":
+                case "darkmode":
                     user.setDarkmode(Boolean.parseBoolean(value));
                     break;
-                case "de_en":
+                case "deEn":
                     user.setDeEn(Boolean.parseBoolean(value));
                     break;
                 case "contrast":
                     user.setContrast(Boolean.parseBoolean(value));
                     break;
-                case "font_size":
+                case "fontSize":
                     user.setFontSize(Integer.parseInt(value));
                     break;
-                case "Eye_tracking":
+                case "eyeTracking":
                     user.setEyeTracking(Boolean.parseBoolean(value));
                     break;
-                case "color_blindness":
+                case "colorBlindness":
                     user.setColorBlindness(Integer.parseInt(value));
                     break;
-                case "sign_language":
+                case "signLanguage":
                     user.setSignLanguage(Boolean.parseBoolean(value));
                     break;
 
