@@ -8,6 +8,7 @@ import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
+import org.springframework.stereotype.Service;
 import thowl.wiprojekt.errors.MalformedRequestException;
 import thowl.wiprojekt.repository.UserRepository;
 
@@ -22,6 +23,7 @@ import java.util.Set;
  * @see thowl.wiprojekt.entity.Message
  */
 @Slf4j
+@Service
 public class MessageInterceptor implements ChannelInterceptor {
 
 	@Autowired
