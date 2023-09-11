@@ -1,27 +1,37 @@
+/*
+  Created by Kevin Gnade
+  Edited by Erik Brehl
+*/
+
+
+
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import "./../../styles/login.css";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { useRef } from "react";
+import {useNavigate} from 'react-router-dom';
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 
-export default function Login() {
 
-  const USER_REGEX = /^\[A-z\][A-z0-9-_]{3,23}$/;
-  const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-  const loginForm = useRef(null);
+function Login(props) {
 
+ // const USER_REGEX = /^\[A-z\][A-z0-9-_]{3,23}$/;
+ // const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+
+  const loginForm = useRef(null);  
+  const navigate = useNavigate();
+
+  const toSetup=(idUser,username)=>{
+    navigate('/setup',{state:{id:idUser,name:username}});
+      }
 
 
   function loginUser() {
+    
 
     const form = loginForm.current;
-
-    let username = document.getElementById('username').value
-    let password = document.getElementById('password').value
-
-
-   // window.location.href="/setup";
 
    axios.post(
     "http://localhost:8080/login",
@@ -29,35 +39,29 @@ export default function Login() {
       username: form["username"].value, 
       password: form["password"].value 
     }).then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
+      console.log(response.status);
+
+      if(response.status == 200){
+        document.getElementById("alert").style.display = "none";
+        document.getElementById("alert2").style.display = "block";
+
+        setTimeout(() => {
+          toSetup(response['data']['id'],form["username"].value);
+        },2000);
+      
+      }
+
+      }).catch(function (error) {
       console.log(error);
+      document.getElementById("alert").style.display = "block";
     });
 
-
-
-
-
-
-/*
-  axios.post(
-    "http://localhost:8080/register",
-    {
-      username: "testuser", 
-      email: "testuser@test.com",
-      password: "1234",
-      learningtype: "visual",
-    }).then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-   */   
-     
+  
   }
+
+
+
+
 
  
 
@@ -65,8 +69,25 @@ return (
 
 
 <body className="kgbody">
+<div className="alertDisplay" id="alert">
+        <Stack sx={{ width: "1200px", height: "30px" }}>
+          <Alert variant="filled" severity="warning">
+            <p id="alertText">Login Daten nicht korrekt!</p>
+          </Alert>
+        </Stack>
+      </div>
+
+      <div className="alertDisplay2" id="alert2">
+        <Stack sx={{ width: "1200px", height: "30px" }}>
+          <Alert variant="filled" severity="success">
+            <p id="alertText2">Login erfolgreich!</p>
+          </Alert>
+        </Stack>
+      </div>
+
+
   <div className="container">
-  
+
     
     <div className="split-background"></div>
     <img src="images/divlab.png" alt="Logo" className="kglogo"/>
@@ -116,7 +137,10 @@ return (
       </figure>
     </div>
     <div className="kgarrow"> 
-   <img src="Icons/arrow.png" alt="Pfeil" onClick={loginUser}/>
+
+<img src="Icons/arrow.png" alt="Pfeil" onClick={loginUser}/>             
+
+      
   
     </div>
     </div> 
@@ -127,3 +151,5 @@ return (
 
   );
 }
+
+export default Login;

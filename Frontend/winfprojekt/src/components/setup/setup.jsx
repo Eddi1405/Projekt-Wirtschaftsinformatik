@@ -2,32 +2,69 @@
   Created by Erik Brehl
 */
 
-import React from "react";
+import React, { useEffect } from "react";
 import "./../../styles/setup.css";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
+import {useNavigate} from 'react-router-dom';
 
 
-export default function Setup() {
 
-  var contValue = 0;
+
+function Setup() {
+  const navigate = useNavigate();
+
+  var contValue = false;
   var colorbValue = 0;
+  var fontSizeValue = 0;
+ 
+  const location = useLocation();
+  console.log(location.state.name);
+  console.log(location.state.id);
 
-/*
-  function changeContrast() {
+  const toMenu=()=>{
 
-    var element = document.querySelector(".contrastDiv > button");
-    var bg_color = window.getComputedStyle(element, null).backgroundColor;
-    bg_color = bg_color.match(/\d+/g);
-    //alert(rgbToHex(bg_color));
+    axios.patch(
+      "http://localhost:8080/users/"+location.state.id,
+      {
+        username: location.state.name, 
+        contrast: contValue,
+        fontSize: fontSizeValue,
+        eyeTracking: false,
+        colorBlindness: colorbValue,
+        signLanguage: false
 
-   /* if(rgbToHex(bg_color) == "#e7fdfe"){
-      alert("Bingbong");
-      element.style.backgroundColor= "green";
-    }
-    changeHeader();
-    
-  }*/
+      }).then(function (response) {
+        console.log(response);
+  
+        }).catch(function (error) {
+        console.log(error);
+      });
+
+
+
+    navigate('/menu',{ state:{id:location.state.id,name:location.state.name}
+    });
+      }
+
+
+   function changeFontsize () {
+      
+      if(fontSizeValue == 0){
+        document.getElementById('fontvalue').innerHTML = "Groß"; 
+        fontSizeValue++; 
+      }
+      else if(fontSizeValue == 1){
+        document.getElementById('fontvalue').innerHTML = "Klein";  
+        fontSizeValue++;
+      }else if(fontSizeValue == 2){
+        document.getElementById('fontvalue').innerHTML = "Normal";  
+        fontSizeValue=0;
+      }
+  
+  }
+
 
   function changeContrast(){
     
@@ -37,7 +74,7 @@ export default function Setup() {
     var footer = document.querySelector(".footer");
     var buttons = document.getElementsByTagName('button');
 
-    if(contValue == 0){
+    if(contValue == false){
       body.style.backgroundColor = "#fffe00";
       header.style.backgroundColor = "#202021";
       main.style.backgroundColor= "#fffe00";
@@ -47,11 +84,11 @@ export default function Setup() {
         let button = buttons[i];
         button.style.backgroundColor= "#01c500";
     }
-      contValue = 1;
+      contValue = true;
     }
 
     
-    else if (contValue == 1){
+    else if (contValue == true){
       body.style.backgroundColor = "#e7fdfe";
       header.style.backgroundColor = "#181e2f";
       main.style.backgroundColor= "#e7fdfe";
@@ -61,10 +98,10 @@ export default function Setup() {
         let button = buttons[i];
         button.style.backgroundColor= "#e7fdfe";
     }
-      contValue = 0;
+      contValue = false;
     }
     
-
+    console.log(contValue);
   }
   
   function changeColorb(){
@@ -156,36 +193,6 @@ export default function Setup() {
     return "#" + componentToHex(+rgb[0]) + componentToHex(+rgb[1]) + componentToHex(+rgb[2]);
   }
 
-/*
-  //Axios Values for Server
-  function setup() {
-
-    
-   // let bodystyle = this.body.style.backgroundColor;
-   // let mainstyle = this.body.style.backgroundColor;
-  //let headerstyle = this.body.style.backgroundColor;
-   // let footerstyle = this.body.style.backgroundColor;
-    
-
-    axios.post(
-      "http://localhost/",
-      {
-       // bodystyleValue: bodystyle,
-       // mainstyleValue: mainstyle,
-       // headerstyleValue: let headerstyle,
-       // footerstyleValue: let footerstyle
-      },
-      {
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        }
-      }
-    )
-
-     
-  }
-
- */
 
   return (
     <div>
@@ -196,8 +203,9 @@ export default function Setup() {
           Navigiere dazu unten auf den Buttons!"</div>
           <p className="sent">:</p>
           <img src="Icons/robot.png" width="130" height="120" /> 
-          
-         
+
+          <div>{location.state.name}</div>
+      
           </div>
           
           <div className="setup_logo">
@@ -226,8 +234,8 @@ export default function Setup() {
             </div>
 
             <div className="fsizeDiv">
-              <button type="button" className="fsize"></button>
-              <div className="hiddDiv">Schriftgröße </div>
+              <button type="button" className="fsize" onClick={changeFontsize}> </button>
+              <div className="hiddDiv">Schriftgröße <p id="fontvalue">normal</p> </div>
             </div>
 
             <div className="colorbDiv">
@@ -251,9 +259,11 @@ export default function Setup() {
         <div className="footer"> 
         <div className="footerDiv">Die Experimentelle Plattform
         </div>
-        <Link to="/main"> <button type="button" className="arrow" onClick={Setup}></button> </Link>
+        <button type="button" className="arrow" onClick={toMenu}></button> 
         </div>
       </section>
     </div>
   );
 }
+
+export default Setup;

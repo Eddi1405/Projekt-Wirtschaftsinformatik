@@ -17,19 +17,14 @@ import Stack from "@mui/material/Stack";
 
 export default function Register()  {
 
+  
+  const navigate=useNavigate();
+
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
   }
 
-  function throwMessage(error) {
-    if (error == true) {
-      document.getElementById("alert2").style.display = "none";
-      document.getElementById("alert").style.display = "block";
-    } else {
-      document.getElementById("alert").style.display = "none";
-      document.getElementById("alert2").style.display = "block";
-    }
-  }
+ 
 
   const registerForm = useRef(null);
   const [error, isError] = useState(true);
@@ -38,24 +33,32 @@ export default function Register()  {
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS, HEAD",
   };
 
+  function performRegister(idUser,username) {
+    navigate('/setup',{state:{id:idUser,name:username}});
+  }
+
 
   function registerUser() {
-    const navigate=useNavigate();
+    
     const form = registerForm.current;
-
+    document.getElementById("alert").style.display = "none";
+    document.getElementById("alert2").style.display = "none";
     document.getElementById("alertText2").innerHTML = "Alles korrekt";
-    isError(false);
+   
 
 
 
     if(form["username"].value.trim().length < 3){
       document.getElementById("alertText").innerHTML =
         "Bitte gültigen Username eingeben";
-      isError(true);
+
+
+
+       document.getElementById("alert").style.display = "block";
     }else if (!isValidEmail(form["email"].value)) {
       document.getElementById("alertText").innerHTML =
         "Bitte gültige Email eingeben";
-      isError(true);
+        document.getElementById("alert").style.display = "block";
     } else if (
       form["password"].value != form["password-confirm"].value ||
       form["password"].value.trim().length < 3 ||
@@ -63,8 +66,8 @@ export default function Register()  {
     ) {
       document.getElementById("alertText").innerHTML =
         "Passwörter stimmen nicht überein";
-      isError(true);
-    }else{/*
+        document.getElementById("alert").style.display = "block";
+    }else{
       axios.post(
         "http://localhost:8080/register",
         {
@@ -74,54 +77,26 @@ export default function Register()  {
           learningtype: "visual",
         }).then(function (response) {
           console.log(response);
+          document.getElementById("alert2").style.display = "block";
+          setTimeout(() => {
+            performRegister(response['data']['id'],form["username"].value,);
+          },3000);
         })
+
         .catch(function (error) {
           console.log(error);
-        });*/
-        PerformLogin = () => {
-          navigate('/setup');
-      }
+        });
         
-
+        
+        
+      
 
 
     }
 
-    throwMessage(error);
+ 
 
     
-    /*
-  axios.post(
-    "http://localhost:8080/register",
-    {
-      username: getusername, 
-      email: getemail,
-      password: getpassword,
-      learningtype: "visual",
-    }).then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-*/
-
-    /*
-      axios.get("http://localhost:8080/users/-1",{ headers }).then(function (response) {
-        // handle success
-        console.log(response);
-        response.header("Access-Control-Allow-Origin", "*");
-        response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");  
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .finally(function () {
-        // always executed
-      });
-*/
   }
 
   return (
