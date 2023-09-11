@@ -2,7 +2,9 @@ package thowl.wiprojekt.objects.dto;
 
 import thowl.wiprojekt.objects.LearningType;
 import thowl.wiprojekt.objects.Role;
-
+/**
+ * Author Florian Laufer
+ */
 public record UserDTO (
         long id,
         String username,

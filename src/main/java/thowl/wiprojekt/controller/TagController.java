@@ -7,7 +7,9 @@ import thowl.wiprojekt.entity.Tag;
 import thowl.wiprojekt.service.TagService;
 
 import java.util.List;
-
+/**
+ * Author Florian Laufer
+ */
 @RestController
 @RequestMapping("/tags")
 public class TagController {

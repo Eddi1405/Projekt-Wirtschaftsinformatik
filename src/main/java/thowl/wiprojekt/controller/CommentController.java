@@ -16,6 +16,9 @@ import thowl.wiprojekt.service.CommentService;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Author Florian Laufer
+ */
 @Slf4j
 @RestController
 @ThrowsInternal

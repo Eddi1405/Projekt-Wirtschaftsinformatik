@@ -14,7 +14,9 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
+/**
+ * Author Florian Laufer
+ */
 @Service
 public class CommentService {
 

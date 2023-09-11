@@ -17,7 +17,9 @@ import thowl.wiprojekt.service.UserService;
 
 import java.util.List;
 import java.util.Map;
-
+/**
+ * Author Florian Laufer
+ */
 @Slf4j
 @ThrowsInternal
 @RestController
