@@ -117,6 +117,15 @@ public class ChatTester {
 
 	private static void executeTest()
 			throws ExecutionException, InterruptedException, TimeoutException {
+		log.debug("""
+      
+						------------------------------------------
+									Test Case 1
+						------------------------------------------
+						Scenario: Two authenticated users subscribe a personal chat.
+								  One of them sends a Message of type File and the other receives it because they are subscribed to the same Chat.
+						"""
+		);
 		// The sender in the scenario
 		User user1 = new User();
 		user1.setId(1);
@@ -125,37 +134,107 @@ public class ChatTester {
 		User user2 = new User();
 		user2.setId(2);
 		user2.setUsername("Steve");
+		log.debug("Adam's session:");
 		StompSession sess1 = getSession(user1);
+		log.debug("Steve's session:");
 		StompSession sess2 = getSession(user2);
+		log.debug("Subscribing Adam");
 		subscribeUser(user1, 1, sess1, false);
+		log.debug("Subscribing Steve");
 		subscribeUser(user2, 1, sess2, true);
-		subscribeUser(user2, 2, sess2, true);
 		Message msg1 = new Message();
 		msg1.setContentType(ContentType.FILE);
 		msg1.setContentPath("/srv/dosc/pics/henlo.jpg");
 		// Author of the Message
 		msg1.setAuthorID(user1);
 		msg1.setTime(new Timestamp(System.currentTimeMillis()));
+		log.debug("Adam is sending Message.");
 		try {
 			sendMessage(sess1, msg1, 1);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		log.debug("""
+    
+				-------------------------------------
+							Test Case 2
+				-------------------------------------
+				Scenario: An anonymous user and Steve subscribe to a room chat.
+						  The anonymous user sends a Message of type TEXT and Steve receives it.
+				""");
 		User userAnon = new User();
 		userAnon.setId(-1);
+		log.debug("Session of anonymous user");
 		StompSession sessionAnon = getSession(userAnon);
+		log.debug("Anonymous user is being subscribed.");
 		subscribeUser(userAnon, 2, sessionAnon, false);
+		log.debug("Steve is being subscribed.");
+		subscribeUser(user2, 2, sess2, true);
 		Message msgAnon = new Message();
 		msgAnon.setContentType(ContentType.TEXT);
 		msgAnon.setContentPath("hello there");
 		msgAnon.setAuthorID(userAnon);
 		msgAnon.setTime(new Timestamp(System.currentTimeMillis()));
+		log.debug("Anonymous user is sending message.");
+		TimeUnit.SECONDS.sleep(3);
 		try {
 			sendMessage(sessionAnon, msgAnon, 2);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
+		}
+		log.debug("""
+				
+				---------------------------------------
+							Test Case 3
+				---------------------------------------
+				Scenario: The anonymous user subscribes to a personal Chat and receives a STOMP ERROR.
+				""");
+		subscribeUser(userAnon, 1, sessionAnon, false);
+		TimeUnit.SECONDS.sleep(3);
+		if (!sessionAnon.isConnected()) {
+			log.debug("Connection of anonymous user lost.");
+		}
+		TimeUnit.SECONDS.sleep(2);
+		log.debug("""
+				
+				--------------------------------------
+							Test Case 4
+				--------------------------------------
+				Scenario: Steve sends a file type message to Adam but the URL
+						  is invalid. Steve is disconnected.
+				""");
+		Message invalidMsg = new Message();
+		invalidMsg.setContentType(ContentType.FILE);
+		invalidMsg.setContentPath("illegalURL");
+		invalidMsg.setAuthorID(user2);
+		invalidMsg.setTime(new Timestamp(System.currentTimeMillis()));
+		log.debug("Steve is sending message.");
+		sendMessage(sess2, invalidMsg, 1);
+		TimeUnit.SECONDS.sleep(3);
+		if (!sess2.isConnected()) {
+			log.debug("Connection of Steve lost.");
+		}
+		TimeUnit.SECONDS.sleep(2);
+		log.debug("""
+				
+				------------------------------------
+							Test Case 5
+				------------------------------------
+				Scenario: Adam sends a Message to a Chat he is not registered with.
+						  He is disconnected.
+				""");
+		Message discMsg = new Message();
+		discMsg.setContentType(ContentType.FILE);
+		discMsg.setContentPath("illegalURL");
+		discMsg.setAuthorID(user2);
+		discMsg.setTime(new Timestamp(System.currentTimeMillis()));
+		log.debug("Adam is sending Message");
+		sendMessage(sess1, discMsg, 2);
+		TimeUnit.SECONDS.sleep(3);
+		if (!sess1.isConnected()) {
+			log.debug("Connection of Adam is lost.");
 		}
 	}
 
@@ -245,7 +324,13 @@ public class ChatTester {
 				msg);
 		// Give time because STOMP is asynchronous
 		TimeUnit.SECONDS.sleep(10);
-		log.info(futures.pop().get().getContentPath());
+		log.debug("Received Message is:");
+		try {
+			log.info(futures.pop().get(5, TimeUnit.SECONDS).getContentPath());
+		}
+		catch (TimeoutException t) {
+			log.warn("Timeout before Message could be received.");
+		}
 	}
 
 	/**
