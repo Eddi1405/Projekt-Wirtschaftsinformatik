@@ -2,7 +2,7 @@
   Created by Erik Brehl
 */
 
-body.active .page .toolbar{
+body.active .basic_page .basic_toolbar{
   right: -240px;
 }
 
@@ -12,7 +12,7 @@ body.active .page .toolbar{
   margin-right: 240px;
 }
 
-.content-toolbar_toggle-container{
+.basic_content-toolbar_toggle-container{
   height: 50px;
   width: 50px;
   top: 195px;
@@ -21,14 +21,14 @@ body.active .page .toolbar{
   border-radius: 10px;
   position: fixed;
 }
-.toolbar_toggle{
+.basic_toolbar_toggle{
   margin: 0px;
   padding: 0px;
   height: 50px;
   width: 50px;
 }
 
-.toolbar{
+.basic_toolbar{
   width: 240px;
   height: 480px;
   top: 250px;
@@ -36,50 +36,50 @@ body.active .page .toolbar{
   position: fixed;
 }
 
-.toolbar-darkmode-container{
+.basic_toolbar-darkmode-container{
   display: flex;
   height: 12.5%;
   padding: 2.5%;
   background-color: #ccffff;
   border-top-left-radius: 10px;
 }
-.toolbar-language-container{
+.basic_toolbar-language-container{
   display: flex;
   height: 12.5%;
   padding: 2.5%;
   background-color: #339999;
 }
-.toolbar-easy_language-container{
+.basic_toolbar-easy_language-container{
   display: flex;
   height: 12.5%;
   padding: 2.5%;
   background-color: #ccffff;
 }
-.toolbar-contrast-container{
+.basic_toolbar-contrast-container{
   display: flex;
   height: 12.5%;
   padding: 2.5%;
   background-color: #339999;
 }
-.toolbar-font_size-container{
+.basic_toolbar-font_size-container{
   display: flex;
   height: 12.5%;
   padding: 2.5%;
   background-color: #ccffff;
 }
-.toolbar-eyetracking-container{
+.basic_toolbar-eyetracking-container{
   display: flex;
   height: 12.5%;
   padding: 2.5%;
   background-color: #339999;
 }
-.toolbar-colorblind-container{
+.basic_toolbar-colorblind-container{
   display: flex;
   height: 12.5%;
   padding: 2.5%;
   background-color: #ccffff;
 }
-.toolbar-sign_language-container{
+.basic_toolbar-sign_language-container{
   display: flex;
   height: 12.5%;
   padding: 2.5%;

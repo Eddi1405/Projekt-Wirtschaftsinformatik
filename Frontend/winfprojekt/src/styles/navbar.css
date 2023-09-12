@@ -3,7 +3,7 @@
 */
 
 
-.navRobot{
+.basic_navRobot{
   display: flex;
   justify-content: left;
   border: 1px solid rgba(8, 2, 2, 0.4);
@@ -12,6 +12,10 @@
   margin-bottom: 20px;
   background-color: #fefeff;
   border-radius:0 0 10px 10px;
+}
+
+li .basic_img{
+  background-color: #e7fbfe;
 }
 
 .iconLoud{
@@ -58,8 +62,11 @@ input::-webkit-input-placeholder {
   padding-right: 5px;
 }
 
+.basic_search{
+  background-color: #e7fbfe;
+}
 
-nav {
+.basic_nav {
   display: flex;
   justify-content:space-around; 
   text-align: center;

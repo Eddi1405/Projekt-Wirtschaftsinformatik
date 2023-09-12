@@ -1,11 +1,7 @@
 
 
-
-
-
-
-  .menu_container {
-    background-color: #202833;
+.cont_menu_container {
+    background-color: #000101;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,9 +25,9 @@
   
   }
 
-  .button1 {
+  .cont_button1 {
     font-weight: bold;
-    background-color: #66fcf1;
+    background-color: #fffe00;
     color: rgb(0, 0, 0);
     border: none;
     font-size: 40px;
@@ -43,10 +39,10 @@
     width: 400px;
     top: -90px;
   }
-  .button2 {
+  .cont_button2 {
     font-weight: bold;
     padding: 35px 30px;
-    background-color: #66fcf1;
+    background-color: #fffe00;
     color: rgb(0, 0, 0);
     border: none;
     font-size: 40px;
@@ -59,11 +55,11 @@
     top: -30px;
   }
 
-  .blue-rectangle {
+  .cont_blue-rectangle {
     /*oberes Rectangle */
     width: 400px;
     height: 150px;
-    background-color: #315c63;
+    background-color: #00c400;
     position: absolute;
     
     top: 27%;
@@ -73,11 +69,11 @@
     border-radius: 10px;
   }
   /* rgb(39, 211, 241); */
-  .blue-rectangle2 {
+  .cont_blue-rectangle2 {
     /*unteres Rectangle */
     width: 400px;
     height: 150px;
-    background-color: #315c63;
+    background-color: #00c400;
     position: absolute;
     top: 85%;
     left: 55%;
@@ -89,7 +85,7 @@
 
 .ka_text{
   font-size: 22px;
-  color: #fffffc;
+  color: black;
 }
 
 

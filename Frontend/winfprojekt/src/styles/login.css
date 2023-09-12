@@ -123,3 +123,7 @@
     cursor: pointer;
     filter: invert(100%); /* Farbe invertieren */
   }
+
+  .login_input{
+    background-color:#e7fdfe;
+  }

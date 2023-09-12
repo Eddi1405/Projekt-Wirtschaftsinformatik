@@ -42,10 +42,21 @@ function Setup() {
         console.log(error);
       });
 
+      if(contValue == true){
+        navigate('/contmenu',{ state:{id:location.state.id,name:location.state.name,contrast:contValue,
+          fontSize:fontSizeValue,eyeTracking:false,colorBlindness:colorbValue}
+        });
+    }else if(colorbValue == 1){
+      navigate('/colorbbluemenu',{ state:{id:location.state.id,name:location.state.name,contrast:contValue,
+        fontSize:fontSizeValue,eyeTracking:false,colorBlindness:colorbValue}
+      });
+      }else{
+        navigate('/menu',{ state:{id:location.state.id,name:location.state.name,contrast:contValue,
+          fontSize:fontSizeValue,eyeTracking:false,colorBlindness:colorbValue}
+        });
+      }
 
-
-    navigate('/menu',{ state:{id:location.state.id,name:location.state.name}
-    });
+    
       }
 
 
@@ -204,7 +215,7 @@ function Setup() {
           <p className="sent">:</p>
           <img src="Icons/robot.png" width="130" height="120" /> 
 
-          <div>{location.state.name}</div>
+
       
           </div>
           
