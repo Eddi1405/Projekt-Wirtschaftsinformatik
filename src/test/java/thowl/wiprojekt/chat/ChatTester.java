@@ -90,6 +90,12 @@ public class ChatTester {
 	 *         Both {@link User}s should be registered with the
 	 *         {@link thowl.wiprojekt.entity.Chat} 1.
 	 *     </li>
+	 *     <li>
+	 *         There exists a {@link thowl.wiprojekt.entity.Chat} with the ID
+	 *         3 that is of the type
+	 *         {@link thowl.wiprojekt.objects.ChatType#PERSONAL}. Neither
+	 *         Steve nor Adam are registered with the Chat.
+	 *     </li>
 	 * </ul>
 	 *
 	 * @param args Possible arguments. Will not be used.
@@ -120,12 +126,12 @@ public class ChatTester {
 			throws ExecutionException, InterruptedException, TimeoutException {
 		log.debug("""
       
-						------------------------------------------
-									Test Case 1
-						------------------------------------------
-						Scenario: Two authenticated users subscribe a personal chat.
-								  One of them sends a Message of type File and the other receives it because they are subscribed to the same Chat.
-						"""
+				------------------------------------------
+							Test Case 1
+				------------------------------------------
+				Scenario: Two authenticated users subscribe a personal chat.
+						  One of them sends a Message of type File and the other receives it because they are subscribed to the same Chat.
+				"""
 		);
 		// The sender in the scenario
 		User user1 = new User();
@@ -229,10 +235,10 @@ public class ChatTester {
 		Message discMsg = new Message();
 		discMsg.setContentType(ContentType.FILE);
 		discMsg.setContentPath("illegalURL");
-		discMsg.setAuthorID(user2);
+		discMsg.setAuthorID(user1);
 		discMsg.setTime(new Timestamp(System.currentTimeMillis()));
 		log.debug("Adam is sending Message");
-		sendMessage(sess1, discMsg, 2);
+		sendMessage(sess1, discMsg, 3);
 		TimeUnit.SECONDS.sleep(3);
 		if (!sess1.isConnected()) {
 			log.debug("Connection of Adam is lost.");
