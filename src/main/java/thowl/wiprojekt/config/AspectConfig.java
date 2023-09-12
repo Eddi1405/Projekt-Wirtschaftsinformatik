@@ -6,6 +6,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 /**
  * Used to enable AspectJ annotations and AOP.
  *
+ * @author Michael Hartmann
  * @version 17.05.2023
  *
  * @see thowl.wiprojekt.errors.InternalExceptionHandler

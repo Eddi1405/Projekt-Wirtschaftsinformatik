@@ -7,6 +7,11 @@ import thowl.wiprojekt.entity.Message;
 
 import java.lang.reflect.Type;
 
+/**
+ * Test class to handle STOMP frames.
+ *
+ * @author Michael Hartmann
+ */
 @Slf4j
 public class DebugFrameHandler implements StompFrameHandler {
 

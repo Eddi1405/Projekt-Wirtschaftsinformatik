@@ -8,6 +8,7 @@ import thowl.wiprojekt.entity.Comment;
 /**
  * Creates {@link EntityModel}s from {@link Comment} objects.
  *
+ * @author Michael Hartmann
  * @version 20.05.2023
  */
 @Component

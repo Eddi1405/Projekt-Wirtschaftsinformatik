@@ -17,6 +17,7 @@ import thowl.wiprojekt.service.UserService;
 /**
  * Controller for logging in and registering users.
  *
+ * @author Edward Siebert, Michael Hartmann
  * @version 13.05.2023
  */
 @Slf4j

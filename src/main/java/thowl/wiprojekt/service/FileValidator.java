@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 /**
  * Validates file paths.
  *
+ * @author Michael Hartmann
  * @version 05.06.2023
  */
 @Service

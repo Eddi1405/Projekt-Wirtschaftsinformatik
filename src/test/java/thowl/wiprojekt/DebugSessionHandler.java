@@ -10,6 +10,11 @@ import thowl.wiprojekt.entity.Message;
 
 // Idea from https://www.baeldung.com/websockets-api-java-spring-client
 
+/**
+ * Test class to handle certain aspects of Websocket sessions.
+ *
+ * @author Michael Hartmann
+ */
 @Slf4j
 public class DebugSessionHandler extends StompSessionHandlerAdapter {
 

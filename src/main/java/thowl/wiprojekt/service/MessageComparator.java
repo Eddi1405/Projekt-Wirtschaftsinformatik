@@ -7,6 +7,7 @@ import java.util.Comparator;
 /**
  * Compares {@link Message}s by their creation time.
  *
+ * @author Michael Hartmann
  * @version 07.09.2023
  */
 public class MessageComparator implements Comparator<Message> {

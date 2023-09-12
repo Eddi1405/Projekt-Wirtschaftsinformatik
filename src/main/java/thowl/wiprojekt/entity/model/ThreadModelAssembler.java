@@ -8,6 +8,7 @@ import thowl.wiprojekt.entity.Thread;
 /**
  * Creates {@link EntityModel}s from {@link Thread} objects.
  *
+ * @author Michael Hartmann
  * @version 20.05.2023
  */
 @Component

@@ -14,6 +14,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 /**
  * Creates {@link EntityModel}s from {@link Message}s.
  *
+ * @author Michael Hartmann
  * @version 29.08.2023
  */
 @Component

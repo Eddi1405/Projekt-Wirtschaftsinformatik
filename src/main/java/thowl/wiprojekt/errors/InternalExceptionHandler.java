@@ -20,6 +20,7 @@ import java.lang.reflect.Method;
  * can be intercepted by an {@link ExceptionInterceptor}. Note that this
  * Aspect has the lowest possible priority when processed.
  *
+ * @author Michael Hartmann
  * @version 17.05.2023
  */
 @Order(Ordered.LOWEST_PRECEDENCE)

@@ -12,6 +12,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 /**
  * Creates {@link EntityModel}s from {@link Chat}s.
+ *
+ * @author Michael Hartmann
  */
 @Component
 public class ChatModelAssembler implements RepresentationModelAssembler<Chat,

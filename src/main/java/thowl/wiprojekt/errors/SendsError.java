@@ -11,6 +11,7 @@ import java.lang.annotation.Target;
  * in a STOMP {@link org.springframework.messaging.simp.stomp.StompCommand#ERROR}
  * message.
  *
+ * @author Michael Hartmann
  * @version 09.08.2023
  */
 @Target({ElementType.METHOD})

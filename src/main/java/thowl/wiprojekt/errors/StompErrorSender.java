@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
  * with a {@link SendsError} annotation. The Exceptions will be converted
  * into ERROR messages of the STOMP protocol and sent to the client.
  *
+ * @author Michael Hartmann
  * @version 09.08.2023
  *
  * @see StompCommand#ERROR

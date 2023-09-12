@@ -16,6 +16,7 @@ import java.util.Base64;
  * May be used to encode files to a String in base 64 and decode these into
  * files again.
  *
+ * @author Michael Hartmann
  * @version 07.05.2023
  */
 @Service

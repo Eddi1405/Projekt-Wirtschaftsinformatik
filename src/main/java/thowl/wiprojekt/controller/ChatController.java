@@ -22,6 +22,7 @@ import java.util.*;
  * {@link org.springframework.stereotype.Controller} giving access to
  * {@link Chat}s.
  *
+ * @author Michael Hartmann
  * @version 27.05.2023
  */
 @Transactional(rollbackFor = Exception.class)

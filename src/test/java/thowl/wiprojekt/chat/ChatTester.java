@@ -32,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Quick and dirty solution for testing WebSocket messaging and showing it
  * off. This is not supposed to be an actual test.
  *
+ * @author Michael Hartmann
  * @version 06.09.2023
  */
 // Idea from https://medium.com/@MelvinBlokhuijzen/spring-websocket-endpoints-integration-testing-180357b4f24c

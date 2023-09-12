@@ -36,6 +36,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Used to test some messaging capabilities. Not an actual Unit Test, this is
  * supposed to be a quick and dirty way of testing.
+ *
+ * @author Michael Hartmann
  */
 @Slf4j
 //@ExtendWith(SpringExtension.class)

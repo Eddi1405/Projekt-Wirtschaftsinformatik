@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
  * An {@link ApplicationListener} that interjects messages into logs to make
  * it easier to discern when an application was started.
  *
+ * @author Michael Hartmann
  * @version 14.05.2023
  */
 @Component

@@ -20,6 +20,7 @@ import java.util.Set;
  * CONNECT and DISCONNECT to maintain a list of
  * {@link thowl.wiprojekt.entity.User}s connected to the messaging service.
  *
+ * @author Michael Hartmann
  * @see thowl.wiprojekt.entity.Message
  */
 @Slf4j

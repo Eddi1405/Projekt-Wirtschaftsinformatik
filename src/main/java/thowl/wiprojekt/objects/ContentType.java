@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Enum representing the different types of content a message can have.
+ *
+ * @author Michael Hartmann
  */
 public enum ContentType {
 

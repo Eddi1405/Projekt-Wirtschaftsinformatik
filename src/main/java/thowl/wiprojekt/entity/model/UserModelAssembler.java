@@ -11,6 +11,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 /**
  * Creates {@link EntityModel}s from {@link User} objects.
  *
+ * @author Michael Hartmann
  * @version 13.05.2023
  */
 @Component

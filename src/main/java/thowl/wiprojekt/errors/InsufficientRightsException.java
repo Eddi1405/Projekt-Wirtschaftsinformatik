@@ -8,6 +8,7 @@ import thowl.wiprojekt.entity.User;
  * user trying to access resources only allowed to be accessed by users of a
  * specific group the user is not part of.
  *
+ * @author Michael Hartmann
  * @version 06.05.2023
  *
  * @see User

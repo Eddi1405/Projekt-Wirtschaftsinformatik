@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
  * thrown certain kinds of {@link Exception}s. This Aspect has a slightly
  * higher priority than the {@link InternalExceptionHandler} Aspect.
  *
+ * @author Michael Hartmann
+ *
  * @see ExceptionInterceptor
  */
 @Order(Ordered.LOWEST_PRECEDENCE - 1)

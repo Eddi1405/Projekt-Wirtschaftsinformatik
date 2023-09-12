@@ -5,6 +5,7 @@ package thowl.wiprojekt.errors;
  * instead of this class when communicating with a client to make sure
  * possible behaviour is clearly defined.
  *
+ * @author Michael Hartmann
  * @version 07.05.2023
  */
 public class InternalException extends RuntimeException implements

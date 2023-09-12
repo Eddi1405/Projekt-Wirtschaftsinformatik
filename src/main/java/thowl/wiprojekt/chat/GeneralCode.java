@@ -3,6 +3,8 @@ package thowl.wiprojekt.chat;
 /**
  * Contains general error codes.
  *
+ * @author Michael Hartmann
+ *
  * @version 09.08.2023
  */
 public final class GeneralCode {

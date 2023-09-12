@@ -9,6 +9,8 @@ import java.lang.annotation.Target;
  * {@link java.lang.annotation.Annotation} to be used on methods that may
  * cause a {@link org.springframework.dao.DataIntegrityViolationException}
  * caused by a null value that should not have been null.
+ *
+ * @author Michael Hartmann
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

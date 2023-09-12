@@ -8,6 +8,7 @@ import thowl.wiprojekt.entity.User;
 /**
  * This enum represents types chats can have.
  *
+ * @author Michael Hartmann
  * @version 23.05.2023
  */
 public enum ChatType {

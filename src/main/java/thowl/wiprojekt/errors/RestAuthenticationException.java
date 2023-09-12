@@ -3,6 +3,8 @@ package thowl.wiprojekt.errors;
 /**
  * To be thrown when a client has to be authenticated to access a resource or
  * when authentication failed.
+ *
+ * @author Michael Hartmann
  */
 public class RestAuthenticationException extends RuntimeException
 		implements ProjectException {

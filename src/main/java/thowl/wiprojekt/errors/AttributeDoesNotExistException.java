@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
  * latter that do not exist. Saving the former Entity would therefore result
  * in a constraint violation.
  *
+ * @author Michael Hartmann
  * @version 31.05.2023
  */
 public class AttributeDoesNotExistException extends DatabaseConflictException {

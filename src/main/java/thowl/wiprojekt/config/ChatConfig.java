@@ -10,6 +10,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 /**
  * Configuration class for chats and messaging.
  *
+ * @author Michael Hartmann
  * @version 26.05.2023
  */
 @Configuration

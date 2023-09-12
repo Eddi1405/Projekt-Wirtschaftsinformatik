@@ -5,6 +5,7 @@ package thowl.wiprojekt.errors;
  * (<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation">see here</a>)
  * fails because of a bad request by the client.
  *
+ * @author Michael Hartmann
  * @version 26.05.2023
  */
 public class UnacceptableRequestException extends RuntimeException

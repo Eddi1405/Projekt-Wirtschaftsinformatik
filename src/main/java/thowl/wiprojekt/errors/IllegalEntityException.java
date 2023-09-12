@@ -12,6 +12,7 @@ import lombok.Getter;
  * copies of the entities in question into methods of this class.
  * </strong>
  *
+ * @author Michael Hartmann
  * @version 06.05.2023
  */
 public class IllegalEntityException extends IllegalArgumentException

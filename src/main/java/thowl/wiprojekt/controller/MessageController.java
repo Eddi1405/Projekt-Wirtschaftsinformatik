@@ -23,6 +23,8 @@ import java.util.TreeSet;
 /**
  * {@link org.springframework.stereotype.Controller} used to retrieve
  * {@link Message}s.
+ *
+ * @author Michael Hartmann
  */
 @Transactional(rollbackFor = Exception.class)
 @RestController

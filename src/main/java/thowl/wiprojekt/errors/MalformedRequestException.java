@@ -3,6 +3,7 @@ package thowl.wiprojekt.errors;
 /**
  * To be thrown when a request does not conform to the expected parameters.
  *
+ * @author Michael Hartmann
  * @version 07.05.2023
  */
 public class MalformedRequestException extends IllegalArgumentException

@@ -32,6 +32,7 @@ import java.util.TreeSet;
  * This {@link Controller} is responsible for the core functionality of the
  * messaging service.
  *
+ * @author Michael Hartmann
  * @version 26.05.2023
  */
 @Transactional(rollbackFor = Exception.class)

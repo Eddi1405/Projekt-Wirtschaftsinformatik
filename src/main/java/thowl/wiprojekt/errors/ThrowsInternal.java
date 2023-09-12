@@ -10,6 +10,7 @@ import java.lang.annotation.Target;
  * by an external client and should throw {@link InternalException}s instead
  * of other types of {@link Exception}s.
  *
+ * @author Michael Hartmann
  * @version 17.05.2023
  */
 @Target(ElementType.TYPE)

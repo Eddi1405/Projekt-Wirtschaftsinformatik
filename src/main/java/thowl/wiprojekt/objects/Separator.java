@@ -3,6 +3,7 @@ package thowl.wiprojekt.objects;
 /**
  * Very simple enum giving access to file separators.
  *
+ * @author Michael Hartmann
  * @version 07.05.2023
  */
 public enum Separator {

@@ -6,7 +6,13 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionSubscribeEvent;
+import thowl.wiprojekt.entity.Chat;
 
+/**
+ * Logs subscription events for {@link Chat}s.
+ *
+ * @author Michael Hartmann
+ */
 @Component
 @Slf4j
 public class SubListener implements ApplicationListener<SessionSubscribeEvent> {
