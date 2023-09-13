@@ -6,6 +6,7 @@ import thowl.wiprojekt.entity.Tag;
 
 /**
  * This is an interface that extends the JpaRepository interface and provides specific methods for the entity.
+ * @Author Edward Siebert
  */
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Long> {

@@ -12,7 +12,7 @@ import lombok.Setter;
  * The annotation @Id indicates that the id field is the primary key of the table.
  * The annotations @Getter and @Setter generate the getter and setter methods.
  * The annotation @ManyToMany specifies that field is the foreign key of the table.
- * @Author Luca Hüpping, Edward
+ * @Author Luca Hüpping, Edward Siebert
  */
 @Entity
 @Table(name = "tag")
