@@ -22,6 +22,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest
 class MessagingControllerTest {
     @Autowired
     @InjectMocks
