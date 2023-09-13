@@ -62,7 +62,7 @@
     position: absolute;
     
     top: 27%;
-    left: 55%;
+    left: 45%;
     transform: translate(-50%, -50%);
     z-index: 0;
     border-radius: 10px;
@@ -75,7 +75,7 @@
     background-color: #315c63;
     position: absolute;
     top: 85%;
-    left: 55%;
+    left: 45%;
     transform: translate(-50%, -50%);
     z-index: 0;
     border-radius: 10px;
