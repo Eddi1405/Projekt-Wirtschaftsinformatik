@@ -17,6 +17,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 /**
  * Entity class to describe a comment.
+ * Comments consist of an IDa AuthorID, a Date, and Content.
+ * @Author Luca Hüpping
  */
 @Entity
 @Table(name="comment")

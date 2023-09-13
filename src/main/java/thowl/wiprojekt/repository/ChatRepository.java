@@ -7,6 +7,10 @@ import thowl.wiprojekt.entity.Chat;
 
 import java.util.Set;
 
+/**
+ * This is an interface that extends the JpaRepository interface and provides specific methods for the Chat entity.
+ * @Author Luca Hüpping
+ */
 @Repository
 public interface ChatRepository extends JpaRepository<Chat, Long>{
 
