@@ -97,10 +97,10 @@ return (
     <div className="form-group">
 
     
-      <input type="text" id="username" name="username" placeholder="Username" required/>
+      <input className="login_input" type="text" id="username" name="username" placeholder="Username" required/>
     </div>
     <div className="form-group">
-      <input type="password" id="password" name="password" placeholder="Passwort" required/>
+      <input className="login_input"  type="password" id="password" name="password" placeholder="Passwort" required/>
     </div>
    
     </form>

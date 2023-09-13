@@ -1,0 +1,142 @@
+
+body.active .page .toolbar{
+    right: -240px;
+  }
+  
+  
+  /*Lars Seck */
+  .content{
+    margin-right: 240px;
+  }
+  
+  .content-toolbar_toggle-container{
+    height: 50px;
+    width: 50px;
+    top: 195px;
+    right: 0;
+    background-color: #cccccc;
+    border-radius: 10px;
+    position: fixed;
+  }
+  .toolbar_toggle{
+    margin: 0px;
+    padding: 0px;
+    height: 50px;
+    width: 50px;
+  }
+  
+  .toolbar{
+    width: 240px;
+    height: 480px;
+    top: 250px;
+    right: 0;
+    position: fixed;
+  }
+  
+  .toolbar-darkmode-container{
+    display: flex;
+    height: 12.5%;
+    padding: 2.5%;
+    background-color: #fefefe;
+    border-top-left-radius: 10px;
+  }
+  .toolbar-language-container{
+    display: flex;
+    height: 12.5%;
+    padding: 2.5%;
+    background-color: green;
+  }
+  .toolbar-easy_language-container{
+    display: flex;
+    height: 12.5%;
+    padding: 2.5%;
+    background-color: #fefefe;
+  }
+  .toolbar-contrast-container{
+    display: flex;
+    height: 12.5%;
+    padding: 2.5%;
+    background-color: green;
+  }
+  .toolbar-font_size-container{
+    display: flex;
+    height: 12.5%;
+    padding: 2.5%;
+    background-color: #fefefe;
+  }
+  .toolbar-eyetracking-container{
+    display: flex;
+    height: 12.5%;
+    padding: 2.5%;
+    background-color: green;
+  }
+  .toolbar-colorblind-container{
+    display: flex;
+    height: 12.5%;
+    padding: 2.5%;
+    background-color: #fefefe;
+  }
+  .toolbar-sign_language-container{
+    display: flex;
+    height: 12.5%;
+    padding: 2.5%;
+    background-color: green;
+    border-bottom-left-radius: 10px;
+  }
+  
+  .tools-icon{
+    height: 50px;
+    width: 50px;  
+  }
+  .darkmode-icon{
+    height: auto;
+    width: auto;
+    padding-right: 5%;
+
+  }
+  .language-icon{
+    height: auto;
+    width: auto;
+    padding-right: 5%;
+
+  }
+  .easy_language-icon{
+    height: auto;
+    width: auto;
+    padding-right: 5%;
+  
+  }
+  .contrast-icon{
+    height: auto;
+    width: auto;
+    padding-right: 5%;
+
+  }
+  .font_size-icon{
+    height: auto;
+    width: auto;
+    padding-right: 5%;
+    
+  }
+  .eyetracking-icon{
+    height: auto;
+    width: auto;
+    padding-right: 5%;
+  }
+  .colorblind-icon{
+    height: auto;
+    width: auto;
+    padding-right: 5%;
+
+  }
+  .sign_language-icon{
+    height: auto;
+    width: auto;
+    padding-right: 5%;
+  }
+  
+  p {
+    color:black;
+    font-size: 20px;
+
+  }

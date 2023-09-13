@@ -3,14 +3,16 @@
 */
 
 
-import("./../../styles/menu.css");
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import("./../../styles/colorblind/bluemenu.css");
 import { Link } from "react-router-dom";
-import Navbar from '../navbar/navbar';
+import Navbar from '../navbar/colorbbluenavbar';
 import Sidebar from '../sidebar/sidebar'
 import {useNavigate} from 'react-router-dom';
 import { useLocation } from "react-router-dom";
-import './../../styles/navbar.css'
-
+import './../../styles/colorblind/bluenavmenu.css'
+import { useEffect } from 'react';
 
 
 
@@ -49,8 +51,8 @@ export default function Menu() {
          <Navbar>
         </Navbar>
       
-     <div className="menu_container" >
-     <div className="menu_control-section1">
+     <div className="menu_colorbblue_container" >
+     <div className="menu_colorbblue_control-section1">
        <div className="blue-rectangle">
          <div className="text-overlay">
            <p className="ka_text">

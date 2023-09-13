@@ -1,6 +1,5 @@
-import React , { useState } from 'react';
-import { BrowserRouter,
-    Routes,Route } from 'react-router-dom';
+import React  from 'react';
+import { Routes,Route } from 'react-router-dom';
 
 import Setup from './components/setup/setup'
 import Login from './components/login/login'
@@ -8,6 +7,8 @@ import Main from './components/mainpage/mainpage'
 import Profil from './components/profil/profil'
 import Register from './components/register/register'
 import Menu from './components/menu/menu'
+import MenuColorbblue from './components/menu/colorbbluemenu'
+import ContMenu from './components/menu/contmenu'
 import Faq from './components/faq/faq'
 import Thread_list from './components/thread_list/thread_list';
 import Thread from './components/thread/thread';
@@ -25,6 +26,8 @@ const Index = () => {
       <Route exact path='/profil' element={<Profil />}></Route>
       <Route exact path='/register' element={<Register />}></Route>
       <Route exact path='/menu' element={<Menu />}></Route>
+      <Route exact path='/contmenu' element={<ContMenu />}></Route>
+      <Route exact path='/colorbbluemenu' element={<MenuColorbblue />}></Route>
       <Route exact path='/faq' element={<Faq />}></Route>
       <Route exact path='/threadlist' element={<Thread_list />}></Route>
       <Route exact path='/thread' element={<Thread />}></Route>

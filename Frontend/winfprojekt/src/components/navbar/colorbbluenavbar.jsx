@@ -1,8 +1,3 @@
-/*
-  Created by Lars Seck
-  Edited by Erik Brehl
-*/
-
 
 import React from 'react';
 import { FaFontAwesomeFlag  } from 'react-icons/fa';
@@ -11,7 +6,7 @@ import { BsQuestionLg } from "react-icons/bs";
 import { FaCommentAlt  } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 
-import './../../styles/navbar.css'
+import './../../styles/colorblind/bluenavmenu.css'
 
 export default function Navbar() {
 
@@ -19,32 +14,32 @@ export default function Navbar() {
 
   
   return (
-    <nav className='basic_nav'>
+    <nav className='colorbblue_nav'>
     <ul>
       <li>
        
-        <Link to="/menu"> <img src="Icons/menue.png" className='basic_img' width="30px" height="30px" /> </Link>
+        <Link to="/menu"> <img src="Icons/menue.png" className='colorbblue_img' width="30px" height="30px" /> </Link>
           <p>Menu</p>
         
       </li>
 
       <li>
         <a href="#">
-        <Link to="/faq"> <img src="Icons/help.png" className='basic_img' width="30px" height="30px" /> </Link>
+        <Link to="/faq"> <img src="Icons/help.png" className='colorbblue_img' width="30px" height="30px" /> </Link>
           <p>Hilfe</p>
         </a>
       </li>
 
       <li>
         <a href="#">
-          <img src="Icons/chat.png" className='basic_img'  width="30px" height="30px" />
+          <img src="Icons/chat.png" className='colorbblue_img'  width="30px" height="30px" />
           <p>Chat</p>
         </a>
       </li>
 
       <li>
         <a href="#">
-        <Link to="/profil"> <img src="Icons/person.png" className='basic_img' width="30px" height="30px" /> </Link>
+        <Link to="/profil"> <img src="Icons/person.png" className='colorbblue_img' width="30px" height="30px" /> </Link>
           <p>Profil</p>
         </a>
       </li>
@@ -52,10 +47,10 @@ export default function Navbar() {
 
     <div className="searchbar">
       <img src="Icons/search.png" width="30px" height="30px" />
-      <input type="text" placeholder="Suche" className='basic_search'/>
+      <input type="text" placeholder="Suche" className='colorbblue_search'/>
     </div>
 
-    <div className="basic_navRobot">
+    <div className="colorbblue_navRobot">
       <img src="Icons/robot.png" width="80px" height="70px" />
       <p className="navRobotText">
         Du bist nun im Hauptmenü <br />
