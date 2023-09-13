@@ -32,7 +32,6 @@ public class MethodNotSupportedException extends RuntimeException
 	 */
 	public MethodNotSupportedException(HttpMethod pMethod) {
 		super("Method " + pMethod.name() + " not supported.");
-		// TODO test
 		/*
 		 * Clone object.
 		 */

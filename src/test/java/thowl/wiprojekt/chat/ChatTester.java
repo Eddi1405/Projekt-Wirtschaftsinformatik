@@ -246,7 +246,7 @@ public class ChatTester {
 	}
 
 	/**
-	 * Subscribes a {@link User} to the specified {@link thowl.wiprojekt.entity.Chat}.
+	 * Creates a {@link StompSession} for the specified {@link User}.
 	 *
 	 * @param user The {@link User} to be subscribed.
 	 *
@@ -288,6 +288,16 @@ public class ChatTester {
 		return session;
 	}
 
+	/**
+	 * Subscribes the specified {@link User} to the {@link thowl.wiprojekt.entity.Chat}
+	 * with the specified ID.
+	 *
+	 * @param user The {@link User} to be subscribed.
+	 * @param chatID The ID of the {@link thowl.wiprojekt.entity.Chat}
+	 * @param session The {@link StompSession} of the {@link User}.
+	 * @param complete <code>true</code> if the {@link User} is supposed to
+	 * be the receiver in the test.
+	 */
 	private static void subscribeUser(User user, long chatID,
 			StompSession session, boolean complete) {
 		// Headers used for sending
@@ -306,6 +316,21 @@ public class ChatTester {
 		log.info(sub.getSubscriptionId());
 	}
 
+	/**
+	 * Sends a {@link Message} in the specified session.
+	 *
+	 * @param session The session used to send the {@link Message}.
+	 * @param msg The {@link Message} to be sent.
+	 * @param chatID The ID of the {@link thowl.wiprojekt.entity.Chat} the
+	 * {@link Message} should be sent to.
+	 *
+	 * @throws ExecutionException when there is a problem with the used
+	 * {@link CompletableFuture}.
+	 * @throws InterruptedException when the used {@link CompletableFuture} is
+	 * interrupted.
+	 * @throws TimeoutException when the used {@link CompletableFuture} is
+	 * timed out.
+	 */
 	private static void sendMessage(StompSession session, Message msg,
 			long chatID)
 			throws ExecutionException, InterruptedException, TimeoutException {

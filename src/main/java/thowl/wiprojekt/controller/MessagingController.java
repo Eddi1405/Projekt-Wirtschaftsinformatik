@@ -69,7 +69,7 @@ public class MessagingController {
 	 * to.
 	 * @param num The number of messages to be returned. Making this
 	 * parameter 0 will result in all messages being returned.
-	 * @param mTime
+	 * @param mTime Not implemented. Should be 0.
 	 * @param userID The ID of the {@link User} the request is made for.
 	 * @return A collection of messages from this chat.
 	 *
@@ -128,11 +128,7 @@ public class MessagingController {
 		return messages;
 	}
 
-	// TODO actual anonymous
 	// TODO clone
-	// TODO database validation
-	// TODO chat validation
-	// TODO actual error handling
 	@SendsError
 	@SendTo("/topic/{chatID}")
 	@MessageMapping("/{chatID}")

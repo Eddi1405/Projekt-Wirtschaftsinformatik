@@ -15,8 +15,6 @@ import thowl.wiprojekt.entity.Thread;
 public class ThreadModelAssembler implements
 		RepresentationModelAssembler<Thread, EntityModel<Thread>> {
 
-	// TODO stub
-
 	/**
 	 * Converts the specified {@link Thread} to an {@link EntityModel}.
 	 *

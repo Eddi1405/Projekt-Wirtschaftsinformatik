@@ -30,7 +30,6 @@ import java.util.*;
 @ThrowsInternal
 public class ChatController {
 
-	// TODO EntityModels
 
 	// Used to retrieve chats
 	@Autowired
@@ -86,7 +85,6 @@ public class ChatController {
 			return new ResourceNotFoundException("User with the ID " + userID +
 					" does not exist.");
 		});
-		// TODO maybe newest messages?
 		/*
 		 * The Chats are sorted alphabetically by their name.
 		 */
@@ -166,7 +164,6 @@ public class ChatController {
 			pChat.setUsers(new HashSet<User>());
 		}
 		Chat chat = chatRepo.save(pChat);
-		// TODO ??
 		// Messages inside of this chat are not returned
 		chat.setMessage(new HashSet<Message>());
 		return assembler.toModel(chat);
@@ -213,7 +210,6 @@ public class ChatController {
 		return assembler.toModel(newChat);
 	}
 
-	// TODO username or email
 
 	/**
 	 * Registers a {@link User} with the {@link Chat} with the specified ID.

@@ -9,8 +9,6 @@ package thowl.wiprojekt.errors;
 public class RestAuthenticationException extends RuntimeException
 		implements ProjectException {
 
-	// TODO boolean?
-
 	/**
 	 * Constructor of the class.
 	 *

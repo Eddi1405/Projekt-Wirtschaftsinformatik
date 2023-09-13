@@ -18,7 +18,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 public class UserModelAssembler implements RepresentationModelAssembler<User,
 		EntityModel<User>> {
 
-	// TODO slash or methodOn
 
 	/**
 	 * Converts the specified {@link User} to an {@link EntityModel}.

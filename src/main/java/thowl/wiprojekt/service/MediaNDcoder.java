@@ -23,8 +23,6 @@ import java.util.Base64;
 @NoArgsConstructor
 public class MediaNDcoder {
 
-	// TODO large files
-	// TODO robust programming
 
 	/**
 	 * Encodes a {@link Blob} to a {@link Base64} String.
@@ -83,8 +81,6 @@ public class MediaNDcoder {
 	public String bytesToBase64(byte[] bytes) {
 		return Base64.getEncoder().encodeToString(bytes);
 	}
-
-	// TODO no SerialBlob
 
 	/**
 	 * Creates a {@link Blob} from the given String encoded in {@link Base64}.

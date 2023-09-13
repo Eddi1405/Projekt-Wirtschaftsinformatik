@@ -28,7 +28,6 @@ import java.lang.reflect.Method;
 @Aspect
 public class InternalExceptionHandler {
 
-	// TODO maybe use non self-defined types
 
 	/**
 	 * The {@link Pointcut} used to mark the JoinPoint at which this

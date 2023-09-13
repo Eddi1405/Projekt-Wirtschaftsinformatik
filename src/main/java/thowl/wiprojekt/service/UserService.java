@@ -36,7 +36,6 @@ public class UserService {
         return bCryptPasswordEncoder.encode(password);
     }
 
-    //TODO: Checken ob es funktioniert
     //Changes: float leanringtype
     public void saveRegisterData(User user) {
 //        User uData = new User();

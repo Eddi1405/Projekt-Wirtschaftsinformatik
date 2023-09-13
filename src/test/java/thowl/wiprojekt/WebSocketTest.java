@@ -40,6 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Michael Hartmann
  */
 @Slf4j
+@Deprecated
 //@ExtendWith(SpringExtension.class)
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
 //classes = thowl.wiprojekt.WiProjektApplication.class)
@@ -301,11 +302,11 @@ public class WebSocketTest {
 		 * The Message is a text message
 		 */
 //		msg.setContentType(ContentType.TEXT);
-		msg.setContentType(ContentType.FILE);
+		msg.setContentType(type);
 //		msg.setContentPath("hello, this is a message");
 //		msg.setContentPath("henlo");
 //		msg.setContentPath("/srv/docs/pics/");
-		msg.setContentPath("/srv/dosc/pics/henlo.jpg");
+		msg.setContentPath(content);
 		// Author of the Message
 		msg.setAuthorID(user);
 		msg.setTime(new Timestamp(System.currentTimeMillis()));

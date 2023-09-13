@@ -104,7 +104,6 @@ public class LoginController {
 //        response.setHeader("Allow", "POST, OPTIONS");
 //    }
 
-    // TODO implement
 
     /**
      * Registers the specified {@link User} with the service.

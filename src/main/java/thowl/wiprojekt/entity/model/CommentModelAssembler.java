@@ -15,8 +15,6 @@ import thowl.wiprojekt.entity.Comment;
 public class CommentModelAssembler implements
 		RepresentationModelAssembler<Comment, EntityModel<Comment>> {
 
-	// TODO stub
-
 	/**
 	 * Converts the specified {@link Comment} to an {@link EntityModel}.
 	 *
