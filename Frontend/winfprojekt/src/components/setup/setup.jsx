@@ -26,7 +26,7 @@ function Setup() {
   const toMenu=()=>{
 
     axios.patch(
-      "http://localhost:8080/users/"+location.state.id,
+      "http://193.16.123.46:8080/users/"+location.state.id,
       {
         username: location.state.name, 
         contrast: contValue,

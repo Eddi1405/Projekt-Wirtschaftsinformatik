@@ -34,7 +34,7 @@ function Login(props) {
     const form = loginForm.current;
 
    axios.post(
-    "http://localhost:8080/login",
+    "http://193.16.123.46:8080/login",
     {
       username: form["username"].value, 
       password: form["password"].value 
