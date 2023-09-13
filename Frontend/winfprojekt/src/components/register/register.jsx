@@ -69,7 +69,7 @@ export default function Register()  {
         document.getElementById("alert").style.display = "block";
     }else{
       axios.post(
-        "http://localhost:8080/register",
+        "http://193.16.123.46:8080/register",
         {
           username: form["username"].value, 
           email: form["email"].value,
