@@ -2,7 +2,7 @@ package thowl.wiprojekt.objects;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
-
+//Edward Siebert
 @Getter
 public enum LearningType {
 

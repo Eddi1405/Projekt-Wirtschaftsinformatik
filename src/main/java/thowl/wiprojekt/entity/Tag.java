@@ -14,6 +14,7 @@ import lombok.Setter;
  * The annotation @ManyToMany specifies that field is the foreign key of the table.
  * @Author Luca Hüpping, Edward Siebert
  */
+//Edward Siebert
 @Entity
 @Table(name = "tag")
 @Getter

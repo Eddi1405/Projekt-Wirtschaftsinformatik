@@ -18,6 +18,7 @@ import java.util.Set;
  * The annotation @ManyToMany specifies that field is the foreign key of the table.
  * @Author Edward Siebert, Luca Hüpping
  */
+//Edward Siebert
 @Entity
 @Table(name = "thread")
 @Getter

@@ -7,7 +7,7 @@ import thowl.wiprojekt.entity.Thread;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
-
+//Edward Siebert
 /**
  * This is an interface that extends the JpaRepository interface and provides specific methods for the entity.
  * @Author Edward Siebert
